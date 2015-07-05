@@ -5,16 +5,20 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GOTF extends ApplicationAdapter {
 	SpriteBatch batch;
 	BoardDraw board;
+	BitmapFont font;
+	Texture gotf;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		board = new BoardDraw();
+		gotf = new Texture("thing.jpg");
 	}
 
 	//for VC
@@ -25,6 +29,7 @@ public class GOTF extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		board.drawit(batch);
+		batch.draw(gotf, 0, 150, 230, 100);
 		batch.end();
 	}
 }

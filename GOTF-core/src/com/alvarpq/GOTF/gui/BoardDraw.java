@@ -18,6 +18,7 @@ public class BoardDraw {
 
 		hex.setSize(39, 45);
 		myBoard(5, batch);
+		theEnemy(5, batch);
 
 	}
 	
@@ -32,19 +33,35 @@ public class BoardDraw {
 		{
 			if(x %2 == 0)
 			{
-				drawRow(5, 0, hOff * x,  batch);
+				drawRow(3, 0, hOff * x,  batch);
 			}
 			else
 			{
-				drawRow(5, (int)len / 2, hOff * x, batch);
+				drawRow(3, (int)len / 2, hOff * x, batch);
 				
 			}
 		}
 	}
 	
-	public void theEnemy(BoardHalf evil, SpriteBatch batch)
+	public void theEnemy(int col, SpriteBatch batch)
 	{
+		float len = hex.getWidth();
+		float height = hex.getHeight();
 		
+		int hOff = (int) (height - Math.sqrt(Math.pow(height, 2) / 4 - Math.pow(len, 2) / 4));
+		
+		for(int x = 0; x < col; x++)
+		{
+			if(x % 2 == 1)
+			{
+				drawRow(3, (int)(len * 4), hOff * x,  batch);
+			}
+			else
+			{
+				drawRow(3, (int)(len / 2 + len * 4), hOff * x, batch);
+				
+			}
+		}
 	}
 	
 	
