@@ -17,7 +17,7 @@ public class GOTF extends ApplicationAdapter {
 	}
 
 	//for VC
-	//BUT DOES IT STILL WORK?
+	//MORE FOR VC
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
