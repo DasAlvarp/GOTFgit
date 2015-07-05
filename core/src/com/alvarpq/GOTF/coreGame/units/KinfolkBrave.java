@@ -2,12 +2,8 @@ package com.alvarpq.GOTF.coreGame.units;
 
 public class KinfolkBrave extends Unit
 {
-	public KinfolkBrave()
+	public KinfolkBrave(int row, int column)
 	{
-		name = "Kinfolk Brave";
-		cardAttack = 2;
-		cardCountdown = 1;
-		cardHealth = 2;
-		resetToCard();
+		super("Kinfolk Brave", 2, 1, 2, row, column);
 	}
 }
