@@ -12,46 +12,54 @@ public abstract class Unit
 	//Only change through updateUnits
 	protected int attack, countdown, health;
 	protected boolean hasMoved = false;
-	
+	protected int row, column;
+	public Unit(String name, int cardAttack, int cardCountdown, int cardHealth, int row, int column)
+	{
+		this.name = name;
+		this.cardAttack = cardAttack;
+		this.cardCountdown = cardCountdown;
+		this.cardHealth = cardHealth;
+		resetToCard();
+		this.row = row;
+		this.column = column;
+	}
 	public void resetToCard()
 	{
 		selfAttack = cardAttack;
 		selfCountdown = cardCountdown;
 		selfHealth = cardHealth;
 	}
-	
-	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
+	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 		attack+=selfAttack;
 		countdown+=selfCountdown;
 		health+=selfHealth;
 	}
-	
-	public boolean move(BoardHalf mySide, BoardHalf opponentsSide, int row, int column, int destinationRow, int destinationColumn)
+	public boolean move(BoardHalf mySide, BoardHalf opponentsSide, int destinationRow, int destinationColumn)
 	{
-		if(mySide.getUnits()[destinationRow][destinationColumn]==null&&BoardHalf.isAdjacent(row, column, destinationRow, destinationColumn))
+		if(mySide.getUnitAt(destinationRow, destinationColumn)==null&&BoardHalf.isAdjacent(row, column, destinationRow, destinationColumn))
 		{
-			mySide.getUnits()[destinationRow][destinationColumn] = this;
-			mySide.getUnits()[row][column] = null;
+			mySide.addUnit(this);
+			mySide.removeUnit(row, column);
 			mySide.updateUnits(opponentsSide);
 			opponentsSide.updateUnits(mySide);
 			return true;
 		}
 		return false;
 	}
-	public boolean attack(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
+	public boolean attack(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 			boolean unitHit = false;
-			for(int i=0;i<opponentsSide.getUnits()[row].length;i++)
+			for(int i=0;i<opponentsSide.numberOfColumns();i++)
 			{
-				if(opponentsSide.getUnits()[row][i]!=null)
+				if(opponentsSide.getUnitAt(row, i)!=null)
 				{
-					opponentsSide.getUnits()[row][i].health -= attack;
-					opponentsSide.getUnits()[row][i].onDamageTaken(opponentsSide, mySide, row, i, row, column);
-					if(opponentsSide.getUnits()[row][i].health>=0)
+					opponentsSide.getUnitAt(row, i).health -= attack;
+					opponentsSide.getUnitAt(row, i).onDamageTaken(opponentsSide, mySide, this);
+					if(opponentsSide.getUnitAt(row, i).health>=0)
 					{
-						opponentsSide.getUnits()[row][i].onDestroyed(opponentsSide, mySide, row, i, row, column);
-						opponentsSide.getUnits()[row][i] = null;
+						opponentsSide.getUnitAt(row, i).onDestroyed(opponentsSide, mySide, this);
+						opponentsSide.removeUnit(row, i);
 					}
 					unitHit = true;
 					break;
@@ -59,20 +67,24 @@ public abstract class Unit
 			}
 			if(!unitHit)
 			{
-				opponentsSide.getIdols()[row] -= attack;
+				opponentsSide.setIdol(row, opponentsSide.getIdol(row)-attack);
+				if(opponentsSide.getIdol(row)<0)
+				{
+					opponentsSide.setIdol(row, 0);
+				}
 			}
 			mySide.updateUnits(opponentsSide);
 			opponentsSide.updateUnits(mySide);
 		return false;
 	}
 	
-	public void onDamageTaken(BoardHalf mySide, BoardHalf opponentsSide, int row, int column, int attackerRow, int attackerColumn){};
-	public void onDamageGiven(BoardHalf mySide, BoardHalf opponentsSide, int row, int column, int defenderRow, int defenderColumn){};
-	public void onDestroyed(BoardHalf mySide, BoardHalf opponentsSide, int row, int column, int attackerRow, int attackerColumn){};
-	public void onUnitKilled(BoardHalf mySide, BoardHalf opponentsSide, int row, int column, int defenderRow, int defenderColumn){};
-	public void onCountdownDecreased(BoardHalf mySide, BoardHalf opponentsSide, int row, int column){};
-	public void onCountdownIncreased(BoardHalf mySide, BoardHalf opponentsSide, int row, int column){};
-	public void onMove(BoardHalf mySide, BoardHalf opponentsSide, int row, int column, int oldRow, int oldColumn){}
+	public void onDamageTaken(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
+	public void onDamageGiven(BoardHalf mySide, BoardHalf opponentsSide, Unit defender){};
+	public void onDestroyed(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
+	public void onUnitKilled(BoardHalf mySide, BoardHalf opponentsSide, Unit defender){};
+	public void onCountdownDecreased(BoardHalf mySide, BoardHalf opponentsSide){};
+	public void onCountdownIncreased(BoardHalf mySide, BoardHalf opponentsSide){};
+	public void onMove(BoardHalf mySide, BoardHalf opponentsSide, int oldRow, int oldColumn){}
 	//Only use getters and setters when protected members are not accesible
 	public String getName()
 	{
@@ -161,5 +173,21 @@ public abstract class Unit
 	public void setHasMoved(boolean hasMoved)
 	{
 		this.hasMoved = hasMoved;
+	}
+	public int getRow()
+	{
+		return row;
+	}
+	public void setRow(int row)
+	{
+		this.row = row;
+	}
+	public int getColumn()
+	{
+		return column;
+	}
+	public void setColumn(int column)
+	{
+		this.column = column;
 	}
 }
