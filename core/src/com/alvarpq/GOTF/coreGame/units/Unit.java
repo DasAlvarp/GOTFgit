@@ -3,11 +3,11 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 public abstract class Unit
 {
 	protected String name;
-	//Only change in unit constructors
+	//Never change
 	protected int cardAttack, cardCountdown, cardHealth;
-	//Change when unit is damaged/healed, and when units has its countdown decreased/increased
+	//Change when unit is damaged/healed, and when units has its countdown decreased/increased, never read
 	protected int selfAttack, selfCountdown, selfHealth;
-	//Only change through updateUnits
+	//Never change
 	protected int attack, countdown, health;
 	protected boolean hasMoved = false;
 	protected int row, column;
@@ -69,7 +69,23 @@ public abstract class Unit
 			opponentsSide.updateUnits(mySide);
 		return false;
 	}
-	
+	public void resetCountdown(BoardHalf mySide, BoardHalf opponentsSide)
+	{
+		selfCountdown = cardCountdown;
+		mySide.updateUnits(opponentsSide);
+		opponentsSide.updateUnits(mySide);
+	}
+	public boolean countDown(BoardHalf mySide, BoardHalf opponentsSide)
+	{
+		if(countdown>0)
+		{
+			selfCountdown--;
+			mySide.updateUnits(opponentsSide);
+			opponentsSide.updateUnits(mySide);
+			return true;
+		}
+		return false;
+	}
 	public void onDamageTaken(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
 	public void onDamageGiven(BoardHalf mySide, BoardHalf opponentsSide, Unit defender){};
 	public void onDestroyed(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
