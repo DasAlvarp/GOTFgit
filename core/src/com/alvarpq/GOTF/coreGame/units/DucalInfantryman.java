@@ -14,7 +14,7 @@ public class DucalInfantryman extends Unit
 		{
 			if(i!=getColumn()&&mySide.getUnitAt(getRow(), i)!=null)
 			{
-				mySide.getUnitAt(getRow(), i).changeAttack(mySide, opponentsSide, 1);
+				mySide.getUnitAt(getRow(), i).updateAttack(1);
 			}
 		}
 	}

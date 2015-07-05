@@ -2,11 +2,19 @@ package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 public abstract class Unit
 {
+	//The name of the unit
 	private String name;
+	//The values depicted on the card the unit was created from
 	private int cardAttack, cardCountdown, cardHealth, cardMove;
+	//The current values without buffs, debuffs
 	private int selfAttack, selfCountdown, selfHealth, selfMove;
+	//The current values with buffs, debuffs
 	private int attack, countdown, health, move;
+	//The unit's position
 	private int row, column;
+	//The unit's attack type
+	private AttackType attackType;
+	//Constructor for use within subclasses
 	public Unit(String name, int cardAttack, int cardCountdown, int cardHealth, int cardMove, int row, int column)
 	{
 		this.name = name;
@@ -17,8 +25,9 @@ public abstract class Unit
 		resetToCard();
 		this.row = row;
 		this.column = column;
+		attackType = AttackType.NORMAL;
 	}
-	//Resummoning it
+	//Reset the self-values to their original values
 	public void resetToCard()
 	{
 		selfAttack = cardAttack;
@@ -26,7 +35,7 @@ public abstract class Unit
 		selfHealth = cardHealth;
 		selfMove = cardMove;
 	}
-	//Do not call
+	//To not ever call this function
 	public void beforeUpdateUnits()
 	{
 		attack = 0;
@@ -34,52 +43,34 @@ public abstract class Unit
 		health = 0;
 		move = 0;
 	}
-	//For overriding
+	//Override this function to make units with depending attack values and units that buff other units, when overriding it always call super.
 	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide)
 	{
-		attack+=selfAttack;
-		countdown+=selfCountdown;
-		health+=selfHealth;
-		move+=selfMove;
+		updateAttack(selfAttack);
+		updateCountdown(selfCountdown);
+		updateHealth(selfHealth);
+		updateMove(selfMove);
 	}
-	//For overriding
+	//Moves the unit
 	public boolean move(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
 	{
 		return mySide.moveUnit(opponentsSide, getRow(), getColumn(), row, column);
 	}
-	//For overriding
-	public boolean attack(BoardHalf mySide, BoardHalf opponentsSide)
+	//Makes the unit attack
+	public void attack(BoardHalf mySide, BoardHalf opponentsSide)
 	{
-			boolean unitHit = false;
-			for(int i=0;i<opponentsSide.numberOfColumns();i++)
-			{
-				if(opponentsSide.getUnitAt(row, i)!=null)
-				{
-					opponentsSide.getUnitAt(row, i).selfHealth -= attack;
-					unitHit = true;
-					break;
-				}
-			}
-			if(!unitHit)
-			{
-				opponentsSide.setIdol(row, opponentsSide.getIdolAt(row)-attack);
-				if(opponentsSide.getIdolAt(row)<0)
-				{
-					opponentsSide.setIdol(row, 0);
-				}
-			}
-			mySide.updateUnits(opponentsSide);
-			opponentsSide.updateUnits(mySide);
-		return false;
+		attackType.attack(this, mySide, opponentsSide);
+		mySide.updateUnits(opponentsSide);
+		opponentsSide.updateUnits(mySide);
 	}
-	//For overriding
+	//Resets the countdown of the unit to the value depicted on the card
 	public void resetCountdown(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 		selfCountdown = cardCountdown;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
-	//For overriding
+	//Counts the unit down by one
 	public boolean countDown(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 		if(countdown>0)
@@ -91,49 +82,47 @@ public abstract class Unit
 		}
 		return false;
 	}
-	//Use inside updateUnits
-	public void changeAttack(BoardHalf mySide, BoardHalf opponentsSide, int amount)
-	{
-		selfAttack+=amount;
-		mySide.updateUnits(opponentsSide);
-		opponentsSide.updateUnits(mySide);
-	}
-	//Use inside updateUnits
+	//Changes the unit's current countdown
 	public void changeCountdown(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		selfCountdown+=amount;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
-	//Use inside updateUnits
+	//Damages or heals the unit
 	public void changeHealth(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		selfHealth+=amount;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
-	//Use inside updateUnits
+	//Makes the unit lose or regain movement points
 	public void changeMove(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		selfMove+=amount;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
-	//For overriding
-	public void onDamageTaken(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
-	//For overriding
-	public void onDamageGiven(BoardHalf mySide, BoardHalf opponentsSide, Unit defender){};
-	//For overriding
-	public void onDestroyed(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
-	//For overriding
-	public void onUnitKilled(BoardHalf mySide, BoardHalf opponentsSide, Unit defender){};
-	//For overriding
-	public void onCountdownDecreased(BoardHalf mySide, BoardHalf opponentsSide){};
-	//For overriding
-	public void onCountdownIncreased(BoardHalf mySide, BoardHalf opponentsSide){};
-	//For overriding
-	public void onMove(BoardHalf mySide, BoardHalf opponentsSide, int oldRow, int oldColumn){}
-	//For overriding
+	//Use to buff/debuff attack inside updateUnits
+	public void updateAttack(int amount)
+	{
+		attack+=amount;
+	}
+	//Use to buff/debuff countdown inside updateUnits
+	public void updateCountdown(int amount)
+	{
+		countdown+=amount;
+	}
+	//Use to buff/debuff health inside updateUnits
+	public void updateHealth(int amount)
+	{
+		health+=amount;
+	}
+	//Use to buff/debuff movement points inside updateUnits
+	public void updateMove(int amount)
+	{
+		move+=amount;
+	}
 	public String getName()
 	{
 		return name;
@@ -161,5 +150,13 @@ public abstract class Unit
 	public int getColumn()
 	{
 		return column;
+	}
+	public AttackType getAttackType()
+	{
+		return attackType;
+	}
+	public void setAttackType(AttackType attackType)
+	{
+		this.attackType = attackType;
 	}
 }

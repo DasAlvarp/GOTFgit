@@ -14,7 +14,7 @@ public class RoyalInfantryman extends Unit
 		{
 			if(i!=getColumn()&&mySide.getUnitAt(getRow(), i)!=null)
 			{
-				mySide.getUnitAt(getRow(), i).changeHealth(mySide, opponentsSide, 1);
+				mySide.getUnitAt(getRow(), i).updateHealth(1);
 			}
 		}
 	}

@@ -53,7 +53,6 @@ public class BoardHalf
 				}
 				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
 				{
-					getUnitAt(i, j).onDestroyed(this, opponentsSide, null);
 					removeUnit(i, j, opponentsSide);
 					newUpdate = true;
 				}
