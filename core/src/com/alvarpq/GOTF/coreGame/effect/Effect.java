@@ -1,4 +1,4 @@
-package com.alvarpq.Effect;
+package com.alvarpq.GOTF.coreGame.effect;
 
 public interface Effect {
 
