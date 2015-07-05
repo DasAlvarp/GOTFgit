@@ -4,19 +4,24 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 
 public class DucalInfantryman extends Unit
 {
-	public DucalInfantryman(int row, int column)
+	public DucalInfantryman()
 	{
-		super("Ducal Infantryman", 1, 2, 3, row, column);
+		name = "Ducal Infantryman";
+		cardAttack = 1;
+		cardCountdown = 2;
+		cardHealth = 3;
+		resetToCard();
 	}
 	@Override
-	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide)
+	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
 	{
-		super.updateUnits(mySide, opponentsSide);
-		for(int i=0;i<mySide.numberOfColumns();i++)
+		super.updateUnits(mySide, opponentsSide, row, column);
+		
+		for(int i=0;i<mySide.getUnits()[row].length;i++)
 		{
-			if(i!=column&&mySide.getUnitAt(row, i)!=null)
+			if(i!=column&&mySide.getUnits()[row][i]!=null)
 			{
-				mySide.getUnitAt(row, i).attack++;
+				mySide.getUnits()[row][i].setAttack(mySide.getUnits()[row][i].getAttack() + 1);
 			}
 		}
 	}

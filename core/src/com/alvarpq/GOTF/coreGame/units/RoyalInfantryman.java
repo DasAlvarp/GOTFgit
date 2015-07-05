@@ -4,19 +4,23 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 
 public class RoyalInfantryman extends Unit
 {
-	public RoyalInfantryman(int row, int column)
+	public RoyalInfantryman()
 	{
-		super("Royal Infantryman", 1, 2, 2, row, column);
+		name = "Royal Infantryman";
+		cardAttack = 1;
+		cardCountdown = 2;
+		cardHealth = 2;
+		resetToCard();
 	}
 	@Override
-	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide)
+	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
 	{
-		super.updateUnits(mySide, opponentsSide);
-		for(int i=0;i<mySide.numberOfColumns();i++)
+		super.updateUnits(mySide, opponentsSide, row, column);
+		for(int i=0;i<mySide.getUnits()[row].length;i++)
 		{
-			if(i!=column&&mySide.getUnitAt(row, i)!=null)
+			if(i!=column&&mySide.getUnits()[row][i]!=null)
 			{
-				mySide.getUnitAt(row, i).health++;
+				mySide.getUnits()[row][i].setHealth(mySide.getUnits()[row][i].getHealth() + 1);
 			}
 		}
 	}
