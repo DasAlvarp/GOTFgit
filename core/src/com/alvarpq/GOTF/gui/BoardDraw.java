@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class BoardDraw 
 {
 	
-	Texture	tex = new Texture("hex.png");
+	Texture	tex = new Texture("BoardTile.png");
 	Sprite 	hex = new Sprite(tex);
 	private static int LENGTH = 39;
 

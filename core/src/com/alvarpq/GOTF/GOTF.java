@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF;
 
+import com.alvarpq.GOTF.gui.BackDraw;
 import com.alvarpq.GOTF.gui.BoardDraw;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -10,31 +11,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GOTF extends ApplicationAdapter
 {
-	//Trying Solaus background, change back if needed to
-	/*SpriteBatch batch;
-	BoardDraw board;
-	BitmapFont font;
-	Texture gotf;
-	
-	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		board = new BoardDraw();
-		gotf = new Texture("thing.jpg");
-	}
+	/*
+	 * SOLAUS DEFAULT BACKGROUND. TRYING 
 
-	//for VC
-	//MORE FOR VC
-	@Override
-	public void render ()
-	{
-		Gdx.gl.glClearColor(1, 0, 0, 1);//background, I do believe. Totally not sure.
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		board.drawit(batch);
-		batch.draw(gotf, 0, 150, 230, 100);//important hypey stuff
-		batch.end();
-	}*/
 	SpriteBatch batch;
 	Texture background;
 	long lastTime;
@@ -47,6 +26,7 @@ public class GOTF extends ApplicationAdapter
 		lastTime = System.currentTimeMillis();
 		timePassed = 0;
 	}
+	
 	@Override
 	public void render()
 	{
@@ -56,6 +36,32 @@ public class GOTF extends ApplicationAdapter
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		batch.draw(background, 0, 0, 870, 412);
+		batch.end();
+	}
+	
+	*/
+	
+	//Trying Solaus background, change back if needed to
+	SpriteBatch batch;
+	BoardDraw board;
+	BitmapFont font;
+	BackDraw bkgrnd;
+	
+	@Override
+	public void create () {
+		batch = new SpriteBatch();
+		board = new BoardDraw();
+		bkgrnd = new BackDraw();
+	}
+
+	//for VC
+	//MORE FOR VC
+	@Override
+	public void render ()
+	{
+		batch.begin();
+		bkgrnd.drawit(batch);
+		board.drawit(batch);
 		batch.end();
 	}
 }
