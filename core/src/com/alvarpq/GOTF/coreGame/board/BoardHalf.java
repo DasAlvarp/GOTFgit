@@ -1,4 +1,6 @@
 package com.alvarpq.GOTF.coreGame.board;
+import java.util.LinkedList;
+import java.util.List;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 public class BoardHalf
 {
@@ -109,6 +111,21 @@ public class BoardHalf
 	public Unit getUnitAt(int row, int column)
 	{
 		return units[row][column];
+	}
+	public List<Unit> getUnits()
+	{
+		List<Unit> toReturn = new LinkedList<Unit>();
+		for(int i=0;i<numberOfRows();i++)
+		{
+			for(int j=0;j<numberOfColumns();j++)
+			{
+				if(getUnitAt(i, j)!=null)
+				{
+					toReturn.add(getUnitAt(i, j));
+				}
+			}
+		}
+		return toReturn;
 	}
 	public void addUnit(Unit unit, BoardHalf opponentsSide)
 	{
