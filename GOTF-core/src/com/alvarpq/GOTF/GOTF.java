@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF;
 
+import com.alvarpq.GOTF.gui.BoardDraw;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,12 +9,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GOTF extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
+	BoardDraw board;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		board = new BoardDraw();
 	}
 
 	//for VC
@@ -23,7 +24,7 @@ public class GOTF extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(img, 0, 0);
+		board.drawit(batch);
 		batch.end();
 	}
 }
