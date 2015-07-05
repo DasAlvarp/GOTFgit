@@ -1,5 +1,7 @@
 package com.alvarpq.GOTF.coreGame;
 
+import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+
 public class DucalInfantryman extends Unit
 {
 	public DucalInfantryman()
@@ -14,11 +16,12 @@ public class DucalInfantryman extends Unit
 	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
 	{
 		super.updateUnits(mySide, opponentsSide, row, column);
-		for(int i=0;i<mySide.units[row].length;i++)
+		
+		for(int i=0;i<mySide.getUnits()[row].length;i++)
 		{
-			if(i!=column&&mySide.units[row][i]!=null)
+			if(i!=column&&mySide.getUnits()[row][i]!=null)
 			{
-				mySide.units[row][i].attack+=1;
+				mySide.getUnits()[row][i].setAttack(mySide.getUnits()[row][i].getAttack() + 1);
 			}
 		}
 	}
