@@ -6,10 +6,10 @@ public class DucalInfantryman extends Unit
 {
 	public DucalInfantryman()
 	{
-		name = "Ducal Infantryman";
-		cardAttack = 1;
-		cardCountdown = 2;
-		cardHealth = 3;
+		setName("Ducal Infantryman");
+		setCardAttack(1);
+		setCardCountdown(2);
+		setCardHealth(3);
 		resetToCard();
 	}
 	@Override

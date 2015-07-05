@@ -6,10 +6,10 @@ public class RoyalInfantryman extends Unit
 {
 	public RoyalInfantryman()
 	{
-		name = "Royal Infantryman";
-		cardAttack = 1;
-		cardCountdown = 2;
-		cardHealth = 3;
+		setName("Royal Infantryman");
+		setCardAttack(1);
+		setCardCountdown(2);
+		setCardHealth(3);
 		resetToCard();
 	}
 	@Override
