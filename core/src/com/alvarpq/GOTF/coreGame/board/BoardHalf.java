@@ -122,7 +122,7 @@ public class BoardHalf
 		updateUnits(opponentsSide);
 		opponentsSide.updateUnits(this);
 	}
-	public int getIdol(int row)
+	public int getIdolAt(int row)
 	{
 		return idols[row];
 	}

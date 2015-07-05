@@ -59,8 +59,8 @@ public abstract class Unit
 			}
 			if(!unitHit)
 			{
-				opponentsSide.setIdol(row, opponentsSide.getIdol(row)-attack);
-				if(opponentsSide.getIdol(row)<0)
+				opponentsSide.setIdol(row, opponentsSide.getIdolAt(row)-attack);
+				if(opponentsSide.getIdolAt(row)<0)
 				{
 					opponentsSide.setIdol(row, 0);
 				}
