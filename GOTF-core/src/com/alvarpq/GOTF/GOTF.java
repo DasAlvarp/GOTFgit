@@ -25,11 +25,11 @@ public class GOTF extends ApplicationAdapter {
 	//MORE FOR VC
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClearColor(1, 0, 0, 1);//background, I do believe. Totally not sure.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		board.drawit(batch);
-		batch.draw(gotf, 0, 150, 230, 100);
+		batch.draw(gotf, 0, 150, 230, 100);//important hypey stuff
 		batch.end();
 	}
 }
