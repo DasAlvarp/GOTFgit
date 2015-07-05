@@ -37,17 +37,25 @@ public class GOTF extends ApplicationAdapter
 	}*/
 	SpriteBatch batch;
 	Texture background;
+	long lastTime;
+	long timePassed;
 	@Override
 	public void create()
 	{
 		batch = new SpriteBatch();
 		background = new Texture("GoF_Board.png");
+		lastTime = System.currentTimeMillis();
+		timePassed = 0;
 	}
 	@Override
 	public void render()
 	{
+		timePassed+=System.currentTimeMillis()-lastTime;
+		lastTime = System.currentTimeMillis();
+		Gdx.gl.glClearColor((float)Math.abs(Math.sin(timePassed/60000.0*Math.PI*2)), (float)Math.abs(Math.cos(timePassed/60000.0*Math.PI*2)), 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		batch.draw(background, 0, 0, 750, 500);
+		batch.draw(background, 0, 0, 870, 412);
 		batch.end();
 	}
 }
