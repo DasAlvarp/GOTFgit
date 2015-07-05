@@ -18,6 +18,7 @@ public abstract class Unit
 		this.row = row;
 		this.column = column;
 	}
+	//Resummoning it
 	public void resetToCard()
 	{
 		selfAttack = cardAttack;
@@ -25,6 +26,7 @@ public abstract class Unit
 		selfHealth = cardHealth;
 		selfMove = cardMove;
 	}
+	//Do not call
 	public void beforeUpdateUnits()
 	{
 		attack = 0;
@@ -32,6 +34,7 @@ public abstract class Unit
 		health = 0;
 		move = 0;
 	}
+	//For overriding
 	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 		attack+=selfAttack;
@@ -39,10 +42,12 @@ public abstract class Unit
 		health+=selfHealth;
 		move+=selfMove;
 	}
+	//For overriding
 	public boolean move(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
 	{
 		return mySide.moveUnit(opponentsSide, getRow(), getColumn(), row, column);
 	}
+	//For overriding
 	public boolean attack(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 			boolean unitHit = false;
@@ -67,12 +72,14 @@ public abstract class Unit
 			opponentsSide.updateUnits(mySide);
 		return false;
 	}
+	//For overriding
 	public void resetCountdown(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 		selfCountdown = cardCountdown;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
+	//For overriding
 	public boolean countDown(BoardHalf mySide, BoardHalf opponentsSide)
 	{
 		if(countdown>0)
@@ -84,37 +91,49 @@ public abstract class Unit
 		}
 		return false;
 	}
+	//Use inside updateUnits
 	public void changeAttack(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		selfAttack+=amount;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
+	//Use inside updateUnits
 	public void changeCountdown(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		selfCountdown+=amount;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
+	//Use inside updateUnits
 	public void changeHealth(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		selfHealth+=amount;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
+	//Use inside updateUnits
 	public void changeMove(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		selfMove+=amount;
 		mySide.updateUnits(opponentsSide);
 		opponentsSide.updateUnits(mySide);
 	}
+	//For overriding
 	public void onDamageTaken(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
+	//For overriding
 	public void onDamageGiven(BoardHalf mySide, BoardHalf opponentsSide, Unit defender){};
+	//For overriding
 	public void onDestroyed(BoardHalf mySide, BoardHalf opponentsSide, Unit attacker){};
+	//For overriding
 	public void onUnitKilled(BoardHalf mySide, BoardHalf opponentsSide, Unit defender){};
+	//For overriding
 	public void onCountdownDecreased(BoardHalf mySide, BoardHalf opponentsSide){};
+	//For overriding
 	public void onCountdownIncreased(BoardHalf mySide, BoardHalf opponentsSide){};
+	//For overriding
 	public void onMove(BoardHalf mySide, BoardHalf opponentsSide, int oldRow, int oldColumn){}
+	//For overriding
 	public String getName()
 	{
 		return name;
