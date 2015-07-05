@@ -8,10 +8,12 @@ public class MainTest
 	{
 		BoardHalf half1 = new BoardHalf(5, 3, 8);
 		BoardHalf half2 = new BoardHalf(5, 3, 8);
-		half1.addUnit(new KinfolkBrave(0, 0));
-		half1.getUnitAt(0, 0).setSelfHealth(0);
-		half1.addUnit(new RoyalInfantryman(1, 1));
+		half1.getUnits()[0][0] = new KinfolkBrave();
+		half1.getUnits()[0][0].setSelfHealth(0);
+		half1.getUnits()[0][1] = new RoyalInfantryman();
 		half1.updateUnits(half2);
-		System.out.println(half1.getUnitAt(0, 0));
+		System.out.println(half1.getUnits()[0][0]);
+		half1.getUnits()[0][0].move(half1, half2, 0, 0, 1, 0);
+		System.out.println(half1.getUnits()[1][0]);
 	}
 }

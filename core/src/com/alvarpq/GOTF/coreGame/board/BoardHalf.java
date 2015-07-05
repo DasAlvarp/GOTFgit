@@ -4,51 +4,50 @@ import com.alvarpq.GOTF.coreGame.units.Unit;
 
 public class BoardHalf
 {
-	//Do not change directly unless needed
 	private Unit[][] units;
 	private int[] idols;
 	public BoardHalf(int rows, int columns, int idolHealth)
 	{
-		units = new Unit[rows][columns];
-		idols = new int[rows];
-		for(int i=0;i<idols.length;i++)
+		setUnits(new Unit[rows][columns]);
+		setIdols(new int[rows]);
+		for(int i=0;i<getIdols().length;i++)
 		{
-			setIdol(i, idolHealth);
+			getIdols()[i] = idolHealth;
 		}
 	}
 	public void updateUnits(BoardHalf opponentsSide)
 	{
-		for(int i=0;i<numberOfRows();i++)
+		for(int i=0;i<getUnits().length;i++)
 		{
-			for(int j=0;j<numberOfColumns();j++)
+			for(int j=0;j<getUnits()[i].length;j++)
 			{
-				if(getUnitAt(i, j)!=null)
+				if(getUnits()[i][j]!=null)
 				{
-					getUnitAt(i, j).setAttack(0);
-					getUnitAt(i, j).setCountdown(0);
-					getUnitAt(i, j).setHealth(0);
+					getUnits()[i][j].setAttack(0);
+					getUnits()[i][j].setCountdown(0);
+					getUnits()[i][j].setHealth(0);
 				}
 			}
 		}
-		for(int i=0;i<numberOfRows();i++)
+		for(int i=0;i<getUnits().length;i++)
 		{
-			for(int j=0;j<numberOfColumns();j++)
+			for(int j=0;j<getUnits()[i].length;j++)
 			{
-				if(getUnitAt(i, j)!=null)
+				if(getUnits()[i][j]!=null)
 				{
-					getUnitAt(i, j).updateUnits(this, opponentsSide);
+					getUnits()[i][j].updateUnits(this, opponentsSide, i, j);
 				}
 			}
 		}
 		boolean newUpdate = false;
-		for(int i=0;i<numberOfRows();i++)
+		for(int i=0;i<getUnits().length;i++)
 		{
-			for(int j=0;j<numberOfColumns();j++)
+			for(int j=0;j<getUnits()[i].length;j++)
 			{
-				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
+				if(getUnits()[i][j]!=null&&getUnits()[i][j].getHealth()<=0)
 				{
-					getUnitAt(i, j).onDestroyed(this, opponentsSide, null);
-					removeUnit(i, j);
+					getUnits()[i][j].onDestroyed(this, opponentsSide, i, j, -1, -1);
+					getUnits()[i][j] = null;
 					newUpdate = true;
 				}
 			}
@@ -61,21 +60,21 @@ public class BoardHalf
 	}
 	public void attack(BoardHalf opponentsSide)
 	{
-		for(int i=0;i<numberOfRows();i++)
+		for(int i=0;i<getUnits().length;i++)
 		{
-			for(int j=0;j<numberOfColumns();j++)
+			for(int j=0;j<getUnits()[i].length;j++)
 			{
-				if(getUnitAt(i, j)!=null)
+				if(getUnits()[i][j]!=null)
 				{
-					getUnitAt(i, j).attack(this, opponentsSide);
+					getUnits()[i][j].attack(this, opponentsSide, i, j);
 				}
 			}
 		}
 	}
 	public BoardHalf(Unit[][] units, int[] idols)
 	{
-		this.units = units;
-		this.idols = idols;
+		this.setUnits(units);
+		this.setIdols(idols);
 	}
 	public static boolean isAdjacent(int row1, int column1, int row2, int column2)
 	{
@@ -105,32 +104,16 @@ public class BoardHalf
 		}
 		return false;
 	}
-	public Unit getUnitAt(int row, int column)
-	{
-		return units[row][column];
+	public Unit[][] getUnits() {
+		return units;
 	}
-	public void addUnit(Unit unit)
-	{
-		units[unit.getRow()][unit.getColumn()] = unit;
+	public void setUnits(Unit[][] units) {
+		this.units = units;
 	}
-	public void removeUnit(int row, int column)
-	{
-		units[row][column] = null;
+	public int[] getIdols() {
+		return idols;
 	}
-	public int getIdol(int row)
-	{
-		return idols[row];
-	}
-	public void setIdol(int row, int value)
-	{
-		idols[row] = value;
-	}
-	public int numberOfRows()
-	{
-		return units.length;
-	}
-	public int numberOfColumns()
-	{
-		return units[0].length;
+	public void setIdols(int[] idols) {
+		this.idols = idols;
 	}
 }
