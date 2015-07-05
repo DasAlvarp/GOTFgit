@@ -43,10 +43,13 @@ public class BoardHalf
 		{
 			for(int j=0;j<numberOfColumns();j++)
 			{
+				if(getUnitAt(i, j)!=null)
+				{
+				}
 				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
 				{
 					getUnitAt(i, j).onDestroyed(this, opponentsSide, null);
-					removeUnit(i, j);
+					removeUnit(i, j, opponentsSide);
 					newUpdate = true;
 				}
 			}
@@ -107,13 +110,17 @@ public class BoardHalf
 	{
 		return units[row][column];
 	}
-	public void addUnit(Unit unit)
+	public void addUnit(Unit unit, BoardHalf opponentsSide)
 	{
 		units[unit.getRow()][unit.getColumn()] = unit;
+		updateUnits(opponentsSide);
+		opponentsSide.updateUnits(this);
 	}
-	public void removeUnit(int row, int column)
+	public void removeUnit(int row, int column, BoardHalf opponentsSide)
 	{
 		units[row][column] = null;
+		updateUnits(opponentsSide);
+		opponentsSide.updateUnits(this);
 	}
 	public int getIdol(int row)
 	{

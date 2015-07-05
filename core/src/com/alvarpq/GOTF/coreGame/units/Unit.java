@@ -37,8 +37,8 @@ public abstract class Unit
 	{
 		if(mySide.getUnitAt(destinationRow, destinationColumn)==null&&BoardHalf.isAdjacent(row, column, destinationRow, destinationColumn))
 		{
-			mySide.addUnit(this);
-			mySide.removeUnit(row, column);
+			mySide.addUnit(this, opponentsSide);
+			mySide.removeUnit(row, column, opponentsSide);
 			mySide.updateUnits(opponentsSide);
 			opponentsSide.updateUnits(mySide);
 			return true;
