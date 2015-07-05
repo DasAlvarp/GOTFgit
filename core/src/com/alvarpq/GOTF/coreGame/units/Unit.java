@@ -1,7 +1,5 @@
 package com.alvarpq.GOTF.coreGame.units;
-
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
-
 public abstract class Unit
 {
 	protected String name;
