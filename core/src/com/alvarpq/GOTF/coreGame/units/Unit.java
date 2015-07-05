@@ -52,13 +52,7 @@ public abstract class Unit
 			{
 				if(opponentsSide.getUnitAt(row, i)!=null)
 				{
-					opponentsSide.getUnitAt(row, i).health -= attack;
-					opponentsSide.getUnitAt(row, i).onDamageTaken(opponentsSide, mySide, this);
-					if(opponentsSide.getUnitAt(row, i).health>=0)
-					{
-						opponentsSide.getUnitAt(row, i).onDestroyed(opponentsSide, mySide, this);
-						opponentsSide.removeUnit(row, i);
-					}
+					opponentsSide.getUnitAt(row, i).selfHealth -= attack;
 					unitHit = true;
 					break;
 				}
