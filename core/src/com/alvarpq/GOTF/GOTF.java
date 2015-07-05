@@ -10,7 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GOTF extends ApplicationAdapter
 {
-	SpriteBatch batch;
+	//Trying Solaus background, change back if needed to
+	/*SpriteBatch batch;
 	BoardDraw board;
 	BitmapFont font;
 	Texture gotf;
@@ -32,6 +33,21 @@ public class GOTF extends ApplicationAdapter
 		batch.begin();
 		board.drawit(batch);
 		batch.draw(gotf, 0, 150, 230, 100);//important hypey stuff
+		batch.end();
+	}*/
+	SpriteBatch batch;
+	Texture background;
+	@Override
+	public void create()
+	{
+		batch = new SpriteBatch();
+		background = new Texture("GoF_Board.png");
+	}
+	@Override
+	public void render()
+	{
+		batch.begin();
+		batch.draw(background, 0, 0, 750, 500);
 		batch.end();
 	}
 }
