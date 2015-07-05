@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.coreGame;
+package com.alvarpq.GOTF.coreGame.units;
 
 public class KinfolkBrave extends Unit
 {

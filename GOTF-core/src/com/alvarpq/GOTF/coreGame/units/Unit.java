@@ -1,11 +1,12 @@
-package com.alvarpq.GOTF.coreGame;
+package com.alvarpq.GOTF.coreGame.units;
 
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 
 public abstract class Unit
 {
 	protected String name;
-	protected int cardAttack, cardCountdown, cardHealth, selfAttack, selfCountdown, selfHealth;
+	protected int cardAttack, cardCountdown, cardHealth, selfAttack, selfCountdown;
+	private int selfHealth;
 	private int attack;
 	private int countdown;
 	private int health;
@@ -14,13 +15,13 @@ public abstract class Unit
 	{
 		selfAttack = cardAttack;
 		selfCountdown = cardCountdown;
-		selfHealth = cardHealth;
+		setSelfHealth(cardHealth);
 	}
 	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
 	{
 		this.setAttack(this.getAttack() + this.selfAttack);
 		this.setCountdown(this.getCountdown() + this.selfCountdown);
-		this.setHealth(this.getHealth() + this.selfHealth);
+		this.setHealth(this.getHealth() + this.getSelfHealth());
 	}
 	public boolean move(BoardHalf mySide, BoardHalf opponentsSide, int row, int column, int destinationRow, int destinationColumn)
 	{
@@ -85,5 +86,11 @@ public abstract class Unit
 	}
 	public void setHealth(int health) {
 		this.health = health;
+	}
+	public int getSelfHealth() {
+		return selfHealth;
+	}
+	public void setSelfHealth(int selfHealth) {
+		this.selfHealth = selfHealth;
 	};
 }

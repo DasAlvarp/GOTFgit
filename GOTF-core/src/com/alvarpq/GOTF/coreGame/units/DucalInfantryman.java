@@ -1,12 +1,12 @@
-package com.alvarpq.GOTF.coreGame;
+package com.alvarpq.GOTF.coreGame.units;
 
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 
-public class RoyalInfantryman extends Unit
+public class DucalInfantryman extends Unit
 {
-	public RoyalInfantryman()
+	public DucalInfantryman()
 	{
-		name = "Royal Infantryman";
+		name = "Ducal Infantryman";
 		cardAttack = 1;
 		cardCountdown = 2;
 		cardHealth = 3;
@@ -16,11 +16,12 @@ public class RoyalInfantryman extends Unit
 	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
 	{
 		super.updateUnits(mySide, opponentsSide, row, column);
+		
 		for(int i=0;i<mySide.getUnits()[row].length;i++)
 		{
 			if(i!=column&&mySide.getUnits()[row][i]!=null)
 			{
-				mySide.getUnits()[row][i].setHealth(mySide.getUnits()[row][i].getHealth() + 1);
+				mySide.getUnits()[row][i].setAttack(mySide.getUnits()[row][i].getAttack() + 1);
 			}
 		}
 	}

@@ -1,6 +1,6 @@
 package com.alvarpq.GOTF.coreGame.board;
 
-import com.alvarpq.GOTF.coreGame.Unit;
+import com.alvarpq.GOTF.coreGame.units.Unit;
 
 public class BoardHalf
 {
