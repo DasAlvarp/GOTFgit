@@ -8,7 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GOTF extends ApplicationAdapter {
+public class GOTF extends ApplicationAdapter
+{
 	SpriteBatch batch;
 	BoardDraw board;
 	BitmapFont font;
@@ -24,7 +25,8 @@ public class GOTF extends ApplicationAdapter {
 	//for VC
 	//MORE FOR VC
 	@Override
-	public void render () {
+	public void render ()
+	{
 		Gdx.gl.glClearColor(1, 0, 0, 1);//background, I do believe. Totally not sure.
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
