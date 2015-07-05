@@ -1,7 +1,5 @@
 package com.alvarpq.GOTF.coreGame.board;
-
 import com.alvarpq.GOTF.coreGame.units.Unit;
-
 public class BoardHalf
 {
 	//Do not change directly unless needed
