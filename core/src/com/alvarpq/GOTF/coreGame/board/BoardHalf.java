@@ -16,6 +16,11 @@ public class BoardHalf
 			setIdol(i, idolHealth);
 		}
 	}
+	public BoardHalf(Unit[][] units, int[] idols)
+	{
+		this.units = units;
+		this.idols = idols;
+	}
 	public void updateUnits(BoardHalf opponentsSide)
 	{
 		for(int i=0;i<numberOfRows();i++)
@@ -24,9 +29,7 @@ public class BoardHalf
 			{
 				if(getUnitAt(i, j)!=null)
 				{
-					getUnitAt(i, j).setAttack(0);
-					getUnitAt(i, j).setCountdown(0);
-					getUnitAt(i, j).setHealth(0);
+					getUnitAt(i, j).beforeUpdateUnits();
 				}
 			}
 		}
@@ -74,11 +77,6 @@ public class BoardHalf
 				}
 			}
 		}
-	}
-	public BoardHalf(Unit[][] units, int[] idols)
-	{
-		this.units = units;
-		this.idols = idols;
 	}
 	public static boolean isAdjacent(int row1, int column1, int row2, int column2)
 	{
@@ -138,6 +136,19 @@ public class BoardHalf
 		units[row][column] = null;
 		updateUnits(opponentsSide);
 		opponentsSide.updateUnits(this);
+	}
+	public boolean moveUnit(BoardHalf opponentsSide, int row, int column, int destinationRow, int destinationColumn)
+	{
+		if(getUnitAt(row, column).getMove()>0&&getUnitAt(destinationRow, destinationColumn)==null&&BoardHalf.isAdjacent(row, column, destinationRow, destinationColumn))
+		{
+			getUnitAt(row, column).changeMove(this, opponentsSide, -1);
+			units[destinationRow][destinationColumn] = getUnitAt(row, column);
+			units[row][column] = null;
+			updateUnits(opponentsSide);
+			opponentsSide.updateUnits(this);
+			return true;
+		}
+		return false;
 	}
 	public int getIdolAt(int row)
 	{

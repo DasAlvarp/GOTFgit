@@ -4,7 +4,7 @@ public class RoyalInfantryman extends Unit
 {
 	public RoyalInfantryman(int row, int column)
 	{
-		super("Royal Infantryman", 1, 2, 2, row, column);
+		super("Royal Infantryman", 1, 2, 2, 1, row, column);
 	}
 	@Override
 	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide)
@@ -12,9 +12,9 @@ public class RoyalInfantryman extends Unit
 		super.updateUnits(mySide, opponentsSide);
 		for(int i=0;i<mySide.numberOfColumns();i++)
 		{
-			if(i!=column&&mySide.getUnitAt(row, i)!=null)
+			if(i!=getColumn()&&mySide.getUnitAt(getRow(), i)!=null)
 			{
-				mySide.getUnitAt(row, i).health++;
+				mySide.getUnitAt(getRow(), i).changeHealth(mySide, opponentsSide, 1);
 			}
 		}
 	}

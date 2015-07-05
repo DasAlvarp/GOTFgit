@@ -3,6 +3,6 @@ public class KinfolkBrave extends Unit
 {
 	public KinfolkBrave(int row, int column)
 	{
-		super("Kinfolk Brave", 2, 1, 2, row, column);
+		super("Kinfolk Brave", 2, 1, 2, 1, row, column);
 	}
 }
