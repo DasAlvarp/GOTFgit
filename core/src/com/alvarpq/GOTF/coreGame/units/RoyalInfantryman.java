@@ -1,7 +1,5 @@
 package com.alvarpq.GOTF.coreGame.units;
-
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
-
 public class RoyalInfantryman extends Unit
 {
 	public RoyalInfantryman(int row, int column)
