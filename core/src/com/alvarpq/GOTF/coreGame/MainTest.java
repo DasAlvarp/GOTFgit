@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF.coreGame;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+
 import com.alvarpq.GOTF.coreGame.units.KinfolkBrave;
 import com.alvarpq.GOTF.coreGame.units.RoyalInfantryman;
 public class MainTest
