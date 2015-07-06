@@ -30,6 +30,10 @@ public abstract class Unit
 		attackType = AttackType.NORMAL;
 		effects = new LinkedList<Effect>();
 	}
+	
+//	public abstract int getCost();
+//	public abstract int[] getThreshhold();
+	
 	//override for self-buffs and buffs on other units
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
 	//call BoardHalf.move instead
