@@ -29,50 +29,37 @@ public abstract class Unit
 	}
 	//override for self-buffs and buffs on other units
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
-	//Moves the unit
-	public boolean move(BoardHalf mySide, BoardHalf opponentsSide, int row, int column)
+	//call BoardHalf.move instead
+	public void move(int row, int column)
 	{
-		if(mySide.moveUnit(opponentsSide, getRow(), getColumn(), row, column))
-		{
-			mySide.updateUnits(opponentsSide);
-			return true;
-		}
-		return false;
+		this.row = row;
+		this.column = column;
 	}
-	//Makes the unit attack
-	public void attack(BoardHalf mySide, BoardHalf opponentsSide)
-	{
-		attackType.attack(this, mySide, opponentsSide);
-		mySide.updateUnits(opponentsSide);
-	}
-	//Called by the game to reset the unit's countdown
-	public void resetCountdown(BoardHalf mySide, BoardHalf opponentsSide)
+	//call BoardHalf.resetCountdown instead
+	public void resetCountdown()
 	{
 		countdown = baseCountdown;
-		mySide.updateUnits(opponentsSide);
 	}
-	//Called by the game at the beginning of a turn
-	public boolean countDown(BoardHalf mySide, BoardHalf opponentsSide)
+	//call BoardHalf.countDown instead
+	public boolean countDown()
 	{
 		if(countdown>0)
 		{
 			countdown--;
-			mySide.updateUnits(opponentsSide);
 			return true;
 		}
 		return false;
 	}
-	//Called by the game at the beginning of a turn
-	public void resetMove(BoardHalf mySide, BoardHalf opponentsSide)
+	//call BoardHalf.resetMove instead
+	public void resetMove()
 	{
 		move = baseMove;
-		mySide.updateUnits(opponentsSide);
 	}
 	//Changes the unit's current countdown
 	public void changeCountdown(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		countdown+=amount;
-		mySide.updateUnits(opponentsSide);
+		mySide.updateUnits();
 	}
 	//Heals the unit
 	public void heal(BoardHalf mySide, BoardHalf opponentsSide, int amount)
@@ -82,19 +69,24 @@ public abstract class Unit
 		{
 			health = maximumHealth;
 		}
-		mySide.updateUnits(opponentsSide);
+		mySide.updateUnits();
 	}
 	//Damages the unit
 	public void damage(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		health-=amount;
-		mySide.updateUnits(opponentsSide);
+		mySide.updateUnits();
+	}
+	//Only use inside AttackType attack function
+	public void attackDamage(int amount)
+	{
+		health-=amount;
 	}
 	//Makes the unit lose or regain movement points
 	public void changeMove(BoardHalf mySide, BoardHalf opponentsSide, int amount)
 	{
 		move+=amount;
-		mySide.updateUnits(opponentsSide);
+		mySide.updateUnits();
 	}
 	public void applyEffect(Effect effect)
 	{
