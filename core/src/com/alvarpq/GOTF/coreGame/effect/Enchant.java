@@ -1,14 +1,10 @@
 package com.alvarpq.GOTF.coreGame.effect;
-
-public abstract class Enchant implements Effect{
-
-	public abstract int atkChange();
-	
-	public abstract int cdChange();
-	
-	public abstract int healthChange();
-	
-	public abstract void trigger();
-	
-	public abstract String getName();
+public interface Enchant extends Effect
+{
+	public String getName();
+	public int attackChange();
+	public int countdownChange();
+	public int healthChange();
+	public int moveChange();
+	public void trigger();
 }
