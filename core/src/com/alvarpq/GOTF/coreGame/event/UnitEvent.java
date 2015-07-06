@@ -1,16 +1,28 @@
 package com.alvarpq.GOTF.coreGame.event;
-
-import com.alvarpq.GOTF.coreGame.units.Unit;
-
+import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 public abstract class UnitEvent
 {
-	private Unit target;
-	public UnitEvent(Unit target)
+	private BoardHalf mySide;
+	private BoardHalf opponentsSide;
+	public UnitEvent(BoardHalf mySide, BoardHalf opponentsSide)
 	{
-		this.target = target;
+		this.mySide = mySide;
+		this.opponentsSide = opponentsSide;
 	}
-	public Unit getTarget()
+	public BoardHalf getMySide()
 	{
-		return target;
+		return mySide;
+	}
+	public void setMySide(BoardHalf mySide)
+	{
+		this.mySide = mySide;
+	}
+	public BoardHalf getOpponentsSide()
+	{
+		return opponentsSide;
+	}
+	public void setOpponentsSide(BoardHalf opponentsSide)
+	{
+		this.opponentsSide = opponentsSide;
 	}
 }

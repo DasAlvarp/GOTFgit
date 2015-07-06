@@ -1,6 +1,12 @@
 package com.alvarpq.GOTF.coreGame.board;
 import java.util.LinkedList;
 import java.util.List;
+import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.event.UnitEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledListener;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 public class BoardHalf
 {
@@ -8,7 +14,8 @@ public class BoardHalf
 	private Unit[][] units;
 	private int[] idols;
 	private BoardHalf opponentsSide;
-	public BoardHalf(int rows, int columns, int idolHealth)
+	private Player owner;
+	public BoardHalf(int rows, int columns, int idolHealth, Player owner)
 	{
 		units = new Unit[rows][columns];
 		idols = new int[rows];
@@ -16,6 +23,7 @@ public class BoardHalf
 		{
 			setIdol(i, idolHealth);
 		}
+		this.owner = owner;
 	}
 	public BoardHalf(Unit[][] units, int[] idols)
 	{
@@ -59,11 +67,15 @@ public class BoardHalf
 			{
 				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
 				{
+					dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), this, opponentsSide));
+					opponentsSide.dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), opponentsSide, this));
 					units[i][j] = null;
 					newUpdate = true;
 				}
 				if(opponentsSide.getUnitAt(i, j)!=null&&opponentsSide.getUnitAt(i, j).getHealth()<=0)
 				{
+					dispatchEvent(new UnitKilledEvent(opponentsSide.getUnitAt(i, j), this, opponentsSide));
+					opponentsSide.dispatchEvent(new UnitKilledEvent(opponentsSide.getUnitAt(i, j), opponentsSide, this));
 					opponentsSide.units[i][j] = null;
 					newUpdate = true;
 				}
@@ -120,10 +132,12 @@ public class BoardHalf
 	public void addUnit(Unit unit)
 	{
 		units[unit.getRow()][unit.getColumn()] = unit;
+		unit.setOwner(owner);
 		updateUnits();
 	}
 	public void removeUnit(int row, int column)
 	{
+		getUnitAt(row, column).setOwner(Player.NONE);
 		units[row][column] = null;
 		updateUnits();
 	}
@@ -207,6 +221,33 @@ public class BoardHalf
 	public int numberOfColumns()
 	{
 		return units[0].length;
+	}
+	public Player getOwner()
+	{
+		return owner;
+	}
+	public void dispatchEvent(UnitEvent event)
+	{
+		if(event instanceof UnitKilledByUnitEvent)
+		{
+			for(Unit unit:getUnits())
+			{
+				if(unit instanceof UnitKilledByUnitListener)
+				{
+					((UnitKilledByUnitListener)unit).onUnitKilledByUnit((UnitKilledByUnitEvent)event);
+				}
+			}
+		}
+		else if(event instanceof UnitKilledEvent)
+		{
+			for(Unit unit:getUnits())
+			{
+				if(unit instanceof UnitKilledListener)
+				{
+					((UnitKilledListener)unit).onUnitKilled((UnitKilledEvent)event);
+				}
+			}
+		}
 	}
 	public static boolean isAdjacent(int row1, int column1, int row2, int column2)
 	{

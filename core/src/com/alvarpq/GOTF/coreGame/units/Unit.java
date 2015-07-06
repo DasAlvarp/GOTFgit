@@ -1,6 +1,7 @@
 package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
+import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
@@ -10,6 +11,7 @@ public abstract class Unit
 	private int baseCountdown, maximumHealth, baseMove;
 	private int attack, countdown, health, move;
 	private int row, column;
+	private Player owner;
 	private AttackType attackType;
 	private List<Effect> effects;
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
@@ -24,6 +26,7 @@ public abstract class Unit
 		move = baseMove;
 		this.row = row;
 		this.column = column;
+		owner = Player.NONE;
 		attackType = AttackType.NORMAL;
 		effects = new LinkedList<Effect>();
 	}
@@ -160,6 +163,14 @@ public abstract class Unit
 	public int getColumn()
 	{
 		return column;
+	}
+	public Player getOwner()
+	{
+		return owner;
+	}
+	public void setOwner(Player owner)
+	{
+		this.owner = owner;
 	}
 	public AttackType getAttackType()
 	{

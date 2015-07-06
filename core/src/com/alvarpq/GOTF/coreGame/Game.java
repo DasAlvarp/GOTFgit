@@ -3,18 +3,18 @@ import java.util.Random;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 public class Game
 {
-	public final BoardHalf half1 = new BoardHalf(5, 3, 8);
-	public final BoardHalf half2 = new BoardHalf(5, 3, 8);
-	boolean startingPlayer;
+	public final BoardHalf half1 = new BoardHalf(5, 3, 8, Player.PLAYER1);
+	public final BoardHalf half2 = new BoardHalf(5, 3, 8, Player.PLAYER2);
+	Player currentPlayer;
 	private static final Random random = new Random();
 	public Game()
 	{
 		BoardHalf.createBoard(half1, half2);
-		startingPlayer = random.nextBoolean();
+		currentPlayer = Player.values()[random.nextInt(2)];
 	}
 	public void startTurn()
 	{
-		if(startingPlayer)
+		if(currentPlayer==Player.PLAYER1)
 		{
 			half1.allCountDown();
 		}
@@ -25,7 +25,7 @@ public class Game
 	}
 	public void endTurn()
 	{
-		if(startingPlayer)
+		if(currentPlayer==Player.PLAYER1)
 		{
 			half1.allAttack();
 		}
@@ -33,6 +33,6 @@ public class Game
 		{
 			half2.allAttack();
 		}
-		startingPlayer = !startingPlayer;
+		currentPlayer = currentPlayer.otherPlayer();
 	}
 }

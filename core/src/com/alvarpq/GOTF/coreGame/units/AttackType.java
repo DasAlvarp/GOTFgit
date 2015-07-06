@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 public interface AttackType
 {
 	public static final Normal NORMAL = new Normal();
@@ -16,6 +17,11 @@ public interface AttackType
 				if(opponentsSide.getUnitAt(unit.getRow(), i)!=null)
 				{
 					opponentsSide.getUnitAt(unit.getRow(), i).attackDamage(unit.getAttack());
+					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<=0)
+					{
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						opponentsSide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, opponentsSide, mySide));
+					}
 					unitHit = true;
 					break;
 				}
@@ -50,6 +56,8 @@ public interface AttackType
 					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<=0)
 					{
 						attackLeft-=opponentsSide.getUnitAt(unit.getRow(), i).getHealth();
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						opponentsSide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, opponentsSide, mySide));
 					}
 					else
 					{
