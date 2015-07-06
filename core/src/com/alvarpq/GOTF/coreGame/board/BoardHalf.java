@@ -25,10 +25,10 @@ public class BoardHalf
 	{
 		for(Unit unit:getUnits())
 		{
-				if(unit!=null)
-				{
-					unit.clearPresenceEffects();
-				}
+			if(unit!=null)
+			{
+				unit.clearPresenceEffects();
+			}
 		}
 		for(Unit unit:getUnits())
 		{
@@ -52,12 +52,20 @@ public class BoardHalf
 			}
 		}
 		boolean newUpdate = false;
-		for(Unit unit:opponentsSide.getUnits())
+		for(int i=0;i<numberOfRows();i++)
 		{
-			if(unit.getHealth()<=0)
+			for(int j=0;j<numberOfColumns();j++)
 			{
-				removeUnit(unit.getRow(), unit.getColumn(), opponentsSide);
-				newUpdate = true;
+				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
+				{
+					units[i][j] = null;
+					newUpdate = true;
+				}
+				if(opponentsSide.getUnitAt(i, j)!=null&&opponentsSide.getUnitAt(i, j).getHealth()<=0)
+				{
+					opponentsSide.units[i][j] = null;
+					newUpdate = true;
+				}
 			}
 		}
 		if(newUpdate)
@@ -129,13 +137,11 @@ public class BoardHalf
 	{
 		units[unit.getRow()][unit.getColumn()] = unit;
 		updateUnits(opponentsSide);
-		opponentsSide.updateUnits(this);
 	}
 	public void removeUnit(int row, int column, BoardHalf opponentsSide)
 	{
 		units[row][column] = null;
 		updateUnits(opponentsSide);
-		opponentsSide.updateUnits(this);
 	}
 	public boolean moveUnit(BoardHalf opponentsSide, int row, int column, int destinationRow, int destinationColumn)
 	{
