@@ -47,7 +47,7 @@ public class BoardDraw
 		{
 			hexes.get(x).drawit(batch);
 		}
-		for(int row=0;row<us.length;row++){
+		for(int row=0; row < us.length;row++){
 			for(int col=0;col<us[0].length;col++)
 				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 					if(us[row][col].getValidLocations(us[row][col].x, us[row][col].y, Gdx.input.getX(), Gdx.input.getY())){
@@ -55,7 +55,7 @@ public class BoardDraw
 					}
 		    }
 		}
-		for(int row=0;row<them.length;row++){
+		for(int row=0; row<them.length;row++){
 			for(int col=0;col<them[0].length;col++)
 				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 					if(them[row][col].getValidLocations(them[row][col].x, them[row][col].y, Gdx.input.getX(), Gdx.input.getY())){

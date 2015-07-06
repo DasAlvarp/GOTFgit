@@ -13,6 +13,8 @@ public class Hex
 	Sprite hx;
 	Sprite selected;
 
+	public boolean selectOut;
+	
 	private BitmapFont font;
 	private static int LENGTH = 39;
 	private static int HEIGHT = 45;
@@ -51,9 +53,20 @@ public class Hex
 	public boolean getValidLocations(int x, int y, int mouseX, int mouseY)
 	{
 		
-		if(x < mouseX && x + LENGTH > mouseX)
+		if(x < mouseX && x + LENGTH / 2 >= mouseX)
 		{
-			if(HEIGHT / 4 + y < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 3 / 4 > Gdx.graphics.getHeight() - mouseY)// had to subtract top of window to get this to work. Apparently mouse and draw Y coordinates are different.
+			if(HEIGHT / 4 + y - (mouseX - x) * .5 < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 3 / 4 + (mouseX - x) * .5 > Gdx.graphics.getHeight() - mouseY)// had to subtract top of window to get this to work. Apparently mouse and draw Y coordinates are different.
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else if(x + LENGTH / 2< mouseX && x + LENGTH  >= mouseX)
+		{
+			if(y - HEIGHT / 4 + (mouseX - x) * .5 < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 5 /4 - (mouseX - x) * .5 > Gdx.graphics.getHeight() - mouseY)// had to subtract top of window to get this to work. Apparently mouse and draw Y coordinates are different.
 			{
 				return true;
 			}
