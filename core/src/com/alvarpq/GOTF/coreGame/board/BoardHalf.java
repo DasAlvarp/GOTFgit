@@ -76,9 +76,19 @@ public class BoardHalf
 	}
 	public void allAttack()
 	{
-		for(Unit unit:getUnits())
+		for(int i=0;i<numberOfRows();i++)
 		{
-			attack(unit);
+			rowAttack(i);
+		}
+	}
+	public void rowAttack(int row)
+	{
+		for(int i=0;i<numberOfColumns();i++)
+		{
+			if(getUnitAt(row, i)!=null&&getUnitAt(row, i).getCountdown()==0)
+			{
+				attack(getUnitAt(row, i));
+			}
 		}
 	}
 	public Unit getUnitAt(int row, int column)
