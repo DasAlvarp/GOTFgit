@@ -17,7 +17,9 @@ public class BoardDraw
 	private ArrayList<Hex> hexes = new ArrayList<Hex>();
 	
 	Texture	tex = new Texture("BoardTile.png");
+	Texture selTex = new Texture("hex.png");
 	Sprite 	hx = new Sprite(tex);
+	Sprite sel = new Sprite(selTex);
 
 	
 	public BoardDraw()//setting up the board. Probably should be called on every board update, since it will eventaully include the board state.
@@ -83,7 +85,7 @@ public class BoardDraw
 	{
 		for(int x = 0; x < length; x++)
 		{
-			hexes.add(new Hex(startX + LENGTH * x, startY, hx));
+			hexes.add(new Hex(startX + LENGTH * x, startY, hx, sel));
 		}
 	}
 }
