@@ -169,4 +169,9 @@ public abstract class Unit
 	{
 		this.attackType = attackType;
 	}
+	@Override
+	public String toString()
+	{
+		return "name: "+getName()+", baseCountdown: "+baseCountdown+", maximumHealth: "+maximumHealth+", baseMove: "+baseMove+", attack: "+attack+", countdown: "+countdown+", health: "+health+", move: "+move+", row: "+row+", column: "+column+", attackType: "+attackType;
+	}
 }

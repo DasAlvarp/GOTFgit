@@ -91,6 +91,13 @@ public class BoardHalf
 			}
 		}
 	}
+	public void allCountDown()
+	{
+		for(Unit unit:getUnits())
+		{
+			countDown(unit);
+		}
+	}
 	public Unit getUnitAt(int row, int column)
 	{
 		return units[row][column];
@@ -154,6 +161,7 @@ public class BoardHalf
 	public void attack(Unit unit)
 	{
 		unit.getAttackType().attack(unit, this, opponentsSide);
+		resetCountdown(unit);
 		updateUnits();
 	}
 	public void resetCountdown(int row, int column)

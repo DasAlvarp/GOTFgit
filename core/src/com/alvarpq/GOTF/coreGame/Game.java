@@ -12,6 +12,17 @@ public class Game
 		BoardHalf.createBoard(half1, half2);
 		startingPlayer = random.nextBoolean();
 	}
+	public void startTurn()
+	{
+		if(startingPlayer)
+		{
+			half1.allCountDown();
+		}
+		else
+		{
+			half2.allCountDown();
+		}
+	}
 	public void endTurn()
 	{
 		if(startingPlayer)
@@ -22,5 +33,6 @@ public class Game
 		{
 			half2.allAttack();
 		}
+		startingPlayer = !startingPlayer;
 	}
 }

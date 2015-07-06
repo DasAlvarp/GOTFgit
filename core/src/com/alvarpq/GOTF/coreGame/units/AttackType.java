@@ -29,6 +29,11 @@ public interface AttackType
 				}
 			}
 		}
+		@Override
+		public String toString()
+		{
+			return "Normal";
+		}
 	}
 	class Relentless implements AttackType
 	{
@@ -60,6 +65,11 @@ public interface AttackType
 					opponentsSide.setIdol(unit.getRow(), 0);
 				}
 			}
+		}
+		@Override
+		public String toString()
+		{
+			return "Relentless";
 		}
 	}
 }
