@@ -48,7 +48,7 @@ public class Hex
 		batch.draw(selected, x , y, 39, 45);
 	}
 	
-	private boolean getValidLocations(int x, int y, int mouseX, int mouseY)
+	public boolean getValidLocations(int x, int y, int mouseX, int mouseY)
 	{
 		
 		if(x < mouseX && x + LENGTH > mouseX)
