@@ -141,7 +141,7 @@ public class BoardHalf
 		units[row][column] = null;
 		updateUnits();
 	}
-	public boolean moveUnit(int row, int column, int destinationRow, int destinationColumn)
+	public boolean move(int row, int column, int destinationRow, int destinationColumn)
 	{
 		if(getUnitAt(row, column).getMove()>0&&getUnitAt(destinationRow, destinationColumn)==null&&BoardHalf.isAdjacent(row, column, destinationRow, destinationColumn))
 		{
@@ -154,7 +154,7 @@ public class BoardHalf
 		}
 		return false;
 	}
-	public boolean moveUnit(Unit unit, int row, int column)
+	public boolean move(Unit unit, int row, int column)
 	{
 		if(unit.getMove()>0&&getUnitAt(row, column)==null&&BoardHalf.isAdjacent(unit.getRow(), unit.getColumn(), row, column))
 		{
