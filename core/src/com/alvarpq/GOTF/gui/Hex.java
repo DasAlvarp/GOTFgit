@@ -43,7 +43,7 @@ public class Hex
 	{
 		
 		if(x < mouseX && x + LENGTH > mouseX)
-			if(HEIGHT / 4 + y < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 3 / 4 > Gdx.graphics.getHeight() - mouseY)
+			if(HEIGHT / 4 + y < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 3 / 4 > Gdx.graphics.getHeight() - mouseY)// had to subtract top of window to get this to work. Apparently mouse and draw Y coordinates are different.
 			{
 				return true;
 			}
