@@ -39,10 +39,12 @@ public class Hex
 		
 	}
 	
-	public void deselect(SpriteBatch batch){
+	public void deselect(SpriteBatch batch)
+	{
 		batch.draw(hx, x, y, 39, 45);
 	}
-	public void select(SpriteBatch batch){
+	public void select(SpriteBatch batch)
+	{
 		batch.draw(selected, x , y, 39, 45);
 	}
 	
