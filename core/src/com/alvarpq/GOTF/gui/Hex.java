@@ -33,10 +33,17 @@ public class Hex
 
 		font.draw(batch, "x: " + Gdx.input.getX() + " y: " + Gdx.input.getY(), 200, 200);
 		if(getValidLocations(this.x,this.y, Gdx.input.getX(), Gdx.input.getY()))
-			batch.draw(selected, x , y, 39, 45);
+			select(batch);
 		else
-			batch.draw(hx, x, y, 39, 45);
+			deselect(batch);
 		
+	}
+	
+	public void deselect(SpriteBatch batch){
+		batch.draw(hx, x, y, 39, 45);
+	}
+	public void select(SpriteBatch batch){
+		batch.draw(selected, x , y, 39, 45);
 	}
 	
 	private boolean getValidLocations(int x, int y, int mouseX, int mouseY)
