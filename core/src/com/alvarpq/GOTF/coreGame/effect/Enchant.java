@@ -3,8 +3,8 @@ public interface Enchant extends Effect
 {
 	public String getName();
 	public int attackChange();
-	public int countdownChange();
+	public int baseCountdownChange();
 	public int healthChange();
-	public int moveChange();
+	public int cardMoveChange();
 	public void trigger();
 }

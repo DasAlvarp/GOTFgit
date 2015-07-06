@@ -1,14 +1,17 @@
 package com.alvarpq.GOTF.coreGame.effect;
 public class Presence implements Effect
 {
+	public static final Presence ATTACK_1 = new Presence("+1 Attack", 1, 0, 0, 0);
+	public static final Presence HEALTH_1 = new Presence("+1 Health", 0, 0, 1, 0);
 	String name;
-	int attack, countdown, health, move;
-	public Presence(String name, int attack, int countdown, int health, int move){
+	int attack, baseCountdown, health, baseMove;
+	public Presence(String name, int attack, int baseCountdown, int health, int baseMove)
+	{
 		this.name = name;
 		this.attack = attack;
-		this.countdown = countdown;
+		this.baseCountdown = baseCountdown;
 		this.health = health;
-		this.move=move;
+		this.baseMove = baseMove;
 	}
 	@Override
 	public int attackChange()
@@ -16,9 +19,9 @@ public class Presence implements Effect
 		return attack;
 	}
 	@Override
-	public int countdownChange()
+	public int baseCountdownChange()
 	{
-		return countdown;
+		return baseCountdown;
 	}
 	@Override
 	public int healthChange()
@@ -26,9 +29,9 @@ public class Presence implements Effect
 		return health;
 	}
 	@Override
-	public int moveChange()
+	public int baseMoveChange()
 	{
-		return move;
+		return baseMove;
 	}
 	@Override
 	public String getName()

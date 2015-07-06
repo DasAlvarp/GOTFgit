@@ -23,45 +23,46 @@ public class BoardHalf
 	}
 	public void updateUnits(BoardHalf opponentsSide)
 	{
-		for(int i=0;i<numberOfRows();i++)
+		for(Unit unit:getUnits())
 		{
-			for(int j=0;j<numberOfColumns();j++)
-			{
-				if(getUnitAt(i, j)!=null)
+				if(unit!=null)
 				{
-					getUnitAt(i, j).beforeUpdateUnits();
+					unit.clearPresenceEffects();
 				}
+		}
+		for(Unit unit:getUnits())
+		{
+			if(unit!=null)
+			{
+				unit.applyPresence(this, opponentsSide);
 			}
 		}
-		for(int i=0;i<numberOfRows();i++)
+		for(Unit unit:opponentsSide.getUnits())
 		{
-			for(int j=0;j<numberOfColumns();j++)
-			{
-				if(getUnitAt(i, j)!=null)
+				if(unit!=null)
 				{
-					getUnitAt(i, j).updateUnits(this, opponentsSide);
+					unit.clearPresenceEffects();
 				}
+		}
+		for(Unit unit:opponentsSide.getUnits())
+		{
+			if(unit!=null)
+			{
+				unit.applyPresence(this, opponentsSide);
 			}
 		}
 		boolean newUpdate = false;
-		for(int i=0;i<numberOfRows();i++)
+		for(Unit unit:opponentsSide.getUnits())
 		{
-			for(int j=0;j<numberOfColumns();j++)
+			if(unit.getHealth()<=0)
 			{
-				if(getUnitAt(i, j)!=null)
-				{
-				}
-				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
-				{
-					removeUnit(i, j, opponentsSide);
-					newUpdate = true;
-				}
+				removeUnit(unit.getRow(), unit.getColumn(), opponentsSide);
+				newUpdate = true;
 			}
 		}
 		if(newUpdate)
 		{
 			updateUnits(opponentsSide);
-			opponentsSide.updateUnits(this);
 		}
 	}
 	public void attack(BoardHalf opponentsSide)
@@ -143,8 +144,6 @@ public class BoardHalf
 			getUnitAt(row, column).changeMove(this, opponentsSide, -1);
 			units[destinationRow][destinationColumn] = getUnitAt(row, column);
 			units[row][column] = null;
-			updateUnits(opponentsSide);
-			opponentsSide.updateUnits(this);
 			return true;
 		}
 		return false;

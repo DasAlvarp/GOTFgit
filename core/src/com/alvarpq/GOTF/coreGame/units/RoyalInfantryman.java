@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.effect.Presence;
 public class RoyalInfantryman extends Unit
 {
 	public RoyalInfantryman(int row, int column)
@@ -7,14 +8,13 @@ public class RoyalInfantryman extends Unit
 		super("Royal Infantryman", 1, 2, 2, 1, row, column);
 	}
 	@Override
-	public void updateUnits(BoardHalf mySide, BoardHalf opponentsSide)
+	public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide)
 	{
-		super.updateUnits(mySide, opponentsSide);
 		for(int i=0;i<mySide.numberOfColumns();i++)
 		{
 			if(i!=getColumn()&&mySide.getUnitAt(getRow(), i)!=null)
 			{
-				mySide.getUnitAt(getRow(), i).updateHealth(1);
+				mySide.getUnitAt(getRow(), i).applyEffect(Presence.HEALTH_1);
 			}
 		}
 	}

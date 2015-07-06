@@ -3,8 +3,8 @@ public interface Effect
 {
 	public String getName();
 	public int attackChange();
-	public int countdownChange();
+	public int baseCountdownChange();
 	public int healthChange();
-	public int moveChange();
+	public int baseMoveChange();
 	public void trigger();
 }

@@ -2,13 +2,14 @@ package com.alvarpq.GOTF.coreGame.effect;
 public class Permanent implements Effect
 {
 	String name;
-	int attack, countdown, health, move;
-	public Permanent(String name, int attack, int countdown, int health, int move){
+	int attack, baseCountdown, health, baseMove;
+	public Permanent(String name, int attack, int baseCountdown, int health, int baseMove)
+	{
 		this.name = name;
 		this.attack = attack;
-		this.countdown = countdown;
+		this.baseCountdown = baseCountdown;
 		this.health = health;
-		this.move=move;
+		this.baseMove = baseMove;
 	}
 	@Override
 	public int attackChange()
@@ -16,9 +17,9 @@ public class Permanent implements Effect
 		return attack;
 	}
 	@Override
-	public int countdownChange()
+	public int baseCountdownChange()
 	{
-		return countdown;
+		return baseCountdown;
 	}
 	@Override
 	public int healthChange()
@@ -26,9 +27,9 @@ public class Permanent implements Effect
 		return health;
 	}
 	@Override
-	public int moveChange()
+	public int baseMoveChange()
 	{
-		return move;
+		return baseMove;
 	}
 	@Override
 	public String getName()
