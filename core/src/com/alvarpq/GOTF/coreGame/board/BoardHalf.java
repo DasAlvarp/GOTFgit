@@ -2,7 +2,10 @@ package com.alvarpq.GOTF.coreGame.board;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
 import com.alvarpq.GOTF.coreGame.event.UnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
@@ -293,6 +296,42 @@ public class BoardHalf
 				if(unit instanceof UnitKilledListener)
 				{
 					((UnitKilledListener)unit).onUnitKilled((UnitKilledEvent)event);
+				}
+			}
+		}
+		else if(event instanceof UnitDamagedByUnitEvent)
+		{
+			for(Unit unit:getUnits())
+			{
+				if(unit instanceof UnitDamagedByUnitListener)
+				{
+					((UnitDamagedByUnitListener)unit).onUnitDamagedByUnit((UnitDamagedByUnitEvent)event);
+				}
+			}
+			event.invertSides();
+			for(Unit unit:opponentsSide.getUnits())
+			{
+				if(unit instanceof UnitDamagedByUnitListener)
+				{
+					((UnitDamagedByUnitListener)unit).onUnitDamagedByUnit((UnitDamagedByUnitEvent)event);
+				}
+			}
+		}
+		else if(event instanceof UnitDamagedEvent)
+		{
+			for(Unit unit:getUnits())
+			{
+				if(unit instanceof UnitDamagedListener)
+				{
+					((UnitDamagedListener)unit).onUnitDamaged((UnitDamagedEvent)event);
+				}
+			}
+			event.invertSides();
+			for(Unit unit:opponentsSide.getUnits())
+			{
+				if(unit instanceof UnitDamagedListener)
+				{
+					((UnitDamagedListener)unit).onUnitDamaged((UnitDamagedEvent)event);
 				}
 			}
 		}

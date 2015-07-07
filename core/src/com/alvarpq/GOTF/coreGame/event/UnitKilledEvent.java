@@ -13,8 +13,4 @@ public class UnitKilledEvent extends UnitEvent
 	{
 		return killedUnit;
 	}
-	public void setKilledUnit(Unit killedUnit)
-	{
-		this.killedUnit = killedUnit;
-	}	
 }

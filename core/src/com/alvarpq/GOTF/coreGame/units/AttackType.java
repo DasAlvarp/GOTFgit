@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 public interface AttackType
@@ -19,6 +20,7 @@ public interface AttackType
 				if(opponentsSide.getUnitAt(unit.getRow(), i)!=null)
 				{
 					opponentsSide.getUnitAt(unit.getRow(), i).damage(unit.getAttack());
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, unit.getAttack(), mySide, opponentsSide));
 					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
 					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<=0)
 					{
@@ -54,6 +56,7 @@ public interface AttackType
 				if(opponentsSide.getUnitAt(unit.getRow(), i)!=null)
 				{
 					opponentsSide.getUnitAt(unit.getRow(), i).damage(attackLeft);
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, attackLeft, mySide, opponentsSide));
 					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getUnitAt(unit.getRow(), i), attackLeft, mySide, opponentsSide));
 					attackLeft = 0;
 					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<0)
