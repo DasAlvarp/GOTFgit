@@ -26,7 +26,7 @@ public class BoardHalf
 		units = new Unit[rows][columns];
 		hexEnchants = new HexEnchant[rows][columns];
 		idols = new int[rows];
-		for(int i=0;i<idols.length;i++)
+		for(int i = 0;i<idols.length;i++)
 		{
 			setIdol(i, idolHealth);
 		}
