@@ -1,18 +1,26 @@
 package com.alvarpq.GOTF.gui;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Hex 
 {
 	int x, y;
 	Sprite hx;
 	Sprite selected;
+	private static int SELECTEDFRAMES = 7;
 
+	ArrayList<Texture> textureFrames = new ArrayList<Texture>();
+	
+	
 	public boolean selectOut;
 	
 	private BitmapFont font;
@@ -28,8 +36,17 @@ public class Hex
 		
 		font = new BitmapFont();
 		font.setColor(Color.RED);
+		
+		String locationString = "gooeyStuff/selectedTiles/selectedTile";
+		
+		for(int x = 0; x < SELECTEDFRAMES; x++)
+		{
+			textureFrames.add(new Texture(locationString + "(" + x + ").png"));
+		}
+		
 	}
 
+	//draws sprite
 	public void drawit(SpriteBatch batch)
 	{
 
@@ -41,19 +58,23 @@ public class Hex
 		
 	}
 	
+	//deselects a sprite
 	public void deselect(SpriteBatch batch)
 	{
 		batch.draw(hx, x, y, 39, 45);
 	}
+	
+	//selects a hex
 	public void select(SpriteBatch batch)
 	{
 		batch.draw(selected, x , y, 39, 45);
 	}
 	
+	//returns whether a hex placed at x, y, is overlapped by the coordinates of mouseX and mouseY
 	public boolean getValidLocations(int x, int y, int mouseX, int mouseY)
 	{
 		
-		if(x < mouseX && x + LENGTH / 2 >= mouseX)
+		if(x < mouseX && x + LENGTH / 2 > mouseX)
 		{
 			if(HEIGHT / 4 + y - (mouseX - x) * .5 < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 3 / 4 + (mouseX - x) * .5 > Gdx.graphics.getHeight() - mouseY)// had to subtract top of window to get this to work. Apparently mouse and draw Y coordinates are different.
 			{
@@ -64,9 +85,9 @@ public class Hex
 				return false;
 			}
 		}
-		else if(x + LENGTH / 2< mouseX && x + LENGTH  >= mouseX)
+		else if(x + LENGTH / 2 < mouseX && x + LENGTH  > mouseX)
 		{
-			if(y - HEIGHT / 4 + (mouseX - x) * .5 < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 5 /4 - (mouseX - x) * .5 > Gdx.graphics.getHeight() - mouseY)// had to subtract top of window to get this to work. Apparently mouse and draw Y coordinates are different.
+			if(y - HEIGHT / 4 + (mouseX - x) * .5 < Gdx.graphics.getHeight() - mouseY && y + HEIGHT * 5 / 4 - (mouseX - x) * .5 > Gdx.graphics.getHeight() - mouseY)// had to subtract top of window to get this to work. Apparently mouse and draw Y coordinates are different.
 			{
 				return true;
 			}
