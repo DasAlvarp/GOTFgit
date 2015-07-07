@@ -39,7 +39,7 @@ public class Hex
 		selected = sel;
 		
 		font = new BitmapFont();
-		font.setColor(Color.RED);
+		font.setColor(Color.WHITE);
 		
 		String locationString = "GUI/selectedTiles/selectedTile";
 		String loc2string = "GUI/attackingTiles/attackingTile";
