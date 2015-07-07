@@ -55,6 +55,14 @@ public class Hex
 		
 		
 	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public int getY(){
+		return y;
+	}
 
 	//draws sprite
 	public void drawit(SpriteBatch batch)
