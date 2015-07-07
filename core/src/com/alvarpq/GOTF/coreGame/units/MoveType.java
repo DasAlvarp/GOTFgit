@@ -12,7 +12,7 @@ public interface MoveType
 		{
 			if(unit.getMove()>0&&mySide.getUnitAt(row, column)==null&&BoardHalf.isAdjacent(unit.getRow(), unit.getColumn(), row, column))
 			{
-				unit.changeMove(mySide, opponentsSide, -1);
+				unit.changeMove(-1);
 				mySideUnits[row][column] = unit;
 				mySideUnits[unit.getRow()][unit.getColumn()] = null;
 				unit.setRow(row);

@@ -2,6 +2,7 @@ package com.alvarpq.GOTF.coreGame.board;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
@@ -68,14 +69,12 @@ public class BoardHalf
 				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
 				{
 					dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), this, opponentsSide));
-					opponentsSide.dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), opponentsSide, this));
 					units[i][j] = null;
 					newUpdate = true;
 				}
 				if(opponentsSide.getUnitAt(i, j)!=null&&opponentsSide.getUnitAt(i, j).getHealth()<=0)
 				{
 					dispatchEvent(new UnitKilledEvent(opponentsSide.getUnitAt(i, j), this, opponentsSide));
-					opponentsSide.dispatchEvent(new UnitKilledEvent(opponentsSide.getUnitAt(i, j), opponentsSide, this));
 					opponentsSide.units[i][j] = null;
 					newUpdate = true;
 				}
@@ -107,8 +106,9 @@ public class BoardHalf
 	{
 		for(Unit unit:getUnits())
 		{
-			countDown(unit);
+			unit.countDown();
 		}
+		updateUnits();
 	}
 	public Unit getUnitAt(int row, int column)
 	{
@@ -143,11 +143,15 @@ public class BoardHalf
 	}
 	public boolean move(int row, int column, int destinationRow, int destinationColumn)
 	{
-		return getUnitAt(row, column).getMoveType().move(getUnitAt(row, column), destinationRow, destinationColumn, this, opponentsSide, units);
+		boolean toReturn = getUnitAt(row, column).getMoveType().move(getUnitAt(row, column), destinationRow, destinationColumn, this, opponentsSide, units);
+		updateUnits();
+		return toReturn;
 	}
 	public boolean move(Unit unit, int row, int column)
 	{
-		return unit.getMoveType().move(unit, row, column, this, opponentsSide, units);
+		boolean toReturn = unit.getMoveType().move(unit, row, column, this, opponentsSide, units);
+		updateUnits();
+		return toReturn;
 	}
 	public void attack(int row, int column)
 	{
@@ -172,11 +176,15 @@ public class BoardHalf
 	}
 	public boolean countDown(int row, int column)
 	{
-		return getUnitAt(row, column).countDown();
+		boolean toReturn = getUnitAt(row, column).countDown();
+		updateUnits();
+		return toReturn;
 	}
 	public boolean countDown(Unit unit)
 	{
-		return unit.countDown();
+		boolean toReturn = unit.countDown();
+		updateUnits();
+		return toReturn;
 	}
 	public void resetMove(int row, int column)
 	{
@@ -211,11 +219,13 @@ public class BoardHalf
 	public void damage(int row, int column, int amount)
 	{
 		getUnitAt(row, column).damage(amount);
+		dispatchEvent(new UnitDamagedEvent(getUnitAt(row, column), amount, this, opponentsSide));
 		updateUnits();
 	}
 	public void damage(Unit unit, int amount)
 	{
 		unit.damage(amount);
+		dispatchEvent(new UnitDamagedEvent(unit, amount, this, opponentsSide));
 		updateUnits();
 	}
 	public void changeMove(int row, int column, int amount)
@@ -259,10 +269,26 @@ public class BoardHalf
 					((UnitKilledByUnitListener)unit).onUnitKilledByUnit((UnitKilledByUnitEvent)event);
 				}
 			}
+			event.invertSides();
+			for(Unit unit:opponentsSide.getUnits())
+			{
+				if(unit instanceof UnitKilledByUnitListener)
+				{
+					((UnitKilledByUnitListener)unit).onUnitKilledByUnit((UnitKilledByUnitEvent)event);
+				}
+			}
 		}
 		else if(event instanceof UnitKilledEvent)
 		{
 			for(Unit unit:getUnits())
+			{
+				if(unit instanceof UnitKilledListener)
+				{
+					((UnitKilledListener)unit).onUnitKilled((UnitKilledEvent)event);
+				}
+			}
+			event.invertSides();
+			for(Unit unit:opponentsSide.getUnits())
 			{
 				if(unit instanceof UnitKilledListener)
 				{

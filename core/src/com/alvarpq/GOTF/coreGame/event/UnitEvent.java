@@ -25,4 +25,10 @@ public abstract class UnitEvent
 	{
 		this.opponentsSide = opponentsSide;
 	}
+	public void invertSides()
+	{
+		BoardHalf temp = mySide;
+		mySide = opponentsSide;
+		opponentsSide = temp;
+	}
 }

@@ -34,12 +34,10 @@ public abstract class Unit
 	}
 	//override for self-buffs and buffs on other units
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
-	//call BoardHalf.resetCountdown instead
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;
 	}
-	//call BoardHalf.countDown instead
 	public boolean countDown()
 	{
 		if(countdown>0)
@@ -49,17 +47,14 @@ public abstract class Unit
 		}
 		return false;
 	}
-	//call BoardHalf.resetMove instead
 	public void resetMove()
 	{
 		move = baseMove;
 	}
-	//call BoardHalf.changeCountdown instead
 	public void changeCountdown(int amount)
 	{
 		countdown+=amount;
 	}
-	//Heals the unit
 	public void heal(int amount)
 	{
 		health+=amount;
@@ -68,17 +63,10 @@ public abstract class Unit
 			health = maximumHealth;
 		}
 	}
-	//Damages the unit
 	public void damage(int amount)
 	{
 		health-=amount;
 	}
-	//Only use inside AttackType attack function
-	public void attackDamage(int amount)
-	{
-		health-=amount;
-	}
-	//Makes the unit lose or regain movement points
 	public void changeMove(int amount)
 	{
 		move+=amount;
