@@ -19,6 +19,7 @@ public class MenuScreen extends Screen{
 	@Override
 	public void render(SpriteBatch batch) {
 		// TODO Auto-generated method stub
+	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);      //clears the buffer 
 		batch.begin();
 		batch.draw(new Texture(Gdx.files.internal("gameScreen.png")), 200, 0);
 		batch.end();
@@ -33,14 +34,13 @@ public class MenuScreen extends Screen{
 
 	public void dispose(SpriteBatch batch) {
 		// TODO Auto-generated method stub
-		batch.dispose();
 	}
 
 	public void update() {
 		// TODO Auto-generated method stub
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 			if(Gdx.input.getX()>200 && Gdx.graphics.getHeight()-Gdx.input.getY()>0){
-			ScreenManager.setScreen(new GameScreen());
+				ScreenManager.setScreen(new GameScreen());
 			}
 		}
 	}
@@ -48,7 +48,6 @@ public class MenuScreen extends Screen{
 	@Override
 	public void dispose() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 
