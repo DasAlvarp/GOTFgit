@@ -22,11 +22,16 @@ public class Hex
 	
 	
 	public boolean selectOut;
+
+	private int currentFrame;
 	
 	private BitmapFont font;
 	private static int LENGTH = 39;
 	private static int HEIGHT = 45;
 
+	private int tick;
+	
+	
 	public Hex(int x1, int y1, Sprite sprit, Sprite sel)
 	{
 		hx = sprit;
@@ -41,8 +46,12 @@ public class Hex
 		
 		for(int x = 0; x < SELECTEDFRAMES; x++)
 		{
-			textureFrames.add(new Texture(locationString + "(" + x + ").png"));
+			textureFrames.add(new Texture(locationString + "(" + x + ").png"));//ghetto-rigged animation is the best kind of animation.
 		}
+		
+		currentFrame = 0;
+		tick = 0;
+		
 		
 	}
 
@@ -50,6 +59,11 @@ public class Hex
 	public void drawit(SpriteBatch batch)
 	{
 
+		tick = (tick + 1) % 3; //amount of frames per current frame switch
+		if(tick == 0)
+			currentFrame = (currentFrame + 1) % SELECTEDFRAMES;
+
+		
 		font.draw(batch, "x: " + Gdx.input.getX() + " y: " + Gdx.input.getY(), 200, 200);
 		if(getValidLocations(this.x,this.y, Gdx.input.getX(), Gdx.input.getY()))
 			select(batch);
@@ -67,6 +81,7 @@ public class Hex
 	//selects a hex
 	public void select(SpriteBatch batch)
 	{
+		selected = new Sprite(textureFrames.get(currentFrame));
 		batch.draw(selected, x , y, 39, 45);
 	}
 	
