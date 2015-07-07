@@ -13,6 +13,7 @@ public abstract class Unit
 	private int row, column;
 	private Player owner;
 	private AttackType attackType;
+	private MoveType moveType;
 	private List<Effect> effects;
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
 	{
@@ -28,20 +29,11 @@ public abstract class Unit
 		this.column = column;
 		owner = Player.NONE;
 		attackType = AttackType.NORMAL;
+		setMoveType(MoveType.NORMAL);
 		effects = new LinkedList<Effect>();
 	}
-	
-//	public abstract int getCost();
-//	public abstract int[] getThreshhold();
-	
 	//override for self-buffs and buffs on other units
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
-	//call BoardHalf.move instead
-	public void move(int row, int column)
-	{
-		this.row = row;
-		this.column = column;
-	}
 	//call BoardHalf.resetCountdown instead
 	public void resetCountdown()
 	{
@@ -144,6 +136,18 @@ public abstract class Unit
 	{
 		return name;
 	}
+	public int getBaseCountdown()
+	{
+		return baseCountdown;
+	}
+	public int getMaximumHealth()
+	{
+		return maximumHealth;
+	}
+	public int getBaseMove()
+	{
+		return baseMove;
+	}
 	public int getAttack()
 	{
 		return attack;
@@ -152,13 +156,21 @@ public abstract class Unit
 	{
 		return countdown;
 	}
+	public int getHealth()
+	{
+		return health;
+	}
 	public int getMove()
 	{
 		return move;
 	}
-	public int getHealth()
+	public void setRow(int row)
 	{
-		return health;
+		this.row = row;
+	}
+	public void setColumn(int column)
+	{
+		this.column = column;
 	}
 	public int getRow()
 	{
@@ -183,6 +195,14 @@ public abstract class Unit
 	public void setAttackType(AttackType attackType)
 	{
 		this.attackType = attackType;
+	}
+	public MoveType getMoveType()
+	{
+		return moveType;
+	}
+	public void setMoveType(MoveType moveType)
+	{
+		this.moveType = moveType;
 	}
 	@Override
 	public String toString()

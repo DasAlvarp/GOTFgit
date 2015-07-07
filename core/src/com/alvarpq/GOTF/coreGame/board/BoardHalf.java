@@ -143,29 +143,11 @@ public class BoardHalf
 	}
 	public boolean move(int row, int column, int destinationRow, int destinationColumn)
 	{
-		if(getUnitAt(row, column).getMove()>0&&getUnitAt(destinationRow, destinationColumn)==null&&BoardHalf.isAdjacent(row, column, destinationRow, destinationColumn))
-		{
-			getUnitAt(row, column).changeMove(this, opponentsSide, -1);
-			units[destinationRow][destinationColumn] = getUnitAt(row, column);
-			units[row][column] = null;
-			getUnitAt(row, column).move(destinationRow, destinationColumn);
-			updateUnits();
-			return true;
-		}
-		return false;
+		return getUnitAt(row, column).getMoveType().move(getUnitAt(row, column), destinationRow, destinationColumn, this, opponentsSide, units);
 	}
 	public boolean move(Unit unit, int row, int column)
 	{
-		if(unit.getMove()>0&&getUnitAt(row, column)==null&&BoardHalf.isAdjacent(unit.getRow(), unit.getColumn(), row, column))
-		{
-			unit.changeMove(this, opponentsSide, -1);
-			units[row][column] = unit;
-			units[unit.getRow()][unit.getColumn()] = null;
-			unit.move(row, column);
-			updateUnits();
-			return true;
-		}
-		return false;
+		return unit.getMoveType().move(unit, row, column, this, opponentsSide, units);
 	}
 	public void attack(int row, int column)
 	{
