@@ -5,6 +5,7 @@ public interface AttackType
 {
 	public static final Normal NORMAL = new Normal();
 	public static final Relentless RELENTLESS = new Relentless();
+	public static final NoAttack NO_ATTACK = new NoAttack();
 	public void attack(Unit unit, BoardHalf mySide, BoardHalf opponentsSide);
 	class Normal implements AttackType
 	{
@@ -78,6 +79,18 @@ public interface AttackType
 		public String toString()
 		{
 			return "Relentless";
+		}
+	}
+	class NoAttack implements AttackType
+	{
+		@Override
+		public void attack(Unit unit, BoardHalf mySide, BoardHalf opponentsSide)
+		{
+		}
+		@Override
+		public String toString()
+		{
+			return "Does not attack";
 		}
 	}
 }
