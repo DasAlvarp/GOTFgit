@@ -1,5 +1,5 @@
 package com.alvarpq.GOTF.coreGame;
-public enum Threshold
+public enum Resource
 {
 	AIR, EARTH, FIRE, WATER;
 }
