@@ -131,13 +131,15 @@ public class BoardDraw
 	{
 		for(int x = 0; x < arr[0].length; x++)
 		{
-			Hex h=new Hex(startX + LENGTH * x, startY, hx, sel);
+			Hex h = new Hex(startX + LENGTH * x, startY, hx, sel);
 			hexes.add(h);
-			if(backwards){
-				arr[row][arr[0].length-x-1]=h;
+			if(backwards)
+			{
+				arr[row][arr[0].length-x-1] = h;
 			}
-			else{
-				arr[row][x]=h;
+			else
+			{
+				arr[row][x] = h;
 			}
 		}
 		
