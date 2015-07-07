@@ -54,11 +54,10 @@ public abstract class Unit
 	{
 		move = baseMove;
 	}
-	//Changes the unit's current countdown
-	public void changeCountdown(BoardHalf mySide, BoardHalf opponentsSide, int amount)
+	//call BoardHalf.changeCountdown instead
+	public void changeCountdown(int amount)
 	{
 		countdown+=amount;
-		mySide.updateUnits();
 	}
 	//Heals the unit
 	public void heal(BoardHalf mySide, BoardHalf opponentsSide, int amount)

@@ -188,6 +188,16 @@ public class BoardHalf
 		unit.resetMove();
 		updateUnits();
 	}
+	public void changeCountdown(int row, int column, int amount)
+	{
+		getUnitAt(row, column).changeCountdown(amount);
+		updateUnits();
+	}
+	public void changeCountdown(Unit unit, int amount)
+	{
+		unit.changeCountdown(amount);
+		updateUnits();
+	}
 	public int getIdolAt(int row)
 	{
 		return idols[row];
