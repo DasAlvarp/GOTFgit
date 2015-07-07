@@ -47,18 +47,25 @@ public class BoardDraw
 		{
 			hexes.get(x).drawit(batch);
 		}
-		for(int row=0; row < us.length;row++){
-			for(int col=0;col<us[0].length;col++)
-				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-					if(us[row][col].getValidLocations(us[row][col].x, us[row][col].y, Gdx.input.getX(), Gdx.input.getY())){
+		for(int row = 0; row < us.length; row++)
+		{
+			for(int col = 0;col < us[0].length; col++)
+				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+				{
+					if(us[row][col].getValidLocations(us[row][col].x, us[row][col].y, Gdx.input.getX(), Gdx.input.getY()))
+					{
 						highlightAdjacentTiles(row, col, us, batch);
 					}
 		    }
 		}
-		for(int row=0; row<them.length;row++){
-			for(int col=0;col<them[0].length;col++)
-				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-					if(them[row][col].getValidLocations(them[row][col].x, them[row][col].y, Gdx.input.getX(), Gdx.input.getY())){
+		
+		for(int row = 0; row < them.length; row++)
+		{
+			for(int col = 0; col < them[0].length; col++)
+				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
+				{
+					if(them[row][col].getValidLocations(them[row][col].x, them[row][col].y, Gdx.input.getX(), Gdx.input.getY()))
+					{
 						highlightAdjacentTiles(row, col, them, batch);
 					}
 		    }
@@ -66,10 +73,14 @@ public class BoardDraw
 
 	}
 	
-	public void highlightAdjacentTiles(int row, int col, Hex[][] arr, SpriteBatch batch){
-		for(int k=0; k<arr.length;k++){
-			for(int i=0;i<arr[0].length;i++){
-				if(BoardHalf.isAdjacent(k, i, row, col)){
+	public void highlightAdjacentTiles(int row, int col, Hex[][] arr, SpriteBatch batch) 
+	{
+		for(int k = 0; k < arr.length; k++)
+		{
+			for(int i = 0; i < arr[0].length; i++)
+			{
+				if(BoardHalf.isAdjacent(k, i, row, col))
+				{
 					arr[k][i].select(batch);
 				}
 			}
