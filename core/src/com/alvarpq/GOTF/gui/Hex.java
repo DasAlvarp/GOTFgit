@@ -3,6 +3,7 @@ package com.alvarpq.GOTF.gui;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -17,7 +18,7 @@ public class Hex
 	private static int SELECTEDFRAMES = 7;
 
 	ArrayList<Texture> textureFrames = new ArrayList<Texture>();
-	
+	ArrayList<Texture> attackingFrames = new ArrayList<Texture>();
 	
 	public boolean selectOut;
 
@@ -41,10 +42,12 @@ public class Hex
 		font.setColor(Color.RED);
 		
 		String locationString = "GUI/selectedTiles/selectedTile";
+		String loc2string = "GUI/attackingTiles/attackingTile";
 		
 		for(int x = 0; x < SELECTEDFRAMES; x++)
 		{
 			textureFrames.add(new Texture(locationString + "(" + x + ").png"));//ghetto-rigged animation is the best kind of animation.
+			attackingFrames.add(new Texture(loc2string + "(" + x + ").png"));
 		}
 		
 		currentFrame = 0;
@@ -57,7 +60,7 @@ public class Hex
 	public void drawit(SpriteBatch batch)
 	{
 
-		tick = (tick + 1) % 3; //amount of frames per current frame switch
+		tick = (tick + 1) % 4; //amount of frames per current frame switch
 		if(tick == 0)
 			currentFrame = (currentFrame + 1) % SELECTEDFRAMES;
 
@@ -79,7 +82,10 @@ public class Hex
 	//selects a hex
 	public void select(SpriteBatch batch)
 	{
-		selected = new Sprite(textureFrames.get(currentFrame));
+		if(Gdx.input.isButtonPressed(Input.Buttons.RIGHT))
+			selected = new Sprite(attackingFrames.get(currentFrame));
+		else
+			selected = new Sprite(textureFrames.get(currentFrame));
 		batch.draw(selected, x , y, 39, 45);
 	}
 	
