@@ -17,8 +17,8 @@ public class Hex extends Entity
 	Sprite selected;
 
 	private BitmapFont font;
-	private static int LENGTH = 39;
-	private static int HEIGHT = 45;
+	private static int LENGTH = 78;
+	private static int HEIGHT = 90;
 	private boolean highlighted=false;
 	
 	public Hex(int x1, int y1, Sprite sprit, Sprite sel)
@@ -78,6 +78,7 @@ public class Hex extends Entity
 	@Override
 	public Sprite getSprite() {
 		// TODO Auto-generated method stub
+
 		if(highlighted){
 			return selected;
 		}

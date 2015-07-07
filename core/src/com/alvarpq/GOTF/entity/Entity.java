@@ -22,6 +22,7 @@ public abstract class Entity {
 	public void render(SpriteBatch sb){
 		pos=getLocation();
 		sprite=getSprite();
-		sb.draw(sprite, pos.x,pos.y);
+		sprite.setPosition(pos.x, pos.y);
+		sprite.draw(sb);
 	}
 }

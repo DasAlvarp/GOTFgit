@@ -1,6 +1,9 @@
 package com.alvarpq.GOTF.screen;
 
 import com.alvarpq.GOTF.coreGame.Game;
+import com.alvarpq.GOTF.coreGame.units.ProudMercenary;
+import com.alvarpq.GOTF.entity.Entity;
+import com.alvarpq.GOTF.entity.EntityManager;
 import com.alvarpq.GOTF.gui.BackDraw;
 import com.alvarpq.GOTF.gui.BoardDraw;
 import com.badlogic.gdx.Gdx;
@@ -15,16 +18,15 @@ public class GameScreen extends Screen{
 	BackDraw bkgrnd;
 	SpriteBatch batch;
 	Game game;
+	boolean bool=false;
 	
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
+
 		batch=new SpriteBatch();
 		game=new Game();
-=======
 		batch = new SpriteBatch();
->>>>>>> origin/WIP-ScreenManager
 		//board = new BoardDraw();
 		//bkgrnd = new BackDraw();
 		
@@ -32,17 +34,15 @@ public class GameScreen extends Screen{
 
 	public void update() {
 		// TODO Auto-generated method stub
-		checkForClick();
+		//checkForClick();
 	}
 
 	@Override
 	public void render(SpriteBatch batch) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
-=======
+
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);      //clears the buffer 
->>>>>>> origin/WIP-ScreenManager
+
 		batch.begin();
 		
 		//bkgrnd.drawit(batch);//drawit functions are default draw functions
@@ -64,19 +64,16 @@ public class GameScreen extends Screen{
 		
 	}
 	
-<<<<<<< HEAD
-	public void checkForClick(){
-		//if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-			//ScreenManager.setScreen(new MenuScreen());
-=======
+
+
 	public void checkForClick()
 	{
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 		{
 			ScreenManager.setScreen(new MenuScreen());
->>>>>>> origin/WIP-ScreenManager
 			
 		//}
 	}
 
+}
 }
