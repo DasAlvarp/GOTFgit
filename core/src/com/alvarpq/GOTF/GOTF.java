@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF;
 
+import com.alvarpq.GOTF.entity.EntityManager;
 import com.alvarpq.GOTF.gui.BackDraw;
 import com.alvarpq.GOTF.gui.BoardDraw;
 import com.alvarpq.GOTF.screen.GameScreen;
@@ -15,14 +16,13 @@ public class GOTF extends ApplicationAdapter
 
 	//Trying Solaus background, change back if needed to
 	SpriteBatch batch;
-	BoardDraw board;
-	BackDraw bkgrnd;
+
 	
 	@Override
 	public void create() 
 	{//batch is what lets images exist..I think. Rest of names are intuitive.
 		batch = new SpriteBatch();
-		ScreenManager.setScreen(new MenuScreen());
+		ScreenManager.setScreen(new GameScreen());
 	}
 
 	
@@ -37,12 +37,16 @@ public class GOTF extends ApplicationAdapter
 	@Override
 	public void render ()
 	{
-		if(ScreenManager.getCurrentScreen()!=null){
-			ScreenManager.getCurrentScreen().render(batch);
-		}
+		batch.begin();
+		
+	//	if(ScreenManager.getCurrentScreen()!=null){
+		//	ScreenManager.getCurrentScreen().render(batch);
+		//}
 		if(ScreenManager.getCurrentScreen()!=null){
 			ScreenManager.getCurrentScreen().update();
 		}
+		EntityManager.renderAll(batch);
+		batch.end();
 	}
 	
 	public void resize(int width, int height){

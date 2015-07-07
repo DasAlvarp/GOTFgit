@@ -5,12 +5,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class MenuScreen extends Screen{
 
-	//private TextButton button=new TextButton("Game Menu", new Skin(Gdx.files.internal("gameScreen.png")));
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
@@ -19,8 +20,8 @@ public class MenuScreen extends Screen{
 	@Override
 	public void render(SpriteBatch batch) {
 		// TODO Auto-generated method stub
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
 		batch.begin();
-		batch.draw(new Texture(Gdx.files.internal("gameScreen.png")), 200, 0);
 		batch.end();
 	}
 
@@ -38,11 +39,12 @@ public class MenuScreen extends Screen{
 
 	public void update() {
 		// TODO Auto-generated method stub
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+	/*	if(Gdx.input.isButtonPressed(Input.Buttons.LEFT) ){
 			if(Gdx.input.getX()>200 && Gdx.graphics.getHeight()-Gdx.input.getY()>0){
 			ScreenManager.setScreen(new GameScreen());
 			}
 		}
+		*/
 	}
 
 	@Override

@@ -1,9 +1,11 @@
 package com.alvarpq.GOTF.screen;
 
+import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.gui.BackDraw;
 import com.alvarpq.GOTF.gui.BoardDraw;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,11 +14,13 @@ public class GameScreen extends Screen{
 	BoardDraw board;
 	BackDraw bkgrnd;
 	SpriteBatch batch;
+	Game game;
 	
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
 		batch=new SpriteBatch();
+		game=new Game();
 		//board = new BoardDraw();
 		//bkgrnd = new BackDraw();
 		
@@ -30,10 +34,12 @@ public class GameScreen extends Screen{
 	@Override
 	public void render(SpriteBatch batch) {
 		// TODO Auto-generated method stub
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
 		batch.begin();
+		
 		//bkgrnd.drawit(batch);//drawit functions are default draw functions
 		//board.drawit(batch);
-		batch.draw(new Texture(("menuScreen.png")), 200, 100);
+		//batch.draw(new Texture(("menuScreen.png")), 200, 100);
 		batch.end();
 	}
 
@@ -50,10 +56,10 @@ public class GameScreen extends Screen{
 	}
 	
 	public void checkForClick(){
-		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-			ScreenManager.setScreen(new MenuScreen());
+		//if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+			//ScreenManager.setScreen(new MenuScreen());
 			
-		}
+		//}
 	}
 
 }

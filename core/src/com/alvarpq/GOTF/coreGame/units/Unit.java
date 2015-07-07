@@ -7,11 +7,9 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.alvarpq.GOTF.entity.Entity;
-import com.alvarpq.GOTF.gui.Hex;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 public abstract class Unit extends Entity
 {
@@ -21,13 +19,13 @@ public abstract class Unit extends Entity
 	private int row, column;
 	private Player owner;
 	private AttackType attackType;
+	private MoveType moveType;
 	private List<Effect> effects;
+	//Temp frame variable to do animations
 	protected int frame=0;
-	//protected Hex hex;
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
 	{
-		super(new Vector2(h.getX(), h.getY()));
-		//hex=h;
+		super();
 		this.name = name;
 		this.baseCountdown = baseCountdown;
 		this.maximumHealth = maximumHealth;
@@ -40,34 +38,27 @@ public abstract class Unit extends Entity
 		this.column = column;
 		owner = Player.NONE;
 		attackType = AttackType.NORMAL;
+		setMoveType(MoveType.NORMAL);
 		effects = new LinkedList<Effect>();
 	}
 	
-//	public abstract int getCost();
-//	public abstract int[] getThreshhold();
-	
-	//override for self-buffs and buffs on other units
-	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
-	//call BoardHalf.move instead
-	
 	//NEW METHOD~TO IMPLEMENT
-	public Texture getTexture() {
+	public Sprite getSprite() {
 		// TODO Auto-generated method stub
-		 return new Texture(Gdx.files.internal("noTexture.png"));
+		 return new Sprite(new Texture(Gdx.files.internal("noTexture.png")));
 		
 	}
 	
-	public void move(int row, int column)
-	{
-		this.row = row;
-		this.column = column;
+	public Vector2 getLocation(){
+		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());
 	}
-	//call BoardHalf.resetCountdown instead
+	
+	//override for self-buffs and buffs on other units
+	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;
 	}
-	//call BoardHalf.countDown instead
 	public boolean countDown()
 	{
 		if(countdown>0)
@@ -77,43 +68,29 @@ public abstract class Unit extends Entity
 		}
 		return false;
 	}
-	//call BoardHalf.resetMove instead
 	public void resetMove()
 	{
 		move = baseMove;
 	}
-	//Changes the unit's current countdown
-	public void changeCountdown(BoardHalf mySide, BoardHalf opponentsSide, int amount)
+	public void changeCountdown(int amount)
 	{
 		countdown+=amount;
-		mySide.updateUnits();
 	}
-	//Heals the unit
-	public void heal(BoardHalf mySide, BoardHalf opponentsSide, int amount)
+	public void heal(int amount)
 	{
 		health+=amount;
 		if(health>maximumHealth)
 		{
 			health = maximumHealth;
 		}
-		mySide.updateUnits();
 	}
-	//Damages the unit
-	public void damage(BoardHalf mySide, BoardHalf opponentsSide, int amount)
-	{
-		health-=amount;
-		mySide.updateUnits();
-	}
-	//Only use inside AttackType attack function
-	public void attackDamage(int amount)
+	public void damage(int amount)
 	{
 		health-=amount;
 	}
-	//Makes the unit lose or regain movement points
-	public void changeMove(BoardHalf mySide, BoardHalf opponentsSide, int amount)
+	public void changeMove(int amount)
 	{
 		move+=amount;
-		mySide.updateUnits();
 	}
 	public void applyEffect(Effect effect)
 	{
@@ -164,6 +141,18 @@ public abstract class Unit extends Entity
 	{
 		return name;
 	}
+	public int getBaseCountdown()
+	{
+		return baseCountdown;
+	}
+	public int getMaximumHealth()
+	{
+		return maximumHealth;
+	}
+	public int getBaseMove()
+	{
+		return baseMove;
+	}
 	public int getAttack()
 	{
 		return attack;
@@ -172,13 +161,21 @@ public abstract class Unit extends Entity
 	{
 		return countdown;
 	}
+	public int getHealth()
+	{
+		return health;
+	}
 	public int getMove()
 	{
 		return move;
 	}
-	public int getHealth()
+	public void setRow(int row)
 	{
-		return health;
+		this.row = row;
+	}
+	public void setColumn(int column)
+	{
+		this.column = column;
 	}
 	public int getRow()
 	{
@@ -203,6 +200,14 @@ public abstract class Unit extends Entity
 	public void setAttackType(AttackType attackType)
 	{
 		this.attackType = attackType;
+	}
+	public MoveType getMoveType()
+	{
+		return moveType;
+	}
+	public void setMoveType(MoveType moveType)
+	{
+		this.moveType = moveType;
 	}
 	@Override
 	public String toString()
