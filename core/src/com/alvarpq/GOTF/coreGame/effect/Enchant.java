@@ -6,5 +6,4 @@ public interface Enchant extends Effect
 	public int baseCountdownChange();
 	public int healthChange();
 	public int cardMoveChange();
-	public void trigger();
 }

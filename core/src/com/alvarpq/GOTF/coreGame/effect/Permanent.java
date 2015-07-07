@@ -37,5 +37,4 @@ public class Permanent implements Effect
 	{
 		return name;
 	}
-	@Override public void trigger(){}
 }
