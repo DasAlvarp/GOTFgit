@@ -1,11 +1,19 @@
 package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
-public abstract class Unit
+import com.alvarpq.GOTF.entity.Entity;
+import com.alvarpq.GOTF.gui.Hex;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
+public abstract class Unit extends Entity
 {
 	private String name;
 	private int baseCountdown, maximumHealth, baseMove;
@@ -14,8 +22,12 @@ public abstract class Unit
 	private Player owner;
 	private AttackType attackType;
 	private List<Effect> effects;
+	protected int frame=0;
+	//protected Hex hex;
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
 	{
+		super(new Vector2(h.getX(), h.getY()));
+		//hex=h;
 		this.name = name;
 		this.baseCountdown = baseCountdown;
 		this.maximumHealth = maximumHealth;
@@ -37,6 +49,14 @@ public abstract class Unit
 	//override for self-buffs and buffs on other units
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
 	//call BoardHalf.move instead
+	
+	//NEW METHOD~TO IMPLEMENT
+	public Texture getTexture() {
+		// TODO Auto-generated method stub
+		 return new Texture(Gdx.files.internal("noTexture.png"));
+		
+	}
+	
 	public void move(int row, int column)
 	{
 		this.row = row;

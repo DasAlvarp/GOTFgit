@@ -27,6 +27,14 @@ public class Hex
 		font = new BitmapFont();
 		font.setColor(Color.RED);
 	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public int getY(){
+		return y;
+	}
 
 	public void drawit(SpriteBatch batch)
 	{
