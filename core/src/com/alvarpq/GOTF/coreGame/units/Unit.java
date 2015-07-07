@@ -60,20 +60,18 @@ public abstract class Unit
 		countdown+=amount;
 	}
 	//Heals the unit
-	public void heal(BoardHalf mySide, BoardHalf opponentsSide, int amount)
+	public void heal(int amount)
 	{
 		health+=amount;
 		if(health>maximumHealth)
 		{
 			health = maximumHealth;
 		}
-		mySide.updateUnits();
 	}
 	//Damages the unit
-	public void damage(BoardHalf mySide, BoardHalf opponentsSide, int amount)
+	public void damage(int amount)
 	{
 		health-=amount;
-		mySide.updateUnits();
 	}
 	//Only use inside AttackType attack function
 	public void attackDamage(int amount)
@@ -81,10 +79,9 @@ public abstract class Unit
 		health-=amount;
 	}
 	//Makes the unit lose or regain movement points
-	public void changeMove(BoardHalf mySide, BoardHalf opponentsSide, int amount)
+	public void changeMove(int amount)
 	{
 		move+=amount;
-		mySide.updateUnits();
 	}
 	public void applyEffect(Effect effect)
 	{

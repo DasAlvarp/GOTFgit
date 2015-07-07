@@ -198,6 +198,36 @@ public class BoardHalf
 		unit.changeCountdown(amount);
 		updateUnits();
 	}
+	public void heal(int row, int column, int amount)
+	{
+		getUnitAt(row, column).heal(amount);
+		updateUnits();
+	}
+	public void heal(Unit unit, int amount)
+	{
+		unit.heal(amount);
+		updateUnits();
+	}
+	public void damage(int row, int column, int amount)
+	{
+		getUnitAt(row, column).damage(amount);
+		updateUnits();
+	}
+	public void damage(Unit unit, int amount)
+	{
+		unit.damage(amount);
+		updateUnits();
+	}
+	public void changeMove(int row, int column, int amount)
+	{
+		getUnitAt(row, column).changeMove(amount);
+		updateUnits();
+	}
+	public void changeMove(Unit unit, int amount)
+	{
+		unit.changeMove(amount);
+		updateUnits();
+	}
 	public int getIdolAt(int row)
 	{
 		return idols[row];
