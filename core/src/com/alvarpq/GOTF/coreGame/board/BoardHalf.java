@@ -40,8 +40,6 @@ public class BoardHalf
 		this.units = units;
 		this.idols = idols;
 	}
-<<<<<<< HEAD
-=======
 	
 	public void setParentGame(Game g){
 		game=g;
@@ -50,7 +48,6 @@ public class BoardHalf
 	public Game getParentGame(){
 		return game;
 	}
->>>>>>> origin/WIP-ScreenManager
 	public void update()
 	{
 		for(Unit unit:getUnits())
@@ -158,19 +155,12 @@ public class BoardHalf
 		update();
 	}
 	public HexEnchant getHexEnchantAt(int row, int column)
-<<<<<<< HEAD
 	{
 		return hexEnchants[row][column];
 	}
+
 	public List<HexEnchant> getHexEnchants()
 	{
-=======
-	{
-		return hexEnchants[row][column];
-	}
-	public List<HexEnchant> getHexEnchants()
-	{
->>>>>>> origin/WIP-ScreenManager
 		List<HexEnchant> toReturn = new LinkedList<HexEnchant>();
 		for(int i=0;i<numberOfRows();i++)
 		{

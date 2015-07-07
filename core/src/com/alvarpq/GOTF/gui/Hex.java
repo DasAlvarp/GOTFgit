@@ -85,7 +85,8 @@ public class Hex extends Entity
 	}
 
 	@Override
-	public Vector2 getLocation() {
+	public Vector2 getLocation() 
+	{
 		// TODO Auto-generated method stub
 		return new Vector2(x,y);
 	}

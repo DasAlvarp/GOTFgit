@@ -19,12 +19,9 @@ public class GameScreen extends Screen{
 	@Override
 	public void create() {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
 		batch=new SpriteBatch();
 		game=new Game();
-=======
 		batch = new SpriteBatch();
->>>>>>> origin/WIP-ScreenManager
 		//board = new BoardDraw();
 		//bkgrnd = new BackDraw();
 		
@@ -38,11 +35,9 @@ public class GameScreen extends Screen{
 	@Override
 	public void render(SpriteBatch batch) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
-=======
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);      //clears the buffer 
->>>>>>> origin/WIP-ScreenManager
 		batch.begin();
 		
 		//bkgrnd.drawit(batch);//drawit functions are default draw functions
@@ -64,19 +59,15 @@ public class GameScreen extends Screen{
 		
 	}
 	
-<<<<<<< HEAD
-	public void checkForClick(){
-		//if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+	//if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
 			//ScreenManager.setScreen(new MenuScreen());
-=======
 	public void checkForClick()
 	{
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 		{
 			ScreenManager.setScreen(new MenuScreen());
->>>>>>> origin/WIP-ScreenManager
 			
-		//}
+		}
 	}
 
 }

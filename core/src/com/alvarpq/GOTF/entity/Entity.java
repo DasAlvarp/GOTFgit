@@ -4,11 +4,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class Entity {
+public abstract class Entity 
+{
 
 	protected Vector2 pos;
 	protected Sprite sprite;
-	public Entity(){
+	public Entity()
+	{
 		pos=getLocation();
 		sprite=getSprite();
 		
@@ -19,9 +21,10 @@ public abstract class Entity {
 	public abstract Vector2 getLocation();
 	public abstract void update();
 	
-	public void render(SpriteBatch sb){
-		pos=getLocation();
-		sprite=getSprite();
+	public void render(SpriteBatch sb)
+	{
+		pos = getLocation();
+		sprite = getSprite();
 		sb.draw(sprite, pos.x,pos.y);
 	}
 }
