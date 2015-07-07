@@ -40,7 +40,7 @@ public class Hex
 		font = new BitmapFont();
 		font.setColor(Color.RED);
 		
-		String locationString = "gooeyStuff/selectedTiles/selectedTile";
+		String locationString = "GUI/selectedTiles/selectedTile";
 		
 		for(int x = 0; x < SELECTEDFRAMES; x++)
 		{
