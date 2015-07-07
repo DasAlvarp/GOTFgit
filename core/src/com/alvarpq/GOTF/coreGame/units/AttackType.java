@@ -8,7 +8,11 @@ public interface AttackType
 	public static final Normal NORMAL = new Normal();
 	public static final Relentless RELENTLESS = new Relentless();
 	public static final NoAttack NO_ATTACK = new NoAttack();
+<<<<<<< HEAD
 	public void attack(Unit unit, BoardHalf myHalf, BoardHalf opponentsHalf);
+=======
+	public void attack(Unit unit, BoardHalf mySide, BoardHalf opponentsSide);
+>>>>>>> Stuff.
 	class Normal implements AttackType
 	{
 		@Override
@@ -19,12 +23,21 @@ public interface AttackType
 			{
 				if(opponentsHalf.getUnitAt(unit.getRow(), i)!=null)
 				{
+<<<<<<< HEAD
 					opponentsHalf.getUnitAt(unit.getRow(), i).damage(unit.getAttack());
 					myHalf.dispatchEvent(new UnitDamagedByUnitEvent(opponentsHalf.getUnitAt(unit.getRow(), i), unit, unit.getAttack(), myHalf, opponentsHalf));
 					myHalf.dispatchEvent(new UnitDamagedEvent(opponentsHalf.getUnitAt(unit.getRow(), i), unit.getAttack(), myHalf, opponentsHalf));
 					if(opponentsHalf.getUnitAt(unit.getRow(), i).getHealth()<=0)
 					{
 						myHalf.dispatchEvent(new UnitKilledByUnitEvent(opponentsHalf.getUnitAt(unit.getRow(), i), unit, myHalf, opponentsHalf));
+=======
+					opponentsSide.getUnitAt(unit.getRow(), i).damage(unit.getAttack());
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, unit.getAttack(), mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
+					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<=0)
+					{
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+>>>>>>> Stuff.
 					}
 					unitHit = true;
 					break;
@@ -55,6 +68,7 @@ public interface AttackType
 			{
 				if(opponentsHalf.getUnitAt(unit.getRow(), i)!=null)
 				{
+<<<<<<< HEAD
 					opponentsHalf.getUnitAt(unit.getRow(), i).damage(attackLeft);
 					myHalf.dispatchEvent(new UnitDamagedByUnitEvent(opponentsHalf.getUnitAt(unit.getRow(), i), unit, attackLeft, myHalf, opponentsHalf));
 					myHalf.dispatchEvent(new UnitDamagedEvent(opponentsHalf.getUnitAt(unit.getRow(), i), attackLeft, myHalf, opponentsHalf));
@@ -67,6 +81,20 @@ public interface AttackType
 					else if(opponentsHalf.getUnitAt(unit.getRow(), i).getHealth()==0)
 					{
 						myHalf.dispatchEvent(new UnitKilledByUnitEvent(opponentsHalf.getUnitAt(unit.getRow(), i), unit, myHalf, opponentsHalf));
+=======
+					opponentsSide.getUnitAt(unit.getRow(), i).damage(attackLeft);
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, attackLeft, mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getUnitAt(unit.getRow(), i), attackLeft, mySide, opponentsSide));
+					attackLeft = 0;
+					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<0)
+					{
+						attackLeft-=opponentsSide.getUnitAt(unit.getRow(), i).getHealth();
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+					}
+					else if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()==0)
+					{
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+>>>>>>> Stuff.
 						break;
 					}
 					else
@@ -93,7 +121,11 @@ public interface AttackType
 	class NoAttack implements AttackType
 	{
 		@Override
+<<<<<<< HEAD
 		public void attack(Unit unit, BoardHalf myHalf, BoardHalf opponentsHalf)
+=======
+		public void attack(Unit unit, BoardHalf mySide, BoardHalf opponentsSide)
+>>>>>>> Stuff.
 		{
 		}
 		@Override
@@ -102,4 +134,8 @@ public interface AttackType
 			return "Does not attack";
 		}
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> Stuff.

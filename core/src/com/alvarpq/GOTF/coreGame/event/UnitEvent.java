@@ -13,6 +13,7 @@ public abstract class UnitEvent
 	{
 		return myHalf;
 	}
+<<<<<<< HEAD
 	public BoardHalf getopponentsHalf()
 	{
 		return opponentsHalf;
@@ -22,5 +23,16 @@ public abstract class UnitEvent
 		BoardHalf temp = myHalf;
 		myHalf = opponentsHalf;
 		opponentsHalf = temp;
+=======
+	public BoardHalf getOpponentsSide()
+	{
+		return opponentsSide;
+	}
+	public void invertSides()
+	{
+		BoardHalf temp = mySide;
+		mySide = opponentsSide;
+		opponentsSide = temp;
+>>>>>>> Stuff.
 	}
 }

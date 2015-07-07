@@ -7,11 +7,9 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.alvarpq.GOTF.entity.Entity;
-import com.alvarpq.GOTF.gui.Hex;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 public abstract class Unit extends Entity
 {
@@ -23,12 +21,11 @@ public abstract class Unit extends Entity
 	private AttackType attackType;
 	private MoveType moveType;
 	private List<Effect> effects;
+	//Temp frame variable to do animations
 	protected int frame=0;
-	//protected Hex hex;
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
 	{
-		super(new Vector2(h.getX(), h.getY()));
-		//hex=h;
+		super();
 		this.name = name;
 		this.baseCountdown = baseCountdown;
 		this.maximumHealth = maximumHealth;
@@ -44,26 +41,33 @@ public abstract class Unit extends Entity
 		setMoveType(MoveType.NORMAL);
 		effects = new LinkedList<Effect>();
 	}
+<<<<<<< HEAD
 	//override for self-buffs and buffs on other units
 <<<<<<< HEAD
 	public abstract void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf);
 =======
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
 	//call BoardHalf.move instead
+=======
+>>>>>>> Stuff.
 	
 	//NEW METHOD~TO IMPLEMENT
-	public Texture getTexture() {
+	public Sprite getSprite() {
 		// TODO Auto-generated method stub
-		 return new Texture(Gdx.files.internal("noTexture.png"));
+		 return new Sprite(new Texture(Gdx.files.internal("noTexture.png")));
 		
 	}
 	
-	public void move(int row, int column)
-	{
-		this.row = row;
-		this.column = column;
+	public Vector2 getLocation(){
+		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());
 	}
+<<<<<<< HEAD
 	//call BoardHalf.resetCountdown instead
+>>>>>>> Stuff.
+=======
+	
+	//override for self-buffs and buffs on other units
+	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
 >>>>>>> Stuff.
 	public void resetCountdown()
 	{
@@ -93,11 +97,19 @@ public abstract class Unit extends Entity
 		{
 			health = maximumHealth;
 		}
+<<<<<<< HEAD
 	}
 	public void damage(int amount)
 	{
 		health-=amount;
 	}
+=======
+	}
+	public void damage(int amount)
+	{
+		health-=amount;
+	}
+>>>>>>> Stuff.
 	public void changeMove(int amount)
 	{
 		move+=amount;

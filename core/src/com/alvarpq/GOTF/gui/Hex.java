@@ -1,7 +1,12 @@
 package com.alvarpq.GOTF.gui;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 
+=======
+import com.alvarpq.GOTF.entity.Entity;
+import com.alvarpq.GOTF.entity.EntityManager;
+>>>>>>> Stuff.
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -9,8 +14,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
-public class Hex 
+public class Hex extends Entity
 {
 	int x, y;
 	Sprite hx;
@@ -27,18 +33,25 @@ public class Hex
 	private BitmapFont font;
 	private static int LENGTH = 39;
 	private static int HEIGHT = 45;
+<<<<<<< HEAD
 
 	private int tick;
 	
+=======
+	private boolean highlighted=false;
+>>>>>>> Stuff.
 	
 	public Hex(int x1, int y1, Sprite sprit, Sprite sel)
 	{
+		super();
+		System.out.println("Hex at x="+x1+" y="+y1);
 		hx = sprit;
 		x = x1;
 		y = y1;
 		selected = sel;
 		
 		font = new BitmapFont();
+<<<<<<< HEAD
 		font.setColor(Color.WHITE);
 		
 		String locationString = "GUI/selectedTiles/selectedTile";
@@ -54,6 +67,12 @@ public class Hex
 		tick = 0;
 		
 		
+=======
+		font.setColor(Color.RED);
+		
+		EntityManager.addEntity(this);
+		System.out.println("Added.");
+>>>>>>> Stuff.
 	}
 	
 	public int getX(){
@@ -64,6 +83,7 @@ public class Hex
 		return y;
 	}
 
+<<<<<<< HEAD
 	//draws sprite
 	public void drawit(SpriteBatch batch)
 	{
@@ -83,9 +103,14 @@ public class Hex
 	
 	//deselects a sprite
 	public void deselect(SpriteBatch batch)
+=======
+	
+	public void deselect()
+>>>>>>> Stuff.
 	{
-		batch.draw(hx, x, y, 39, 45);
+		highlighted=false;
 	}
+<<<<<<< HEAD
 	
 	//selects a hex
 	public void select(SpriteBatch batch)
@@ -99,6 +124,14 @@ public class Hex
 	
 	//returns whether a hex placed at x, y, is overlapped by the coordinates of mouseX and mouseY
 	public boolean getValidLocations(int x, int y, int mouseX, int mouseY)
+=======
+	public void select()
+	{
+		highlighted=true;
+	}
+	
+	public boolean getValidLocations(int mouseX, int mouseY)
+>>>>>>> Stuff.
 	{
 		
 		if(x < mouseX && x + LENGTH / 2 > mouseX)
@@ -127,5 +160,29 @@ public class Hex
 		{
 			return false;
 		}
+	}
+
+	@Override
+	public Sprite getSprite() {
+		// TODO Auto-generated method stub
+		if(highlighted){
+			return selected;
+		}
+		return hx;
+	}
+
+	@Override
+	public Vector2 getLocation() {
+		// TODO Auto-generated method stub
+		return new Vector2(x,y);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		if(getValidLocations(Gdx.input.getX(), Gdx.input.getY()))
+			select();
+		else
+			deselect();
 	}
 }
