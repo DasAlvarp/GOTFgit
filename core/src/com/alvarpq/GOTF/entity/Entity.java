@@ -1,24 +1,27 @@
 package com.alvarpq.GOTF.entity;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Entity {
 
 	protected Vector2 pos;
-	protected Texture texture;
-	public Entity(Vector2 pos){
-		this.pos=pos;
-		texture=getTexture();
+	protected Sprite sprite;
+	public Entity(){
+		pos=getLocation();
+		sprite=getSprite();
+		
 		
 	}
 	
-	public abstract Texture getTexture();
+	public abstract Sprite getSprite();
+	public abstract Vector2 getLocation();
 	public abstract void update();
 	
 	public void render(SpriteBatch sb){
-		sb.draw(texture, pos.x,pos.y);
+		pos=getLocation();
+		sprite=getSprite();
+		sb.draw(sprite, pos.x,pos.y);
 	}
 }

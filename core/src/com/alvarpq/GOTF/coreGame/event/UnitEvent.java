@@ -13,16 +13,14 @@ public abstract class UnitEvent
 	{
 		return mySide;
 	}
-	public void setMySide(BoardHalf mySide)
-	{
-		this.mySide = mySide;
-	}
 	public BoardHalf getOpponentsSide()
 	{
 		return opponentsSide;
 	}
-	public void setOpponentsSide(BoardHalf opponentsSide)
+	public void invertSides()
 	{
-		this.opponentsSide = opponentsSide;
+		BoardHalf temp = mySide;
+		mySide = opponentsSide;
+		opponentsSide = temp;
 	}
 }

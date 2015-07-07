@@ -1,11 +1,9 @@
 package com.alvarpq.GOTF.gui;
 
-
-
-import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,8 +14,8 @@ public class BoardDraw
 {
 	
 	
-	private static int LENGTH = 39;//optimal length
-	private static int HEIGHT = 45;//optimal height
+	private static int LENGTH = 78;//optimal length
+	private static int HEIGHT = 90;//optimal height
 	private ArrayList<Hex> hexes=new ArrayList<Hex>();
 	private Hex[][] us;
 	private Hex[][] them;
@@ -29,15 +27,26 @@ public class BoardDraw
 	Sprite sel = new Sprite(selTex);
 
 	//TODO add Game g parameter
-	public BoardDraw()//setting up the board. Probably should be called on every board update, since it will eventaully include the board state.
+	public BoardDraw()//setting up the board. Probably should be called on every board update, since it will eventually include the board state.
 	{
+		hx.setSize(LENGTH, HEIGHT);
+		sel.setSize(LENGTH, HEIGHT);
 		us=new Hex[5][3];
 		them=new Hex[5][3];
 		hexes.clear();
 		hx.setSize(LENGTH, HEIGHT);
 	//	master=g;
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
 		myBoard(5);
 		theEnemy(5);
+	}
+	
+	public Hex[][] getP1(){
+		return us;
+	}
+	
+	public Hex[][] getP2(){
+		return them;
 	}
 	
 	//main draw function
@@ -45,32 +54,32 @@ public class BoardDraw
 	{
 		for(int x = 0; x < hexes.size(); x++)
 		{
-			hexes.get(x).drawit(batch);
+		//	hexes.get(x).drawit(batch);
 		}
 		for(int row=0;row<us.length;row++){
 			for(int col=0;col<us[0].length;col++)
 				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-					if(us[row][col].getValidLocations(us[row][col].x, us[row][col].y, Gdx.input.getX(), Gdx.input.getY())){
-						highlightAdjacentTiles(row, col, us, batch);
+					if(us[row][col].getValidLocations(Gdx.input.getX(), Gdx.input.getY())){
+						highlightAdjacentTiles(row, col, us);
 					}
 		    }
 		}
 		for(int row=0;row<them.length;row++){
 			for(int col=0;col<them[0].length;col++)
 				if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
-					if(them[row][col].getValidLocations(them[row][col].x, them[row][col].y, Gdx.input.getX(), Gdx.input.getY())){
-						highlightAdjacentTiles(row, col, them, batch);
+					if(them[row][col].getValidLocations(Gdx.input.getX(), Gdx.input.getY())){
+						highlightAdjacentTiles(row, col, them);
 					}
 		    }
 		}
 
 	}
 	
-	public void highlightAdjacentTiles(int row, int col, Hex[][] arr, SpriteBatch batch){
+	public void highlightAdjacentTiles(int row, int col, Hex[][] arr){
 		for(int k=0; k<arr.length;k++){
 			for(int i=0;i<arr[0].length;i++){
 				if(BoardHalf.isAdjacent(k, i, row, col)){
-					arr[k][i].select(batch);
+					arr[k][i].select();
 				}
 			}
 		}

@@ -4,6 +4,7 @@ import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 public class ProudMercenary extends Unit
@@ -23,10 +24,11 @@ public class ProudMercenary extends Unit
 			}
 		}
 	}
-	public Texture getTexture(){
-		Texture f1=new Texture(Gdx.files.internal("animFrame1.png"));
-		Texture f2=new Texture(Gdx.files.internal("animFrame2.png"));
-		Texture[] anim={f1,f2};
+	public Sprite getSprite(){
+		Sprite f1= new Sprite(new Texture(Gdx.files.internal("animFrame1.png")));
+		Sprite f2= new Sprite(new Texture(Gdx.files.internal("animFrame2.png")));
+		f1.setSize(30,50);
+		Sprite[] anim={f1,f2};
 		return anim[frame];
 	}
 	@Override

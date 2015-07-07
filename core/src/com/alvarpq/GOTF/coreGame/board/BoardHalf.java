@@ -1,6 +1,8 @@
 package com.alvarpq.GOTF.coreGame.board;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitListener;
@@ -21,6 +23,7 @@ public class BoardHalf
 	private int[] idols;
 	private BoardHalf opponentsSide;
 	private Player owner;
+	Game game;
 	public BoardHalf(int rows, int columns, int idolHealth, Player owner)
 	{
 		units = new Unit[rows][columns];
@@ -37,6 +40,17 @@ public class BoardHalf
 		this.units = units;
 		this.idols = idols;
 	}
+<<<<<<< HEAD
+=======
+	
+	public void setParentGame(Game g){
+		game=g;
+	}
+	
+	public Game getParentGame(){
+		return game;
+	}
+>>>>>>> origin/WIP-ScreenManager
 	public void update()
 	{
 		for(Unit unit:getUnits())
@@ -144,11 +158,19 @@ public class BoardHalf
 		update();
 	}
 	public HexEnchant getHexEnchantAt(int row, int column)
+<<<<<<< HEAD
 	{
 		return hexEnchants[row][column];
 	}
 	public List<HexEnchant> getHexEnchants()
 	{
+=======
+	{
+		return hexEnchants[row][column];
+	}
+	public List<HexEnchant> getHexEnchants()
+	{
+>>>>>>> origin/WIP-ScreenManager
 		List<HexEnchant> toReturn = new LinkedList<HexEnchant>();
 		for(int i=0;i<numberOfRows();i++)
 		{

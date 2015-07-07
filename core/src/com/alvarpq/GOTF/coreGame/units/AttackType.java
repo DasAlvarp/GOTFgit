@@ -1,10 +1,13 @@
 package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 public interface AttackType
 {
 	public static final Normal NORMAL = new Normal();
 	public static final Relentless RELENTLESS = new Relentless();
+	public static final NoAttack NO_ATTACK = new NoAttack();
 	public void attack(Unit unit, BoardHalf mySide, BoardHalf opponentsSide);
 	class Normal implements AttackType
 	{
@@ -16,11 +19,12 @@ public interface AttackType
 			{
 				if(opponentsSide.getUnitAt(unit.getRow(), i)!=null)
 				{
-					opponentsSide.getUnitAt(unit.getRow(), i).attackDamage(unit.getAttack());
+					opponentsSide.getUnitAt(unit.getRow(), i).damage(unit.getAttack());
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, unit.getAttack(), mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
 					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<=0)
 					{
 						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
-						opponentsSide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, opponentsSide, mySide));
 					}
 					unitHit = true;
 					break;
@@ -51,13 +55,19 @@ public interface AttackType
 			{
 				if(opponentsSide.getUnitAt(unit.getRow(), i)!=null)
 				{
-					opponentsSide.getUnitAt(unit.getRow(), i).attackDamage(attackLeft);
+					opponentsSide.getUnitAt(unit.getRow(), i).damage(attackLeft);
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, attackLeft, mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getUnitAt(unit.getRow(), i), attackLeft, mySide, opponentsSide));
 					attackLeft = 0;
-					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<=0)
+					if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()<0)
 					{
 						attackLeft-=opponentsSide.getUnitAt(unit.getRow(), i).getHealth();
 						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
-						opponentsSide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, opponentsSide, mySide));
+					}
+					else if(opponentsSide.getUnitAt(unit.getRow(), i).getHealth()==0)
+					{
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						break;
 					}
 					else
 					{
@@ -78,6 +88,18 @@ public interface AttackType
 		public String toString()
 		{
 			return "Relentless";
+		}
+	}
+	class NoAttack implements AttackType
+	{
+		@Override
+		public void attack(Unit unit, BoardHalf mySide, BoardHalf opponentsSide)
+		{
+		}
+		@Override
+		public String toString()
+		{
+			return "Does not attack";
 		}
 	}
 }
