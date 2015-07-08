@@ -1,12 +1,12 @@
 package com.alvarpq.GOTF.coreGame.hexEnchant;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
-public abstract class HexEnchant
+public abstract class HexEnchantment
 {
 	private String name;
 	private int row, column;
 	private Player owner;
-	public HexEnchant(String name, int row, int column)
+	public HexEnchantment(String name, int row, int column)
 	{
 		this.name = name;
 		this.row = row;

@@ -11,20 +11,20 @@ import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledListener;
-import com.alvarpq.GOTF.coreGame.hexEnchant.HexEnchant;
+import com.alvarpq.GOTF.coreGame.hexEnchant.HexEnchantment;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 public class BoardHalf
 {
 	//Do not change directly unless needed
 	private Unit[][] units;
-	private HexEnchant[][] hexEnchants;
+	private HexEnchantment[][] hexEnchants;
 	private int[] idols;
 	private BoardHalf opponentsSide;
 	private Player owner;
 	public BoardHalf(int rows, int columns, int idolHealth, Player owner)
 	{
 		units = new Unit[rows][columns];
-		hexEnchants = new HexEnchant[rows][columns];
+		hexEnchants = new HexEnchantment[rows][columns];
 		idols = new int[rows];
 		for(int i = 0;i<idols.length;i++)
 		{
@@ -47,7 +47,7 @@ public class BoardHalf
 		{
 			unit.applyPresence(this, opponentsSide);
 		}
-		for(HexEnchant hexEnchant:getHexEnchants())
+		for(HexEnchantment hexEnchant:getHexEnchants())
 		{
 			hexEnchant.applyPresence(this, opponentsSide);
 		}
@@ -59,7 +59,7 @@ public class BoardHalf
 		{
 			unit.applyPresence(opponentsSide, this);
 		}
-		for(HexEnchant hexEnchant:opponentsSide.getHexEnchants())
+		for(HexEnchantment hexEnchant:opponentsSide.getHexEnchants())
 		{
 			hexEnchant.applyPresence(opponentsSide, this);
 		}
@@ -143,13 +143,13 @@ public class BoardHalf
 		units[row][column] = null;
 		update();
 	}
-	public HexEnchant getHexEnchantAt(int row, int column)
+	public HexEnchantment getHexEnchantAt(int row, int column)
 	{
 		return hexEnchants[row][column];
 	}
-	public List<HexEnchant> getHexEnchants()
+	public List<HexEnchantment> getHexEnchants()
 	{
-		List<HexEnchant> toReturn = new LinkedList<HexEnchant>();
+		List<HexEnchantment> toReturn = new LinkedList<HexEnchantment>();
 		for(int i=0;i<numberOfRows();i++)
 		{
 			for(int j=0;j<numberOfColumns();j++)
@@ -162,7 +162,7 @@ public class BoardHalf
 		}
 		return toReturn;
 	}
-	public void addHexEnchant(HexEnchant hexEnchant)
+	public void addHexEnchant(HexEnchantment hexEnchant)
 	{
 		hexEnchants[hexEnchant.getRow()][hexEnchant.getColumn()] = hexEnchant;
 		hexEnchant.setOwner(owner);

@@ -1,7 +1,7 @@
 package com.alvarpq.GOTF.coreGame.hexEnchant;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
-public class Hill extends HexEnchant
+public class Hill extends HexEnchantment
 {
 	public Hill(int row, int column)
 	{

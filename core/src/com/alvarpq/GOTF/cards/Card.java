@@ -2,19 +2,31 @@ package com.alvarpq.GOTF.cards;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.requirement.Requirement;
 public abstract class Card
 {
 	private int thresholdCost;
 	private Resource[] resourceCost;
 	private Requirement[] requirements;
-	public Card(int thresholdCost, Resource[] resourceCost, Requirement[] requirements)
+	private Player owner;
+	public Card(int thresholdCost, Resource[] resourceCost)
 	{
 		this.thresholdCost = thresholdCost;
 		this.resourceCost = resourceCost;
-		this.requirements = requirements;
+		this.requirements = new Requirement[]{};
 	}
-	public abstract void inputHex(Player side, int row, int column);
-	public abstract void play(BoardHalf mySide, BoardHalf opponentsSide);
+	public abstract boolean play(BoardHalf mySide, BoardHalf opponentsSide);
+	public boolean isReady()
+	{
+		for(Requirement requirement:requirements)
+		{
+			if(!requirement.isFulfilled())
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	public int getThresholdCost()
 	{
 		return thresholdCost;
@@ -38,5 +50,13 @@ public abstract class Card
 	public void setRequirements(Requirement[] requirements)
 	{
 		this.requirements = requirements;
+	}
+	public Player getOwner()
+	{
+		return owner;
+	}
+	public void setOwner(Player owner)
+	{
+		this.owner = owner;
 	}
 }

@@ -1,8 +1,6 @@
 package com.alvarpq.GOTF.cards;
-
 import java.lang.reflect.InvocationTargetException;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-
 public class UnitFactory
 {
 	private Class<? extends Unit> unit;
