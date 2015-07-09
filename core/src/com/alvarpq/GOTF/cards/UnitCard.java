@@ -16,13 +16,17 @@ public abstract class UnitCard extends Card
 		this.unitFactory = unitFactory;
 	}
 	@Override
-	public boolean play(BoardHalf mySide, BoardHalf opponentsSide)
+	public boolean play(BoardHalf myHalf, BoardHalf opponentsHalf)
 	{
 		if(isReady())
 		{
 			try
 			{
-				mySide.addUnit(unitFactory.create(position.getRow(), position.getColumn()));
+				myHalf.addUnit(unitFactory.create(position.getRow(), position.getColumn()));
+				for(Requirement requirement:getRequirements())
+				{
+					requirement.reset();
+				}
 				return true;
 			}
 			catch(InstantiationException e){}

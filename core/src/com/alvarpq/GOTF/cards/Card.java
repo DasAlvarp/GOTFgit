@@ -15,7 +15,7 @@ public abstract class Card
 		this.resourceCost = resourceCost;
 		this.requirements = new Requirement[]{};
 	}
-	public abstract boolean play(BoardHalf mySide, BoardHalf opponentsSide);
+	public abstract boolean play(BoardHalf myHalf, BoardHalf opponentsHalf);
 	public boolean isReady()
 	{
 		for(Requirement requirement:requirements)

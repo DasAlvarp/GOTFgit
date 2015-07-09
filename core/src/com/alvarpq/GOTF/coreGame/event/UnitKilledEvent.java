@@ -4,9 +4,9 @@ import com.alvarpq.GOTF.coreGame.units.Unit;
 public class UnitKilledEvent extends UnitEvent
 {
 	private Unit killedUnit;
-	public UnitKilledEvent(Unit killedUnit, BoardHalf mySide, BoardHalf opponentsSide)
+	public UnitKilledEvent(Unit killedUnit, BoardHalf myHalf, BoardHalf opponentsHalf)
 	{
-		super(mySide, opponentsSide);
+		super(myHalf, opponentsHalf);
 		this.killedUnit = killedUnit;
 	}
 	public Unit getKilledUnit()

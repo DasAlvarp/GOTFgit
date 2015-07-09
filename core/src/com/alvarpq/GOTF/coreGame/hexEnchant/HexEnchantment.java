@@ -14,7 +14,7 @@ public abstract class HexEnchantment
 		owner = Player.NONE;
 	}
 	//override for buffs on other units
-	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
+	public abstract void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf);
 	public String getName()
 	{
 		return name;

@@ -16,13 +16,17 @@ public abstract class EnchantmentCard extends Card
 		this.enchantmentFactory = enchantmentFactory;
 	}
 	@Override
-	public boolean play(BoardHalf mySide, BoardHalf opponentsSide)
+	public boolean play(BoardHalf myHalf, BoardHalf opponentsHalf)
 	{
 		if(isReady())
 		{
 			try
 			{
 				target.getUnit().applyEffect(enchantmentFactory.create());
+				for(Requirement requirement:getRequirements())
+				{
+					requirement.reset();
+				}
 				return true;
 			}
 			catch(InstantiationException e){}

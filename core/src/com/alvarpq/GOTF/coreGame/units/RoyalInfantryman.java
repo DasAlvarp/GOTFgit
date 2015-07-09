@@ -8,13 +8,13 @@ public class RoyalInfantryman extends Unit
 		super("Royal Infantryman", 1, 2, 2, 1, row, column);
 	}
 	@Override
-	public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide)
+	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf)
 	{
-		for(int i=0;i<mySide.numberOfColumns();i++)
+		for(int i=0;i<myHalf.numberOfColumns();i++)
 		{
-			if(i!=getColumn()&&mySide.getUnitAt(getRow(), i)!=null)
+			if(i!=getColumn()&&myHalf.getUnitAt(getRow(), i)!=null)
 			{
-				mySide.getUnitAt(getRow(), i).applyEffect(Presence.HEALTH_1);
+				myHalf.getUnitAt(getRow(), i).applyEffect(Presence.HEALTH_1);
 			}
 		}
 	}

@@ -8,5 +8,5 @@ public class RoyalSkirmisher extends Unit
 		this.setAttackType(AttackType.RELENTLESS);
 	}
 	@Override
-	public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide){}
+	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf){}
 }

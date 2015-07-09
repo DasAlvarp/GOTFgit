@@ -33,7 +33,7 @@ public abstract class Unit
 		effects = new LinkedList<Effect>();
 	}
 	//override for self-buffs and buffs on other units
-	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
+	public abstract void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf);
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;

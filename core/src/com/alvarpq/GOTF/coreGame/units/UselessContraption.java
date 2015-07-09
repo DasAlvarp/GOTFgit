@@ -9,5 +9,5 @@ public class UselessContraption extends Unit
 		setAttackType(AttackType.NO_ATTACK);
 	}
 	@Override
-	public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide){}
+	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf){}
 }

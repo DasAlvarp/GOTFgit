@@ -5,9 +5,9 @@ public class UnitKilledByUnitEvent extends UnitEvent
 {
 	private Unit killedUnit;
 	private Unit killer;
-	public UnitKilledByUnitEvent(Unit killedUnit, Unit killer, BoardHalf mySide, BoardHalf opponentsSide)
+	public UnitKilledByUnitEvent(Unit killedUnit, Unit killer, BoardHalf myHalf, BoardHalf opponentsHalf)
 	{
-		super(mySide, opponentsSide);
+		super(myHalf, opponentsHalf);
 		this.killedUnit = killedUnit;
 		this.killer = killer;
 	}

@@ -8,11 +8,11 @@ public class Hill extends HexEnchantment
 		super("Hill", row, column);
 	}
 	@Override
-	public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide)
+	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf)
 	{
-		if(mySide.getUnitAt(getRow(), getColumn())!=null)
+		if(myHalf.getUnitAt(getRow(), getColumn())!=null)
 		{
-			mySide.getUnitAt(getRow(), getColumn()).applyEffect(Presence.HEALTH_2);
+			myHalf.getUnitAt(getRow(), getColumn()).applyEffect(Presence.HEALTH_2);
 		}
 	}
 }

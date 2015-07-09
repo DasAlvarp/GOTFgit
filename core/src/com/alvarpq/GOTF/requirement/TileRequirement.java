@@ -18,6 +18,12 @@ public class TileRequirement implements Requirement
 	{
 		return row>=0&&column>=0;
 	}
+	@Override
+	public void reset()
+	{
+		row = -1;
+		column = -1;
+	}
 	public int getRow()
 	{
 		return row;

@@ -6,9 +6,9 @@ public class UnitDamagedByUnitEvent extends UnitEvent
 	private Unit damagedUnit;
 	private Unit damager;
 	private int amount;
-	public UnitDamagedByUnitEvent(Unit damagedUnit, Unit damager, int amount, BoardHalf mySide, BoardHalf opponentsSide)
+	public UnitDamagedByUnitEvent(Unit damagedUnit, Unit damager, int amount, BoardHalf myHalf, BoardHalf opponentsHalf)
 	{
-		super(mySide, opponentsSide);
+		super(myHalf, opponentsHalf);
 		this.damagedUnit = damagedUnit;
 		this.damager = damager;
 		this.amount = amount;

@@ -9,7 +9,7 @@ public class IlmireRotEater extends Unit implements UnitKilledListener
 	{
 		super("Ilmire Rot Eater", 3, 2, 3, 1, row, column);
 	}
-	@Override public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide){}
+	@Override public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf){}
 	@Override
 	public void onUnitKilled(UnitKilledEvent event)
 	{

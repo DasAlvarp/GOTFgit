@@ -17,6 +17,11 @@ public class UnitRequirement implements Requirement
 	{
 		return unit!=null;
 	}
+	@Override
+	public void reset()
+	{
+		unit = null;
+	}
 	public Unit getUnit()
 	{
 		return unit;

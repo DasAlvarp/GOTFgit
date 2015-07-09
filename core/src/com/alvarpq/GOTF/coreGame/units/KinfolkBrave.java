@@ -7,5 +7,5 @@ public class KinfolkBrave extends Unit
 		super("Kinfolk Brave", 2, 1, 2, 1, row, column);
 	}
 	@Override
-	public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide){}
+	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf){}
 }
