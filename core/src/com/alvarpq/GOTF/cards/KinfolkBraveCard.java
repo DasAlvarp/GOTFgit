@@ -5,6 +5,6 @@ public class KinfolkBraveCard extends UnitCard
 {
 	public KinfolkBraveCard()
 	{
-		super(2, new Resource[]{}, new UnitFactory(KinfolkBrave.class));
+		super(1, new Resource[]{}, new UnitFactory(KinfolkBrave.class));
 	}
 }
