@@ -30,6 +30,7 @@ public class Deck
 		}
 		drawPile = shuffledDrawPile;
 	}
+	//Call when drawing hands in beginning of game
 	public void drawHand(int handSize)
 	{
 		while(hand.size()<handSize)

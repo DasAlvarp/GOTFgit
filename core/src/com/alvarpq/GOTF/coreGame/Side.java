@@ -82,7 +82,7 @@ public class Side
 	//Call when user presses a card to play it, in order to see if sufficient resources exist
 	public boolean hasResources(int indexInHand)
 	{
-		if(threshold>deck.getHand().get(indexInHand).getThresholdCost())
+		if(threshold>=deck.getHand().get(indexInHand).getThresholdCost())
 		{
 			List<Resource> tempResources = new LinkedList<Resource>(resources);
 			for(Resource resource:deck.getHand().get(indexInHand).getResourceCost())
@@ -103,7 +103,7 @@ public class Side
 	//Call when user presses a card to play it, in order to see if sufficient resources exist
 	public boolean hasResources(Card card)
 	{
-		if(deck.getHand().contains(card)&&threshold>card.getThresholdCost())
+		if(deck.getHand().contains(card)&&threshold>=card.getThresholdCost())
 		{
 			List<Resource> tempResources = new LinkedList<Resource>(resources);
 			for(Resource resource:card.getResourceCost())
@@ -121,10 +121,10 @@ public class Side
 		}
 		return false;
 	}
-	//Call when user has inputed all needed data to play a card
-	public boolean playCard(int indexInHand, BoardHalf myHalf, BoardHalf opponentsHalf)
+	//Do not call unless you know what you are doing
+	public boolean payForCard(int indexInHand)
 	{
-		if(threshold>deck.getHand().get(indexInHand).getThresholdCost())
+		if(threshold>=deck.getHand().get(indexInHand).getThresholdCost())
 		{
 			List<Resource> tempResources = new LinkedList<Resource>(resources);
 			for(Resource resource:deck.getHand().get(indexInHand).getResourceCost())
@@ -140,14 +140,14 @@ public class Side
 			}
 			threshold-=deck.getHand().get(indexInHand).getThresholdCost();
 			resources = tempResources;
-			return deck.getHand().get(indexInHand).play(myHalf, opponentsHalf);
+			return true;
 		}
 		return false;
 	}
-	//Call when user has inputed all needed data to play a card
-	public boolean playCard(Card card, BoardHalf myHalf, BoardHalf opponentsHalf)
+	//Do not call unless you know what you are doing
+	public boolean payForCard(Card card)
 	{
-		if(deck.getHand().contains(card)&&threshold>card.getThresholdCost())
+		if(deck.getHand().contains(card)&&threshold>=card.getThresholdCost())
 		{
 			List<Resource> tempResources = new LinkedList<Resource>(resources);
 			for(Resource resource:card.getResourceCost())
@@ -163,7 +163,7 @@ public class Side
 			}
 			threshold-=card.getThresholdCost();
 			resources = tempResources;
-			return card.play(myHalf, opponentsHalf);
+			return true;
 		}
 		return false;
 	}
