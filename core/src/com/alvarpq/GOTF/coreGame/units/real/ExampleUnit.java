@@ -6,7 +6,7 @@ public class ExampleUnit extends Unit
 {
 	public ExampleUnit(int row, int column)
 	{
-		super("Example Unit", 2, 2, 2, 1, new String[]{}, row, column);
+		super("Example Unit", 2, 2, 2, 1, true, new String[]{"ExampleSubtype"}, row, column);
 	}
 	@Override
 	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf){}

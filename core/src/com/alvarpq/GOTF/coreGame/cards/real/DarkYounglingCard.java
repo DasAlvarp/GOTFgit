@@ -7,6 +7,6 @@ public class DarkYounglingCard extends UnitCard
 {
 	public DarkYounglingCard()
 	{
-		super("Dark Youngling", 0, new Resource[]{Resource.EARTH, Resource.EARTH}, new UnitFactory(DarkYounling.class));
+		super("Dark Youngling", 1, new Resource[]{Resource.EARTH}, new UnitFactory(DarkYounling.class));
 	}
 }

@@ -6,7 +6,7 @@ public class DarkYounling extends Unit
 {
 	public DarkYounling(int row, int column)
 	{
-		super("Dark Youngling", 1, 1, 1, 1, new String[]{}, row, column);
+		super("Dark Youngling", 1, 1, 1, 1, true, new String[]{"Mulgoon"}, row, column);
 	}
 	@Override
 	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf){}
