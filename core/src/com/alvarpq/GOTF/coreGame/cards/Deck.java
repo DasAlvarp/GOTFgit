@@ -40,6 +40,10 @@ public class Deck
 				{
 					drawPile.push(card);
 				}
+				if(drawPile.size()==0)
+				{
+					break;
+				}
 				shuffle();
 			}
 			hand.add(drawPile.pop());
@@ -54,6 +58,10 @@ public class Deck
 				for(Card card:discardPile)
 				{
 					drawPile.push(card);
+				}
+				if(drawPile.size()==0)
+				{
+					break;
 				}
 				shuffle();
 			}

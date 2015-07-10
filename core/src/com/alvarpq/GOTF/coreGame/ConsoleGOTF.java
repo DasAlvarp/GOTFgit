@@ -3,10 +3,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
-import com.alvarpq.GOTF.coreGame.cards.real.DarkYounglingCard;
+import com.alvarpq.GOTF.coreGame.cards.real.ExampleSpellCard;
 import com.alvarpq.GOTF.coreGame.cards.real.JumpingWhaleCard;
-import com.alvarpq.GOTF.coreGame.cards.real.PenanceOfTheGods;
-import com.alvarpq.GOTF.coreGame.cards.real.TunnelGuardCard;
+import com.alvarpq.GOTF.coreGame.cards.real.ProtectorOfWhalesCard;
 import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
@@ -139,12 +138,10 @@ public class ConsoleGOTF
 	public static void main(String[] args)
 	{	
 		Scanner input = new Scanner(System.in);
-		Deck deck1 = new Deck(Arrays.asList(new Card[]{new DarkYounglingCard(), new DarkYounglingCard(), new TunnelGuardCard()
-		, new TunnelGuardCard(), new JumpingWhaleCard(), new PenanceOfTheGods()}), true);
-		Deck deck2 = new Deck(Arrays.asList(new Card[]{new DarkYounglingCard(), new DarkYounglingCard(), new TunnelGuardCard()
-		, new TunnelGuardCard(), new JumpingWhaleCard(), new PenanceOfTheGods()}), true);
+		Deck deck1 = new Deck(Arrays.asList(new Card[]{new JumpingWhaleCard(), new ProtectorOfWhalesCard()}), true);
+		Deck deck2 = new Deck(Arrays.asList(new Card[]{new ExampleSpellCard(), new ExampleSpellCard()}), true);
 		Game game = new Game(deck1, deck2);
-		game.start(3);
+		game.start(2);
 		while(!game.getSide(Player.PLAYER1).hasLost()&&!game.getSide(Player.PLAYER2).hasLost())
 		{
 			System.out.println(game.getCurrentPlayer()+"'s turn");
