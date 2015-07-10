@@ -218,10 +218,17 @@ public class ConsoleGOTF
 					System.out.println(side1+" "+side2);
 				}
 			}
-			System.out.print("Hand: "+game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0).getName()+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0))+") ");
-			for(int i=1;i<game.getSide(game.getCurrentPlayer()).getDeck().getHand().size();i++)
+			if(!game.getSide(game.getCurrentPlayer()).getDeck().getHand().isEmpty())
 			{
-				System.out.print(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i).getName()+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i))+") ");
+				System.out.print("Hand: "+game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0).getName()+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0))+") ");
+				for(int i=1;i<game.getSide(game.getCurrentPlayer()).getDeck().getHand().size();i++)
+				{
+					System.out.print(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i).getName()+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i))+") ");
+				}
+			}
+			else
+			{
+				System.out.print("Hand: ");
 			}
 			System.out.println();
 			System.out.println("Resources: "+resourcesString(game.getSide(game.getCurrentPlayer())));
