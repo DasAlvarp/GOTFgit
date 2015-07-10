@@ -1,4 +1,5 @@
-package com.alvarpq.GOTF.cards;
+package com.alvarpq.GOTF.cards.real;
+import com.alvarpq.GOTF.cards.SpellCard;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.requirement.Requirement;

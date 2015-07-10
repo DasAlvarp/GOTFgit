@@ -1,6 +1,8 @@
-package com.alvarpq.GOTF.cards;
+package com.alvarpq.GOTF.cards.real;
+import com.alvarpq.GOTF.cards.UnitCard;
+import com.alvarpq.GOTF.cards.UnitFactory;
 import com.alvarpq.GOTF.coreGame.Resource;
-import com.alvarpq.GOTF.coreGame.units.TunnelGuard;
+import com.alvarpq.GOTF.coreGame.units.real.TunnelGuard;
 public class TunnelGuardCard extends UnitCard
 {
 	public TunnelGuardCard()

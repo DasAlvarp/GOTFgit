@@ -1,5 +1,6 @@
-package com.alvarpq.GOTF.coreGame.units;
+package com.alvarpq.GOTF.coreGame.units.real;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.entity.AnimatedSprite;
 public class DarkYounling extends Unit
 {
