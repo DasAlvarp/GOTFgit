@@ -42,6 +42,13 @@ public class AnimatedSprite {
 		currentFrame=0;
 	}
 	
+	public void setSize(int width, int height){
+		for(Sprite s:sprites){
+			s.setSize(width, height);
+		}
+	}
+	
+	
 	//Changes the frame of other
 	public void syncFrameWith(AnimatedSprite other){
 		other.jumpToFrame(currentFrame);

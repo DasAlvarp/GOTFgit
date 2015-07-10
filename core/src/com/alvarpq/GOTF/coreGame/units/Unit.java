@@ -56,7 +56,7 @@ public abstract class Unit extends Entity
 		 return new AnimatedSprite(new Sprite(new Texture(Gdx.files.internal("noTexture.png"))));
 		
 	}
-	
+
 	//call BoardHalf.resetCountdown instead	
 	public void resetCountdown()
 	{

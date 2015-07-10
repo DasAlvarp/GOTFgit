@@ -1,7 +1,8 @@
 package com.alvarpq.GOTF.screen;
 
 import com.alvarpq.GOTF.coreGame.Game;
-
+import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.units.real.TunnelGuard;
 import com.alvarpq.GOTF.entity.Entity;
 import com.alvarpq.GOTF.entity.EntityManager;
 import com.alvarpq.GOTF.gui.BackDraw;
@@ -9,7 +10,6 @@ import com.alvarpq.GOTF.gui.BoardDraw;
 import com.alvarpq.GOTF.gui.Hex;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen extends Screen{
@@ -26,7 +26,8 @@ public class GameScreen extends Screen{
 
 		batch=new SpriteBatch();
 		
-	//	game=new Game();
+		game=new Game(null, null);
+		game.getSide(Player.PLAYER1).getHalf().addUnit(new TunnelGuard(1,1));
 
 		board = new BoardDraw();
 		//bkgrnd = new BackDraw();
