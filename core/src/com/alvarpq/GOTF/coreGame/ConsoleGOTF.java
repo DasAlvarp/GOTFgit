@@ -3,15 +3,15 @@ import java.util.Arrays;
 import java.util.Scanner;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
-import com.alvarpq.GOTF.coreGame.cards.real.ExampleSpellCard;
-import com.alvarpq.GOTF.coreGame.cards.real.JumpingWhaleCard;
-import com.alvarpq.GOTF.coreGame.cards.real.ProtectorOfWhalesCard;
+import com.alvarpq.GOTF.coreGame.cards.real.PenanceOfTheGods;
 import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
+import com.alvarpq.GOTF.requirement.RowRequirement;
 import com.alvarpq.GOTF.requirement.UnitRequirement;
 public class ConsoleGOTF
 {
+	private static Scanner input;
 	public static int tileNumberToRow(int tileNumber)
 	{
 		if(tileNumber>15)
@@ -137,20 +137,28 @@ public class ConsoleGOTF
 	}
 	public static void main(String[] args)
 	{	
-		Scanner input = new Scanner(System.in);
-		Deck deck1 = new Deck(Arrays.asList(new Card[]{new JumpingWhaleCard(), new ProtectorOfWhalesCard()}), true);
-		Deck deck2 = new Deck(Arrays.asList(new Card[]{new ExampleSpellCard(), new ExampleSpellCard()}), true);
+		input = new Scanner(System.in);
+		Deck deck1 = new Deck(Arrays.asList(new Card[]{new PenanceOfTheGods(), new PenanceOfTheGods()}), true);
+		Deck deck2 = new Deck(Arrays.asList(new Card[]{new PenanceOfTheGods(), new PenanceOfTheGods()}), true);
 		Game game = new Game(deck1, deck2);
 		game.start(2);
-		while(!game.getSide(Player.PLAYER1).hasLost()&&!game.getSide(Player.PLAYER2).hasLost())
+		while(true)
 		{
 			System.out.println(game.getCurrentPlayer()+"'s turn");
 			for(int i=0;i<5;i++)
 			{
+				StringBuilder side1 = new StringBuilder();
+				if(game.getSide(Player.PLAYER1).getHalf().getIdolAt(i)<10)
+				{
+					side1.append("0"+game.getSide(Player.PLAYER1).getHalf().getIdolAt(i)+"  ");
+				}
+				else
+				{
+					side1.append(game.getSide(Player.PLAYER1).getHalf().getIdolAt(i)+"  ");
+				}
+				StringBuilder side2 = new StringBuilder();
 				if(i%2==0)
 				{
-					StringBuilder side1 = new StringBuilder();
-					StringBuilder side2 = new StringBuilder();
 					for(int j=2;j>=0;j--)
 					{
 						if(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j)==null)
@@ -180,12 +188,9 @@ public class ConsoleGOTF
 							side2.append("  "+game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j).getName().substring(0, 2));
 						}
 					}
-					System.out.println(side1+" "+side2);
 				}
 				else
 				{
-					StringBuilder side1 = new StringBuilder();
-					StringBuilder side2 = new StringBuilder();
 					for(int j=2;j>=0;j--)
 					{
 						if(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j)==null)
@@ -215,8 +220,16 @@ public class ConsoleGOTF
 							side2.append(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j).getName().substring(0, 2)+"  ");
 						}
 					}
-					System.out.println(side1+" "+side2);
 				}
+				if(game.getSide(Player.PLAYER2).getHalf().getIdolAt(i)<10)
+				{
+					side2.append("  0"+game.getSide(Player.PLAYER2).getHalf().getIdolAt(i));
+				}
+				else
+				{
+					side2.append("  "+game.getSide(Player.PLAYER2).getHalf().getIdolAt(i));
+				}
+				System.out.println(side1+" "+side2);
 			}
 			if(!game.getSide(game.getCurrentPlayer()).getDeck().getHand().isEmpty())
 			{
@@ -459,6 +472,24 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								else if(requirement.getType()==RequirementType.ROW)
+								{
+									while(true)
+									{
+										try
+										{
+											System.out.print("(1-5)> ");
+											int row = Integer.parseInt(input.nextLine());
+											if(row>=1&&row<=5)
+											{
+												((RowRequirement)requirement).setRow(row-1);
+												break;
+											}
+				
+										}
+										catch(NumberFormatException exception){	}
+									}
+								}
 							}
 							game.playCard(game.getCurrentPlayer(), card);
 							break;
@@ -472,6 +503,5 @@ public class ConsoleGOTF
 				}
 			}
 		}
-		input.close();
 	}
 }
