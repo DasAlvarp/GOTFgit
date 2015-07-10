@@ -1,17 +1,17 @@
 package com.alvarpq.GOTF.screen;
 
-import java.util.Arrays;
 import com.alvarpq.GOTF.coreGame.Game;
-import com.alvarpq.GOTF.coreGame.cards.Card;
-import com.alvarpq.GOTF.coreGame.cards.Deck;
-import com.alvarpq.GOTF.coreGame.cards.real.ExampleSpellCard;
-import com.alvarpq.GOTF.coreGame.cards.real.ExampleUnitCard;
+import com.alvarpq.GOTF.coreGame.units.ProudMercenary;
+import com.alvarpq.GOTF.entity.Entity;
+import com.alvarpq.GOTF.entity.EntityManager;
 import com.alvarpq.GOTF.gui.BackDraw;
 import com.alvarpq.GOTF.gui.BoardDraw;
+import com.alvarpq.GOTF.gui.Hex;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen extends Screen{
@@ -20,32 +20,43 @@ public class GameScreen extends Screen{
 	BackDraw bkgrnd;
 	SpriteBatch batch;
 	Game game;
+	boolean bool=false;
 	
 	@Override
 	public void create() {
-		batch = new SpriteBatch();
+		// TODO Auto-generated method stub
+
 		batch=new SpriteBatch();
-		game=new Game(new Deck(Arrays.asList(new Card[]{new ExampleUnitCard(), new ExampleUnitCard()}), false),
-				new Deck(Arrays.asList(new Card[]{new ExampleSpellCard(), new ExampleSpellCard()}), false));
+		
+		game=new Game();
+		game.half1.addUnit(new ProudMercenary(0,2));
+		game.half1.addUnit(new ProudMercenary(0,0));
+		
+		game.half1.addUnit(new ProudMercenary(2,2));
+		game.half1.addUnit(new ProudMercenary(3,2));
+		
+		game.half2.addUnit(new ProudMercenary(0,2));
+		game.half2.addUnit(new ProudMercenary(0,0));
+		
+		game.half2.addUnit(new ProudMercenary(2,2));
+		game.half2.addUnit(new ProudMercenary(3,2));
 		//board = new BoardDraw();
 		//bkgrnd = new BackDraw();
 		
 	}
 
 	public void update() {
-		checkForClick();
+		// TODO Auto-generated method stub
+		//checkForClick();
 	}
 
 	@Override
 	public void render(SpriteBatch batch) {
-	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);      //clears the buffer 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
-		batch.begin();
-		
-		//bkgrnd.drawit(batch);//drawit functions are default draw functions
-		//board.drawit(batch);
+		// TODO Auto-generated method stub
+		EntityManager.renderAll(batch);
+		game.update();
+
 		//batch.draw(new Texture(("menuScreen.png")), 200, 100);
-		batch.end();
 	}
 
 	@Override
@@ -60,14 +71,18 @@ public class GameScreen extends Screen{
 		batch.dispose();
 		
 	}
-	
+
+
+	//if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+			//ScreenManager.setScreen(new MenuScreen());
 	public void checkForClick()
 	{
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 		{
 			ScreenManager.setScreen(new MenuScreen());
+			
 		}
 	}
 
-
 }
+
