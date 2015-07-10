@@ -11,6 +11,8 @@ public class Side
 	private int maximumThreshold, threshold;
 	private List<Resource> maximumResources, resources;
 	private boolean hasSacrificed;
+	private Player owner;
+	private Game game;
 	public Side(BoardHalf half, Deck deck)
 	{
 		this.half = half;
@@ -19,6 +21,14 @@ public class Side
 		threshold = 0;
 		maximumResources = new LinkedList<Resource>();
 		resources = new LinkedList<Resource>();
+		hasSacrificed = false;
+	}
+	public void setParentGame(Game g){
+		game=g;
+	}
+	
+	public Game getParentGame(){
+		return game;
 	}
 	public void resetResources()
 	{
@@ -167,23 +177,6 @@ public class Side
 		}
 		return false;
 	}
-	//Call to know if this side has lost
-	public boolean hasLost()
-	{
-		int idolsDown = 0;
-		for(int i=0;i<half.numberOfRows();i++)
-		{
-			if(half.getIdolAt(i)<=0)
-			{
-				idolsDown++;
-			}
-		}
-		if(idolsDown>=3)
-		{
-			return true;
-		}
-		return false;
-	}
 	public BoardHalf getHalf()
 	{
 		return half;
@@ -208,5 +201,8 @@ public class Side
 	{
 		return resources;
 	}
-	
+	public Player getOwner()
+	{
+		return owner;
+	}
 }

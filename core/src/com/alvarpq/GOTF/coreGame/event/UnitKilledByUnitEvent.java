@@ -1,13 +1,13 @@
 package com.alvarpq.GOTF.coreGame.event;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 public class UnitKilledByUnitEvent extends UnitEvent
 {
 	private Unit killedUnit;
 	private Unit killer;
-	public UnitKilledByUnitEvent(Unit killedUnit, Unit killer, BoardHalf myHalf, BoardHalf opponentsHalf)
+	public UnitKilledByUnitEvent(Unit killedUnit, Unit killer, Side mySide, Side opponentsSide)
 	{
-		super(myHalf, opponentsHalf);
+		super(mySide, opponentsSide);
 		this.killedUnit = killedUnit;
 		this.killer = killer;
 	}

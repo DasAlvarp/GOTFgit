@@ -18,7 +18,10 @@ public class Game
 		sides = new HashMap<Player, Side>();
 		sides.put(Player.PLAYER1, new Side(new BoardHalf(5, 3, 8, Player.PLAYER1), deck1));
 		sides.put(Player.PLAYER2, new Side(new BoardHalf(5, 3, 8, Player.PLAYER2), deck2));
-		BoardHalf.createBoard(sides.get(Player.PLAYER1).getHalf(), sides.get(Player.PLAYER2).getHalf());
+		sides.get(Player.PLAYER1).setParentGame(this);
+		sides.get(Player.PLAYER2).setParentGame(this);
+		sides.get(Player.PLAYER1).getHalf().setParentGame(this);
+		sides.get(Player.PLAYER2).getHalf().setParentGame(this);
 		currentPlayer = Player.values()[random.nextInt(2)];
 		//boardDraw=new BoardDraw(); temporarily removed to work in console
 	}
@@ -79,7 +82,7 @@ public class Game
 	{
 		if(sides.get(side).getDeck().getHand().get(indexInHand).isReady()&&sides.get(side).payForCard(indexInHand))
 		{
-			if(sides.get(side).getDeck().getHand().get(indexInHand).play(sides.get(side).getHalf(), sides.get(side.otherPlayer()).getHalf()))
+			if(sides.get(side).getDeck().getHand().get(indexInHand).play(sides.get(side), sides.get(side.otherPlayer())))
 			{
 				sides.get(side).getDeck().discardCard(indexInHand);
 				return true;
@@ -93,7 +96,7 @@ public class Game
 	{
 		if(card.isReady()&&sides.get(side).payForCard(card))
 		{
-			if(card.play(sides.get(side).getHalf(), sides.get(side.otherPlayer()).getHalf()))
+			if(card.play(sides.get(side), sides.get(side.otherPlayer())))
 			{
 				sides.get(side).getDeck().discardCard(card);
 				return true;

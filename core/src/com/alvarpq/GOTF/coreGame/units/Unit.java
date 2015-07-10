@@ -1,15 +1,11 @@
 package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.alvarpq.GOTF.coreGame.Player;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.alvarpq.GOTF.entity.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 public abstract class Unit extends Entity
 {
@@ -61,7 +57,7 @@ public abstract class Unit extends Entity
 	//call BoardHalf.resetCountdown instead
 	
 	//override for self-buffs and buffs on other units
-	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
+	public abstract void applyPresence(Side mySide, Side opponentsSide);
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;

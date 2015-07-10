@@ -1,7 +1,6 @@
 package com.alvarpq.GOTF.coreGame.board;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
@@ -13,23 +12,21 @@ import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledListener;
-import com.alvarpq.GOTF.coreGame.hexEnchant.HexEnchant;
+import com.alvarpq.GOTF.coreGame.hexEnchant.HexEnchantment;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.entity.EntityManager;
-import com.badlogic.gdx.graphics.g2d.Animation;
 public class BoardHalf
 {
 	//Do not change directly unless needed
 	private Unit[][] units;
-	private HexEnchant[][] hexEnchants;
+	private HexEnchantment[][] hexEnchantments;
 	private int[] idols;
-	private BoardHalf opponentsSide;
 	private Player owner;
-	Game game;
+	private Game game;
 	public BoardHalf(int rows, int columns, int idolHealth, Player owner)
 	{
 		units = new Unit[rows][columns];
-		hexEnchants = new HexEnchant[rows][columns];
+		hexEnchantments = new HexEnchantment[rows][columns];
 		idols = new int[rows];
 		for(int i = 0; i < idols.length;i++)
 		{
@@ -58,23 +55,23 @@ public class BoardHalf
 		}
 		for(Unit unit:getUnits())
 		{
-			unit.applyPresence(this, opponentsSide);
+			unit.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
 		}
-		for(HexEnchant hexEnchant:getHexEnchants())
+		for(HexEnchantment hexEnchant:getHexEnchantments())
 		{
-			hexEnchant.applyPresence(this, opponentsSide);
+			hexEnchant.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
 		}
-		for(Unit unit:opponentsSide.getUnits())
+		for(Unit unit:game.getSide(owner).getHalf().getUnits())
 		{
 			unit.clearPresenceEffects();
 		}
-		for(Unit unit:opponentsSide.getUnits())
+		for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
 		{
-			unit.applyPresence(opponentsSide, this);
+			unit.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
 		}
-		for(HexEnchant hexEnchant:opponentsSide.getHexEnchants())
+		for(HexEnchantment hexEnchant:game.getSide(owner.otherPlayer()).getHalf().getHexEnchantments())
 		{
-			hexEnchant.applyPresence(opponentsSide, this);
+			hexEnchant.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
 		}
 		boolean newUpdate = false;
 		for(int i=0;i<numberOfRows();i++)
@@ -83,14 +80,14 @@ public class BoardHalf
 			{
 				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
 				{
-					dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), this, opponentsSide));
+					dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
 					units[i][j] = null;
 					newUpdate = true;
 				}
-				if(opponentsSide.getUnitAt(i, j)!=null&&opponentsSide.getUnitAt(i, j).getHealth()<=0)
+				if(game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j)!=null&&game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j).getHealth()<=0)
 				{
-					dispatchEvent(new UnitKilledEvent(opponentsSide.getUnitAt(i, j), this, opponentsSide));
-					opponentsSide.units[i][j] = null;
+					dispatchEvent(new UnitKilledEvent(game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
+					game.getSide(owner.otherPlayer()).getHalf().units[i][j] = null;
 					newUpdate = true;
 				}
 			}
@@ -165,58 +162,58 @@ public class BoardHalf
 		units[row][column] = null;
 		update();
 	}
-	public HexEnchant getHexEnchantAt(int row, int column)
+	public HexEnchantment getHexEnchantmentAt(int row, int column)
 	{
-		return hexEnchants[row][column];
+		return hexEnchantments[row][column];
 	}
 
-	public List<HexEnchant> getHexEnchants()
+	public List<HexEnchantment> getHexEnchantments()
 	{
-		List<HexEnchant> toReturn = new LinkedList<HexEnchant>();
+		List<HexEnchantment> toReturn = new LinkedList<HexEnchantment>();
 		for(int i=0;i<numberOfRows();i++)
 		{
 			for(int j=0;j<numberOfColumns();j++)
 			{
-				if(getHexEnchantAt(i, j)!=null)
+				if(getHexEnchantmentAt(i, j)!=null)
 				{
-					toReturn.add(getHexEnchantAt(i, j));
+					toReturn.add(getHexEnchantmentAt(i, j));
 				}
 			}
 		}
 		return toReturn;
 	}
-	public void addHexEnchant(HexEnchant hexEnchant)
+	public void addHexEnchantment(HexEnchantment hexEnchant)
 	{
-		hexEnchants[hexEnchant.getRow()][hexEnchant.getColumn()] = hexEnchant;
+		hexEnchantments[hexEnchant.getRow()][hexEnchant.getColumn()] = hexEnchant;
 		hexEnchant.setOwner(owner);
 		update();
 	}
-	public void removeHexEnchant(int row, int column)
+	public void removeHexEnchantment(int row, int column)
 	{
-		getHexEnchantAt(row, column).setOwner(Player.NONE);
-		hexEnchants[row][column] = null;
+		getHexEnchantmentAt(row, column).setOwner(Player.NONE);
+		hexEnchantments[row][column] = null;
 		update();
 	}
 	public boolean move(int row, int column, int destinationRow, int destinationColumn)
 	{
-		boolean toReturn = getUnitAt(row, column).getMoveType().move(getUnitAt(row, column), destinationRow, destinationColumn, this, opponentsSide, units);
+		boolean toReturn = getUnitAt(row, column).getMoveType().move(getUnitAt(row, column), destinationRow, destinationColumn, game.getSide(owner), game.getSide(owner.otherPlayer()), units);
 		update();
 		return toReturn;
 	}
 	public boolean move(Unit unit, int row, int column)
 	{
-		boolean toReturn = unit.getMoveType().move(unit, row, column, this, opponentsSide, units);
+		boolean toReturn = unit.getMoveType().move(unit, row, column, game.getSide(owner), game.getSide(owner.otherPlayer()), units);
 		update();
 		return toReturn;
 	}
 	public void attack(int row, int column)
 	{
-		getUnitAt(row, column).getAttackType().attack(getUnitAt(row, column), this, opponentsSide);
+		getUnitAt(row, column).getAttackType().attack(getUnitAt(row, column), game.getSide(owner), game.getSide(owner.otherPlayer()));
 		update();
 	}
 	public void attack(Unit unit)
 	{
-		unit.getAttackType().attack(unit, this, opponentsSide);
+		unit.getAttackType().attack(unit, game.getSide(owner), game.getSide(owner.otherPlayer()));
 		resetCountdown(unit);
 		update();
 	}
@@ -272,16 +269,24 @@ public class BoardHalf
 		unit.heal(amount);
 		update();
 	}
-	public void damage(int row, int column, int amount)
+	public void damage(int row, int column, int amount, Unit damager)
 	{
 		getUnitAt(row, column).damage(amount);
-		dispatchEvent(new UnitDamagedEvent(getUnitAt(row, column), amount, this, opponentsSide));
+		if(damager!=null)
+		{
+			dispatchEvent(new UnitDamagedByUnitEvent(getUnitAt(row, column), damager, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
+		}
+		dispatchEvent(new UnitDamagedEvent(getUnitAt(row, column), amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
 		update();
 	}
-	public void damage(Unit unit, int amount)
+	public void damage(Unit unit, int amount, Unit damager)
 	{
 		unit.damage(amount);
-		dispatchEvent(new UnitDamagedEvent(unit, amount, this, opponentsSide));
+		if(damager!=null)
+		{
+			dispatchEvent(new UnitDamagedByUnitEvent(unit, damager, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
+		}
+		dispatchEvent(new UnitDamagedEvent(unit, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
 		update();
 	}
 	public void changeMove(int row, int column, int amount)
@@ -326,7 +331,7 @@ public class BoardHalf
 				}
 			}
 			event.invertSides();
-			for(Unit unit:opponentsSide.getUnits())
+			for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
 			{
 				if(unit instanceof UnitKilledByUnitListener)
 				{
@@ -344,7 +349,7 @@ public class BoardHalf
 				}
 			}
 			event.invertSides();
-			for(Unit unit:opponentsSide.getUnits())
+			for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
 			{
 				if(unit instanceof UnitKilledListener)
 				{
@@ -362,7 +367,7 @@ public class BoardHalf
 				}
 			}
 			event.invertSides();
-			for(Unit unit:opponentsSide.getUnits())
+			for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
 			{
 				if(unit instanceof UnitDamagedByUnitListener)
 				{
@@ -380,7 +385,7 @@ public class BoardHalf
 				}
 			}
 			event.invertSides();
-			for(Unit unit:opponentsSide.getUnits())
+			for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
 			{
 				if(unit instanceof UnitDamagedListener)
 				{
@@ -416,10 +421,5 @@ public class BoardHalf
 			return false;
 		}
 		return false;
-	}
-	public static void createBoard(BoardHalf half1, BoardHalf half2)
-	{
-		half1.opponentsSide = half2;
-		half2.opponentsSide = half1;
 	}
 }

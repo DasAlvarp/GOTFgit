@@ -1,6 +1,6 @@
 package com.alvarpq.GOTF.coreGame.hexEnchant;
 import com.alvarpq.GOTF.coreGame.Player;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 public abstract class HexEnchantment
 {
 	private String name;
@@ -14,7 +14,7 @@ public abstract class HexEnchantment
 		owner = Player.NONE;
 	}
 	//override for buffs on other units
-	public abstract void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf);
+	public abstract void applyPresence(Side mySide, Side opponentsSide);
 	public String getName()
 	{
 		return name;

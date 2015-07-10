@@ -1,6 +1,6 @@
 package com.alvarpq.GOTF.coreGame.units.real;
 import java.util.Arrays;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.entity.AnimatedSprite;
@@ -11,9 +11,9 @@ public class ProtectorOfWhales extends Unit
 		super("Protector of Whales", 2, 2, 2, 1, true, new String[]{"Angel"}, row, column);
 	}
 	@Override
-	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf)
+	public void applyPresence(Side mySide, Side opponentsSide)
 	{
-		for(Unit unit:myHalf.getUnits())
+		for(Unit unit:mySide.getHalf().getUnits())
 		{
 			if(Arrays.asList(unit.getSubtypes()).contains("Whale"))
 			{

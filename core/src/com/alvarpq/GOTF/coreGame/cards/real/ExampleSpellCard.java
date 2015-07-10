@@ -1,6 +1,6 @@
 package com.alvarpq.GOTF.coreGame.cards.real;
 import com.alvarpq.GOTF.coreGame.Resource;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.cards.SpellCard;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
@@ -15,11 +15,11 @@ public class ExampleSpellCard extends SpellCard
 		setRequirements(new Requirement[]{target});
 	}
 	@Override
-	public boolean play(BoardHalf myHalf, BoardHalf opponentsHalf)
+	public boolean play(Side mySide, Side opponentsSide)
 	{
 		if(isReady())
 		{
-			opponentsHalf.damage(target.getUnit(), 5);
+			opponentsSide.getHalf().damage(target.getUnit(), 5, null);
 			reset();
 			return true;
 		}

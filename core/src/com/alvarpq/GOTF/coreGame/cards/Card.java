@@ -1,7 +1,7 @@
 package com.alvarpq.GOTF.coreGame.cards;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Resource;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.requirement.Requirement;
 public abstract class Card
 {
@@ -17,7 +17,7 @@ public abstract class Card
 		this.resourceCost = resourceCost;
 		this.requirements = new Requirement[]{};
 	}
-	public abstract boolean play(BoardHalf myHalf, BoardHalf opponentsHalf);
+	public abstract boolean play(Side mySide, Side opponentsSide);
 	public boolean isReady()
 	{
 		for(Requirement requirement:requirements)

@@ -1,5 +1,5 @@
 package com.alvarpq.GOTF.coreGame.units.real;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
 import com.alvarpq.GOTF.coreGame.units.Unit;
@@ -12,7 +12,7 @@ public class TunnelGuard extends Unit implements UnitDamagedListener
 		super("Tunnel Guard", 1, 2, 4, 1, true, new String[]{"Mulgoon", "Soldier"}, row, column);
 	}
 	@Override
-	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf){}
+	public void applyPresence(Side mySide, Side opponentsSide){}
 	@Override
 	public AnimatedSprite getSprite(){return null;}
 	@Override

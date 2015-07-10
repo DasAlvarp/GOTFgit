@@ -1,5 +1,5 @@
 package com.alvarpq.GOTF.coreGame.hexEnchant;
-import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 public class Hill extends HexEnchantment
 {
@@ -8,11 +8,11 @@ public class Hill extends HexEnchantment
 		super("Hill", row, column);
 	}
 	@Override
-	public void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf)
+	public void applyPresence(Side mySide, Side opponentsSide)
 	{
-		if(myHalf.getUnitAt(getRow(), getColumn())!=null)
+		if(mySide.getHalf().getUnitAt(getRow(), getColumn())!=null)
 		{
-			myHalf.getUnitAt(getRow(), getColumn()).applyEffect(Presence.HEALTH_2);
+			mySide.getHalf().getUnitAt(getRow(), getColumn()).applyEffect(Presence.HEALTH_2);
 		}
 	}
 }
