@@ -3,15 +3,17 @@ public class TileRequirement implements Requirement
 {
 	private int row;
 	private int column;
-	public TileRequirement()
+	private RequirementType type;
+	public TileRequirement(RequirementType type)
 	{
 		row = -1;
 		column = -1;
+		this.type = type;
 	}
 	@Override
 	public RequirementType getType()
 	{
-		return RequirementType.TILE;
+		return type;
 	}
 	@Override
 	public boolean isFulfilled()

@@ -5,12 +5,14 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.requirement.Requirement;
 public abstract class Card
 {
+	private String name;
 	private int thresholdCost;
 	private Resource[] resourceCost;
 	private Requirement[] requirements;
 	private Player owner;
-	public Card(int thresholdCost, Resource[] resourceCost)
+	public Card(String name, int thresholdCost, Resource[] resourceCost)
 	{
+		this.name = name;
 		this.thresholdCost = thresholdCost;
 		this.resourceCost = resourceCost;
 		this.requirements = new Requirement[]{};
@@ -26,6 +28,14 @@ public abstract class Card
 			}
 		}
 		return true;
+	}
+	public String getName()
+	{
+		return name;
+	}
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 	public int getThresholdCost()
 	{

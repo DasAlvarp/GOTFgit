@@ -19,14 +19,17 @@ public class Game
 		sides.put(Player.PLAYER1, new Side(new BoardHalf(5, 3, 8, Player.PLAYER1), deck1));
 		sides.put(Player.PLAYER2, new Side(new BoardHalf(5, 3, 8, Player.PLAYER2), deck2));
 		BoardHalf.createBoard(sides.get(Player.PLAYER1).getHalf(), sides.get(Player.PLAYER2).getHalf());
-		//currentPlayer = Player.values()[random.nextInt(2)]; temporarily Player1 always start
-		currentPlayer = Player.PLAYER1;
+		currentPlayer = Player.values()[random.nextInt(2)];
 		//boardDraw=new BoardDraw(); temporarily removed to work in console
 	}
-	
-	
 	public BoardDraw getBoard(){
 		return boardDraw;
+	}
+	//Call to start game
+	public void start(int handSize)
+	{
+		sides.get(Player.PLAYER1).getDeck().drawHand(handSize);
+		sides.get(Player.PLAYER2).getDeck().drawHand(handSize);
 	}
 	//Call directly after endTurn
 	public void startTurn()

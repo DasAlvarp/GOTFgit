@@ -5,6 +5,6 @@ public class UselessContraptionCard extends UnitCard
 {
 	public UselessContraptionCard()
 	{
-		super(1, new Resource[]{}, new UnitFactory(UselessContraption.class));
+		super("Useless Contraption", 1, new Resource[]{}, new UnitFactory(UselessContraption.class));
 	}
 }

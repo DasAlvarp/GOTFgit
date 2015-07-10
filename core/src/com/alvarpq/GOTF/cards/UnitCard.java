@@ -2,16 +2,17 @@ package com.alvarpq.GOTF.cards;
 import java.lang.reflect.InvocationTargetException;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
-import com.alvarpq.GOTF.requirement.OwnEmptyTileRequirement;
 import com.alvarpq.GOTF.requirement.Requirement;
+import com.alvarpq.GOTF.requirement.RequirementType;
+import com.alvarpq.GOTF.requirement.TileRequirement;
 public abstract class UnitCard extends Card
 {
 	private UnitFactory unitFactory;
-	private OwnEmptyTileRequirement position;
-	public UnitCard(int thresholdCost, Resource[] resourceCost, UnitFactory unitFactory)
+	private TileRequirement position;
+	public UnitCard(String name, int thresholdCost, Resource[] resourceCost, UnitFactory unitFactory)
 	{
-		super(thresholdCost, resourceCost);
-		position = new OwnEmptyTileRequirement();
+		super(name, thresholdCost, resourceCost);
+		position = new TileRequirement(RequirementType.OWN_EMPTY_TILE);
 		setRequirements(new Requirement[]{position});
 		this.unitFactory = unitFactory;
 	}

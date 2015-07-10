@@ -3,14 +3,16 @@ import com.alvarpq.GOTF.coreGame.units.Unit;
 public class UnitRequirement implements Requirement
 {
 	private Unit unit;
-	public UnitRequirement()
+	private RequirementType type;
+	public UnitRequirement(RequirementType type)
 	{
 		unit = null;
+		this.type = type;
 	}
 	@Override
 	public RequirementType getType()
 	{
-		return RequirementType.UNIT;
+		return type;
 	}
 	@Override
 	public boolean isFulfilled()
