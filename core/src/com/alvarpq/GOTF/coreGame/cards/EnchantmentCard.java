@@ -1,20 +1,20 @@
-package com.alvarpq.GOTF.cards;
+package com.alvarpq.GOTF.coreGame.cards;
 import java.lang.reflect.InvocationTargetException;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
-import com.alvarpq.GOTF.requirement.TileRequirement;
-public abstract class UnitCard extends Card
+import com.alvarpq.GOTF.requirement.UnitRequirement;
+public abstract class EnchantmentCard extends Card
 {
-	private UnitFactory unitFactory;
-	private TileRequirement position;
-	public UnitCard(String name, int thresholdCost, Resource[] resourceCost, UnitFactory unitFactory)
+	private EnchantmentFactory enchantmentFactory;
+	private UnitRequirement target;
+	public EnchantmentCard(String name, int thresholdCost, Resource[] resourceCost, EnchantmentFactory enchantmentFactory)
 	{
 		super(name, thresholdCost, resourceCost);
-		position = new TileRequirement(RequirementType.OWN_EMPTY_TILE);
-		setRequirements(new Requirement[]{position});
-		this.unitFactory = unitFactory;
+		target = new UnitRequirement(RequirementType.UNIT);
+		setRequirements(new Requirement[]{target});
+		this.enchantmentFactory = enchantmentFactory;
 	}
 	@Override
 	public boolean play(BoardHalf myHalf, BoardHalf opponentsHalf)
@@ -23,7 +23,7 @@ public abstract class UnitCard extends Card
 		{
 			try
 			{
-				myHalf.addUnit(unitFactory.create(position.getRow(), position.getColumn()));
+				target.getUnit().applyEffect(enchantmentFactory.create());
 				for(Requirement requirement:getRequirements())
 				{
 					requirement.reset();

@@ -1,11 +1,11 @@
 package com.alvarpq.GOTF.screen;
 
 import java.util.Arrays;
-import com.alvarpq.GOTF.cards.Card;
-import com.alvarpq.GOTF.cards.Deck;
-import com.alvarpq.GOTF.cards.ExampleUnitCard;
-import com.alvarpq.GOTF.cards.ExampleSpellCard;
 import com.alvarpq.GOTF.coreGame.Game;
+import com.alvarpq.GOTF.coreGame.cards.Card;
+import com.alvarpq.GOTF.coreGame.cards.Deck;
+import com.alvarpq.GOTF.coreGame.cards.ExampleSpellCard;
+import com.alvarpq.GOTF.coreGame.cards.ExampleUnitCard;
 import com.alvarpq.GOTF.gui.BackDraw;
 import com.alvarpq.GOTF.gui.BoardDraw;
 import com.badlogic.gdx.Gdx;

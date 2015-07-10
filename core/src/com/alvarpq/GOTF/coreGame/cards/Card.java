@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.cards;
+package com.alvarpq.GOTF.coreGame.cards;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;

@@ -1,7 +1,7 @@
-package com.alvarpq.GOTF.cards.real;
-import com.alvarpq.GOTF.cards.UnitCard;
-import com.alvarpq.GOTF.cards.UnitFactory;
+package com.alvarpq.GOTF.coreGame.cards.real;
 import com.alvarpq.GOTF.coreGame.Resource;
+import com.alvarpq.GOTF.coreGame.cards.UnitCard;
+import com.alvarpq.GOTF.coreGame.cards.UnitFactory;
 import com.alvarpq.GOTF.coreGame.units.real.DarkYounling;
 public class DarkYounglingCard extends UnitCard
 {

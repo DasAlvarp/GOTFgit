@@ -2,9 +2,9 @@ package com.alvarpq.GOTF.coreGame;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import com.alvarpq.GOTF.cards.Card;
-import com.alvarpq.GOTF.cards.Deck;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.cards.Card;
+import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.gui.BoardDraw;
 public class Game
 {

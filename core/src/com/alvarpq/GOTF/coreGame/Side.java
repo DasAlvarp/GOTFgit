@@ -1,9 +1,9 @@
 package com.alvarpq.GOTF.coreGame;
 import java.util.LinkedList;
 import java.util.List;
-import com.alvarpq.GOTF.cards.Card;
-import com.alvarpq.GOTF.cards.Deck;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+import com.alvarpq.GOTF.coreGame.cards.Card;
+import com.alvarpq.GOTF.coreGame.cards.Deck;
 public class Side
 {
 	private BoardHalf half;
