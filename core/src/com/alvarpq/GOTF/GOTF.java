@@ -40,13 +40,12 @@ public class GOTF extends ApplicationAdapter
 		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
 		batch.begin();
 		
-	//	if(ScreenManager.getCurrentScreen()!=null){
-		//	ScreenManager.getCurrentScreen().render(batch);
-		//}
+		if(ScreenManager.getCurrentScreen()!=null){
+			ScreenManager.getCurrentScreen().render(batch);
+		}
 		if(ScreenManager.getCurrentScreen()!=null){
 			ScreenManager.getCurrentScreen().update();
 		}
-		EntityManager.renderAll(batch);
 		batch.end();
 	}
 	
