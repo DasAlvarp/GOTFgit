@@ -13,6 +13,8 @@ public class Side
 	private boolean hasSacrificed;
 	private Player owner;
 	private Game game;
+	
+	
 	public Side(BoardHalf half, Deck deck)
 	{
 		this.half = half;
@@ -23,11 +25,14 @@ public class Side
 		resources = new LinkedList<Resource>();
 		hasSacrificed = false;
 	}
-	public void setParentGame(Game g){
-		game=g;
+	
+	public void setParentGame(Game g)
+	{
+		game = g;
 	}
 	
-	public Game getParentGame(){
+	public Game getParentGame()
+	{
 		return game;
 	}
 	public void resetResources()
@@ -36,6 +41,7 @@ public class Side
 		resources = new LinkedList<Resource>(maximumResources);
 		hasSacrificed = false;
 	}
+	
 	//Call when user sacrifices for cards
 	public boolean sacrificeForCards(int indexInHand)
 	{
@@ -48,6 +54,7 @@ public class Side
 		}
 		return false;
 	}
+	
 	//Call when user sacrifices for cards
 	public boolean sacrificeForCards(Card card)
 	{
@@ -60,6 +67,7 @@ public class Side
 		}
 		return false;
 	}
+	
 	//Call when user sacrifices for resources
 	public boolean sacrificeForResources(int indexInHand, Resource resource)
 	{
@@ -75,6 +83,7 @@ public class Side
 		}
 		return false;
 	}
+	
 	//Call when user sacrifices for cards
 	public boolean sacrificeForResources(Card card, Resource resource)
 	{
@@ -89,6 +98,7 @@ public class Side
 		}
 		return false;
 	}
+	
 	//Call when user presses a card to play it, in order to see if sufficient resources exist
 	public boolean hasResources(int indexInHand)
 	{
@@ -110,6 +120,7 @@ public class Side
 		}
 		return false;
 	}
+	
 	//Call when user presses a card to play it, in order to see if sufficient resources exist
 	public boolean hasResources(Card card)
 	{
@@ -131,7 +142,8 @@ public class Side
 		}
 		return false;
 	}
-	//Do not call unless you know what you are doing
+	
+	//Do not call unless you know what you are doing. But you can't know what your doing unless you call it. So there.
 	public boolean payForCard(int indexInHand)
 	{
 		if(threshold>=deck.getHand().get(indexInHand).getThresholdCost())
@@ -154,7 +166,8 @@ public class Side
 		}
 		return false;
 	}
-	//Do not call unless you know what you are doing
+	
+	//Do not call unless you know what you are doing. See above.
 	public boolean payForCard(Card card)
 	{
 		if(deck.getHand().contains(card)&&threshold>=card.getThresholdCost())
@@ -177,30 +190,37 @@ public class Side
 		}
 		return false;
 	}
+	
 	public BoardHalf getHalf()
 	{
 		return half;
 	}
+	
 	public Deck getDeck()
 	{
 		return deck;
 	}
+	
 	public int getMaximumThreshold()
 	{
 		return maximumThreshold;
 	}
+	
 	public int getThreshold()
 	{
 		return threshold;
 	}
+	
 	public List<Resource> getMaximumResources()
 	{
 		return maximumResources;
 	}
+	
 	public List<Resource> getResources()
 	{
 		return resources;
 	}
+	
 	public Player getOwner()
 	{
 		return owner;

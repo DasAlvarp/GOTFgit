@@ -8,22 +8,24 @@ public enum Player
 	private BoardHalf board;
 	public Player otherPlayer()
 	{
-		if(this==PLAYER1)
+		if(this == PLAYER1)
 		{
 			return PLAYER2;
 		}
-		if(this==PLAYER2)
+		if(this == PLAYER2)
 		{
 			return PLAYER1;
 		}
 		return NONE;
 	}
 	
-	public BoardHalf getBoard(){
+	public BoardHalf getBoard()
+	{
 		return board;
 	}
 	
-	public void setBoard(BoardHalf board){
-		this.board=board;
+	public void setBoard(BoardHalf board)
+	{
+		this.board = board;
 	}
 }
