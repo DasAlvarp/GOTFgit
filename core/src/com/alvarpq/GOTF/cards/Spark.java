@@ -10,7 +10,7 @@ public class Spark extends SpellCard
 	public Spark()
 	{
 		super("Spark", 1, new Resource[]{});
-		target = new UnitRequirement(RequirementType.OPPONENT_UNIT);
+		target = new UnitRequirement(RequirementType.UNIT);
 		setRequirements(new Requirement[]{target});
 	}
 	@Override

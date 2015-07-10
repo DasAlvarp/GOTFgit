@@ -9,8 +9,48 @@ import com.alvarpq.GOTF.cards.UselessContraptionCard;
 import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
+import com.alvarpq.GOTF.requirement.UnitRequirement;
 public class ConsoleGOTF
 {
+	public static int tileNumberToRow(int tileNumber)
+	{
+		if(tileNumber>15)
+		{
+			tileNumber -=15;
+		}
+		return (tileNumber-1)/3;
+	}
+	public static int tileNumberToColumn(int tileNumber)
+	{
+		if(tileNumber>15)
+		{
+			tileNumber -=15;
+		}
+		return (tileNumber-1)%3;
+	}
+	public static Player tileNumberToSide(int tileNumber)
+	{
+		if(tileNumber<=15)
+		{
+			return Player.PLAYER1;
+		}
+		return Player.PLAYER2;
+	}
+	public static int toTileNumber(Player side, int row, int column)
+	{
+		if(side==Player.NONE)
+		{
+			return -1;
+		}
+		else if(side==Player.PLAYER1)
+		{
+			return row*3+column+1;
+		}
+		else
+		{
+			return 15+row*3+column+1;
+		}
+	}
 	public static void main(String[] args)
 	{	
 		Scanner input = new Scanner(System.in);
@@ -33,13 +73,13 @@ public class ConsoleGOTF
 					{
 						if(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j)==null)
 						{
-							if((i*3+j+1)<10)
+							if(toTileNumber(Player.PLAYER1, i, j)<10)
 							{
-								side1.append("0"+(i*3+j+1)+"  ");
+								side1.append("0"+toTileNumber(Player.PLAYER1, i, j)+"  ");
 							}
 							else
 							{
-								side1.append((i*3+j+1)+"  ");
+								side1.append(toTileNumber(Player.PLAYER1, i, j)+"  ");
 							}
 						}
 						else
@@ -51,14 +91,7 @@ public class ConsoleGOTF
 					{
 						if(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j)==null)
 						{
-							if((i*3+j+1)<10)
-							{
-								side2.append("  0"+(i*3+j+1));
-							}
-							else
-							{
-								side2.append("  "+(i*3+j+1));
-							}
+							side2.append("  "+toTileNumber(Player.PLAYER2, i, j));
 						}
 						else
 						{
@@ -75,13 +108,13 @@ public class ConsoleGOTF
 					{
 						if(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j)==null)
 						{
-							if((i*3+j+1)<10)
+							if(toTileNumber(Player.PLAYER1, i, j)<10)
 							{
-								side1.append("  0"+(i*3+j+1));
+								side1.append("  0"+toTileNumber(Player.PLAYER1, i, j));
 							}
 							else
 							{
-								side1.append("  "+(i*3+j+1));
+								side1.append("  "+toTileNumber(Player.PLAYER1, i, j));
 							}
 						}
 						else
@@ -93,14 +126,7 @@ public class ConsoleGOTF
 					{
 						if(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j)==null)
 						{
-							if((i*3+j+1)<10)
-							{
-								side2.append("0"+(i*3+j+1)+"  ");
-							}
-							else
-							{
-								side2.append((i*3+j+1)+"  ");
-							}
+							side2.append(toTileNumber(Player.PLAYER2, i, j)+"  ");
 						}
 						else
 						{
@@ -123,27 +149,169 @@ public class ConsoleGOTF
 				game.endTurn();
 				game.startTurn();
 			}
+			else if(command[0].equalsIgnoreCase("sacrifice"))
+			{
+				for(Card card:game.getSide(game.getCurrentPlayer()).getDeck().getHand())
+				{
+					if(command[1].equalsIgnoreCase(card.getName().substring(0, 3))
+				}
+			}
 			else if(command[0].equalsIgnoreCase("play"))
 			{
 				for(Card card:game.getSide(game.getCurrentPlayer()).getDeck().getHand())
 				{
-					if(command[1].equalsIgnoreCase(card.getName().substring(0, 3)))
+					if(command[1].equalsIgnoreCase(card.getName().substring(0, 3))&&game.getSide(game.getCurrentPlayer()).hasResources(card))
 					{
 						for(Requirement requirement:card.getRequirements())
 						{
-							if(requirement.getType()==RequirementType.OWN_EMPTY_TILE)
+							if(requirement.getType()==RequirementType.TILE)
 							{
-								System.out.print("(1-15)> ");
+								System.out.print("(1-30)> ");
 								while(true)
 								{
 									try
 									{
 										int tileNumber = Integer.parseInt(input.nextLine());
-										int row = (tileNumber-1)/3;
-										int column = (tileNumber-1)%3;
-										if(game.getSide(game.getCurrentPlayer()).getHalf().getUnitAt(row, column)==null)
+										if(tileNumber>=1&&tileNumber<=30)
 										{
-											((TileRequirement)requirement).setTile(row, column);
+											((TileRequirement)requirement).setTile(tileNumberToSide(tileNumber), tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber));
+											break;
+										}
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.OWN_TILE)
+							{
+								System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(1-15)> ":"(16-30)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer()==tileNumberToSide(tileNumber))
+										{
+											((TileRequirement)requirement).setTile(tileNumberToSide(tileNumber), tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber));
+											break;
+										}
+			
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.OPPONENT_TILE)
+							{
+								System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(16-30)> ":"(1-15)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer().otherPlayer()==tileNumberToSide(tileNumber))
+										{
+											((TileRequirement)requirement).setTile(tileNumberToSide(tileNumber), tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber));
+											break;
+										}
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.EMPTY_TILE)
+							{
+								System.out.print("(1-30)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null)
+										{
+											((TileRequirement)requirement).setTile(tileNumberToSide(tileNumber), tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber));
+											break;
+										}
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.OWN_EMPTY_TILE)
+							{
+								System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(1-15)> ":"(16-30)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer()==tileNumberToSide(tileNumber)&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null)
+										{
+											((TileRequirement)requirement).setTile(tileNumberToSide(tileNumber), tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber));
+											break;
+										}
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.OPPONENT_EMPTY_TILE)
+							{
+								System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(16-30)> ":"(1-15)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer().otherPlayer()==tileNumberToSide(tileNumber)&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null)
+										{
+											((TileRequirement)requirement).setTile(tileNumberToSide(tileNumber), tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber));
+											break;
+										}
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.UNIT)
+							{
+								System.out.print("(1-30)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))!=null)
+										{
+											((UnitRequirement)requirement).setUnit(game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)));
+											break;
+										}
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.OWN_UNIT)
+							{
+								System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(1-15)> ":"(16-30)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer()==tileNumberToSide(tileNumber)&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null)
+										{
+											((UnitRequirement)requirement).setUnit(game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)));
+											break;
+										}
+									}
+									catch(NumberFormatException exception){	}
+								}
+							}
+							else if(requirement.getType()==RequirementType.OPPONENT_UNIT)
+							{
+								System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(16-30)> ":"(1-15)> ");
+								while(true)
+								{
+									try
+									{
+										int tileNumber = Integer.parseInt(input.nextLine());
+										if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer().otherPlayer()==tileNumberToSide(tileNumber)&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null)
+										{
+											((UnitRequirement)requirement).setUnit(game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)));
 											break;
 										}
 									}
@@ -151,7 +319,7 @@ public class ConsoleGOTF
 								}
 							}
 						}
-						card.play(game.getSide(game.getCurrentPlayer()).getHalf(), game.getSide(game.getCurrentPlayer().otherPlayer()).getHalf());
+						game.playCard(game.getCurrentPlayer(), card);
 						break;
 					}
 				}
