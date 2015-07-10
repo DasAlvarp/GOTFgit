@@ -6,4 +6,5 @@ public interface Effect
 	public int baseCountdownChange();
 	public int healthChange();
 	public int baseMoveChange();
+	public boolean untargetable();
 }//stuff and things

@@ -15,7 +15,9 @@ public abstract class Unit extends Entity
 {
 	private String name;
 	private int baseCountdown, maximumHealth, baseMove;
+	private boolean baseTargetable;
 	private int attack, countdown, health, move;
+	private boolean targetable;
 	private String[] subtypes;
 	private int row, column;
 	private Player owner;
@@ -24,17 +26,19 @@ public abstract class Unit extends Entity
 	private List<Effect> effects;
 	//Temp frame variable to do animations
 	protected int frame=0;
-	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, String[] subtypes, int row, int column)
+	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, boolean baseTargetable, String[] subtypes, int row, int column)
 	{
 		super();
 		this.name = name;
 		this.baseCountdown = baseCountdown;
 		this.maximumHealth = maximumHealth;
 		this.baseMove = baseMove;
+		this.baseTargetable = baseTargetable;
 		this.attack = attack;
 		countdown = baseCountdown;
 		health = maximumHealth;
 		move = baseMove;
+		this.targetable = baseTargetable;
 		this.subtypes = subtypes;
 		this.row = row;
 		this.column = column;
@@ -103,6 +107,10 @@ public abstract class Unit extends Entity
 		health+=effect.healthChange();
 		maximumHealth+=effect.healthChange();
 		baseMove+=effect.baseMoveChange();
+		if(effect.untargetable())
+		{
+			targetable = false;
+		}
 	}
 	public void removeEffect(int index)
 	{
@@ -111,6 +119,10 @@ public abstract class Unit extends Entity
 		health-=effects.get(index).healthChange();
 		maximumHealth-=effects.get(index).healthChange();
 		baseMove-=effects.get(index).baseMoveChange();
+		if(effects.get(index).untargetable())
+		{
+			targetable = baseTargetable;
+		}
 		effects.remove(index);
 	}
 	public void applyAllEffects()
@@ -122,6 +134,10 @@ public abstract class Unit extends Entity
 			health+=effect.healthChange();
 			maximumHealth+=effect.healthChange();
 			baseMove+=effect.baseMoveChange();
+			if(effect.untargetable())
+			{
+				targetable = false;
+			}
 		}
 	}
 	public void clearPresenceEffects()
@@ -135,6 +151,10 @@ public abstract class Unit extends Entity
 				health-=effects.get(i).healthChange();
 				maximumHealth-=effects.get(i).healthChange();
 				baseMove-=effects.get(i).baseMoveChange();
+				if(effects.get(i).untargetable())
+				{
+					targetable = baseTargetable;
+				}
 				effects.remove(i);
 				i--;
 			}
@@ -156,6 +176,10 @@ public abstract class Unit extends Entity
 	{
 		return baseMove;
 	}
+	public boolean getBaseTargetable()
+	{
+		return baseTargetable;
+	}
 	public int getAttack()
 	{
 		return attack;
@@ -171,6 +195,10 @@ public abstract class Unit extends Entity
 	public int getMove()
 	{
 		return move;
+	}
+	public boolean getTargetable()
+	{
+		return targetable;
 	}
 	public String[] getSubtypes()
 	{
