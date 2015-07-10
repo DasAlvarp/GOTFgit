@@ -21,7 +21,7 @@ public class Game
 		BoardHalf.createBoard(sides.get(Player.PLAYER1).getHalf(), sides.get(Player.PLAYER2).getHalf());
 		//currentPlayer = Player.values()[random.nextInt(2)]; temporarily Player1 always start
 		currentPlayer = Player.PLAYER1;
-		boardDraw=new BoardDraw();
+		//boardDraw=new BoardDraw(); temporarily removed to work in console
 	}
 	
 	
