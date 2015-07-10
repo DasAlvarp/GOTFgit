@@ -5,10 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
 
 public class MenuScreen extends Screen{
 
@@ -19,8 +16,10 @@ public class MenuScreen extends Screen{
 
 	@Override
 	public void render(SpriteBatch batch) {
-	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);      //clears the buffer 
+		// TODO Auto-generated method stub
+
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
+
 		batch.begin();
 		batch.end();
 	}
