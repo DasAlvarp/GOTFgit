@@ -6,69 +6,91 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class AnimatedSprite {
 	int currentFrame;
-	int tick;
 	int framesPer;
 	int frames;
-	boolean still=false;
+	boolean still = false;
 	ArrayList<Sprite> sprites;
 	
+	long lastTime;
+	long timePassed;
+	long millisecondsPerFrame = 50;
+	
 	//A bunch of different constructors to create sprites. The update method should be called every frame.
-	public AnimatedSprite(int framesPer, ArrayList<Sprite> sprites){
-		tick=0;
+	public AnimatedSprite(int framesPer, ArrayList<Sprite> sprites)
+	{
 		currentFrame=0;
-		frames=sprites.size();
+		frames = sprites.size();
 		this.sprites=sprites;
 
 		this.framesPer=framesPer;
+		
+		lastTime = System.currentTimeMillis();
+		timePassed = 0;
 	}
 	
-	public AnimatedSprite(int framesPer, Sprite... sprites){
-		this.sprites=new ArrayList<Sprite>();
-		for(int k=0;k<sprites.length;k++){
+	//constructor 'n' stuff.
+	public AnimatedSprite(int framesPer, Sprite... sprites)
+	{
+		this.sprites = new ArrayList<Sprite>();
+		for(int k = 0; k < sprites.length; k++)
+		{
 			this.sprites.add(sprites[k]);
 		}
-		tick=0;
-		currentFrame=0;
-		frames=sprites.length;
+		currentFrame = 0;
+		frames = sprites.length;
 		
 
 		this.framesPer=framesPer;
 	}
 	
-	public AnimatedSprite(Sprite s){
-		still=true;
-		sprites=new ArrayList<Sprite>();
+	//see above
+	public AnimatedSprite(Sprite s)
+	{
+		still = true;
+		sprites = new ArrayList<Sprite>();
 		sprites.add(s);
-		currentFrame=0;
+		currentFrame = 0;
 	}
 	
-	public void setSize(int width, int height){
-		for(Sprite s:sprites){
+	
+	//sets size of self.
+	public void setSize(int width, int height)
+	{
+		for(Sprite s:sprites)
+		{
 			s.setSize(width, height);
 		}
 	}
 	
 	
+	
 	//Changes the frame of other
 	public void syncFrameWith(AnimatedSprite other){
 		other.jumpToFrame(currentFrame);
-		tick=0;
+		timePassed = 0;
 	}
 	
 	public void jumpToFrame(int frame){
 		currentFrame=frame;
-		tick=0;
+		timePassed = 0;
 	}
 	public Sprite getCurrentFrame(){
 		return sprites.get(currentFrame);
 	}
 	
-	public void update(){
-		if(framesPer>0 && !still){
-		tick=(tick+1)%framesPer;
-		if(tick==0){
-			currentFrame=(currentFrame+1)%frames;
-		}
-		}
+	public void update()
+	{
+		timePassed = System.currentTimeMillis() - lastTime;
+		
+	//	if(framesPer > 0 && !still)
+	//	{
+	//		tick = (tick+1) % framesPer;
+			if(timePassed > millisecondsPerFrame && !still)
+			{
+				currentFrame = (currentFrame + 1) % frames;
+				lastTime = System.currentTimeMillis();
+
+			}
+	//	}
 	}
 }
