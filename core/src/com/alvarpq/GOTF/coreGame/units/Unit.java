@@ -41,34 +41,21 @@ public abstract class Unit extends Entity
 		setMoveType(MoveType.NORMAL);
 		effects = new LinkedList<Effect>();
 	}
-<<<<<<< HEAD
-	//override for self-buffs and buffs on other units
-<<<<<<< HEAD
-	public abstract void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf);
-=======
-	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
 	//call BoardHalf.move instead
-=======
->>>>>>> Stuff.
-	
 	//NEW METHOD~TO IMPLEMENT
-	public Sprite getSprite() {
+	/*public Sprite getSprite() {
 		// TODO Auto-generated method stub
 		 return new Sprite(new Texture(Gdx.files.internal("noTexture.png")));
 		
-	}
+	}*/
 	
 	public Vector2 getLocation(){
 		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());
 	}
-<<<<<<< HEAD
 	//call BoardHalf.resetCountdown instead
->>>>>>> Stuff.
-=======
 	
 	//override for self-buffs and buffs on other units
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
->>>>>>> Stuff.
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;
@@ -97,19 +84,11 @@ public abstract class Unit extends Entity
 		{
 			health = maximumHealth;
 		}
-<<<<<<< HEAD
 	}
 	public void damage(int amount)
 	{
 		health-=amount;
 	}
-=======
-	}
-	public void damage(int amount)
-	{
-		health-=amount;
-	}
->>>>>>> Stuff.
 	public void changeMove(int amount)
 	{
 		move+=amount;

@@ -1,12 +1,8 @@
 package com.alvarpq.GOTF.gui;
-
-<<<<<<< HEAD
 import java.util.ArrayList;
-
-=======
+import com.alvarpq.GOTF.entity.AnimatedSprite;
 import com.alvarpq.GOTF.entity.Entity;
 import com.alvarpq.GOTF.entity.EntityManager;
->>>>>>> Stuff.
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -33,14 +29,8 @@ public class Hex extends Entity
 	private BitmapFont font;
 	private static int LENGTH = 39;
 	private static int HEIGHT = 45;
-<<<<<<< HEAD
-
 	private int tick;
-	
-=======
 	private boolean highlighted=false;
->>>>>>> Stuff.
-	
 	public Hex(int x1, int y1, Sprite sprit, Sprite sel)
 	{
 		super();
@@ -51,7 +41,6 @@ public class Hex extends Entity
 		selected = sel;
 		
 		font = new BitmapFont();
-<<<<<<< HEAD
 		font.setColor(Color.WHITE);
 		
 		String locationString = "GUI/selectedTiles/selectedTile";
@@ -67,12 +56,10 @@ public class Hex extends Entity
 		tick = 0;
 		
 		
-=======
 		font.setColor(Color.RED);
 		
 		EntityManager.addEntity(this);
 		System.out.println("Added.");
->>>>>>> Stuff.
 	}
 	
 	public int getX(){
@@ -83,7 +70,6 @@ public class Hex extends Entity
 		return y;
 	}
 
-<<<<<<< HEAD
 	//draws sprite
 	public void drawit(SpriteBatch batch)
 	{
@@ -94,7 +80,7 @@ public class Hex extends Entity
 
 		
 		font.draw(batch, "x: " + Gdx.input.getX() + " y: " + Gdx.input.getY(), 200, 200);
-		if(getValidLocations(this.x,this.y, Gdx.input.getX(), Gdx.input.getY()))
+		if(getValidLocations(Gdx.input.getX(), Gdx.input.getY()))
 			select(batch);
 		else
 			deselect(batch);
@@ -103,14 +89,14 @@ public class Hex extends Entity
 	
 	//deselects a sprite
 	public void deselect(SpriteBatch batch)
-=======
+	{
+		
+	}
 	
 	public void deselect()
->>>>>>> Stuff.
 	{
 		highlighted=false;
 	}
-<<<<<<< HEAD
 	
 	//selects a hex
 	public void select(SpriteBatch batch)
@@ -121,17 +107,12 @@ public class Hex extends Entity
 			selected = new Sprite(textureFrames.get(currentFrame));
 		batch.draw(selected, x , y, 39, 45);
 	}
-	
-	//returns whether a hex placed at x, y, is overlapped by the coordinates of mouseX and mouseY
-	public boolean getValidLocations(int x, int y, int mouseX, int mouseY)
-=======
 	public void select()
 	{
 		highlighted=true;
 	}
 	
 	public boolean getValidLocations(int mouseX, int mouseY)
->>>>>>> Stuff.
 	{
 		
 		if(x < mouseX && x + LENGTH / 2 > mouseX)
@@ -162,21 +143,21 @@ public class Hex extends Entity
 		}
 	}
 
-	@Override
+	/*@Override
 	public Sprite getSprite() {
 		// TODO Auto-generated method stub
 		if(highlighted){
 			return selected;
 		}
 		return hx;
-	}
+	}*/
 
-	@Override
+	/*@Override
 	public Vector2 getLocation() 
 	{
 		// TODO Auto-generated method stub
 		return new Vector2(x,y);
-	}
+	}*/
 
 	@Override
 	public void update() {
@@ -185,5 +166,12 @@ public class Hex extends Entity
 			select();
 		else
 			deselect();
+	}
+
+	@Override
+	public AnimatedSprite getSprite()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

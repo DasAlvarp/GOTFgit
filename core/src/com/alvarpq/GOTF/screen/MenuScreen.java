@@ -19,12 +19,8 @@ public class MenuScreen extends Screen{
 
 	@Override
 	public void render(SpriteBatch batch) {
-		// TODO Auto-generated method stub
-<<<<<<< HEAD
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);      //clears the buffer 
-=======
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
->>>>>>> Stuff.
 		batch.begin();
 		batch.end();
 	}

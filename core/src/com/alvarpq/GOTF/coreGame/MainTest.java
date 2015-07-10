@@ -11,7 +11,7 @@ public class MainTest
 	public static void main(String[] args)
 	{
 		Game game = new Game(new Deck(Arrays.asList(new Card[]{new KinfolkBraveCard(), new KinfolkBraveCard()}), false),
-		new Deck(Arrays.asList(new Card[]{new Spark(), new Spark()}), false));
+				new Deck(Arrays.asList(new Card[]{new Spark(), new Spark()}), false));
 		game.getSide(Player.PLAYER1).getDeck().drawHand(2);
 		game.getSide(Player.PLAYER2).getDeck().drawHand(2);
 		game.getSide(game.getCurrentPlayer()).sacrificeForResources(0, Resource.AIR);
