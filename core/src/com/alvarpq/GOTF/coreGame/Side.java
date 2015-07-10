@@ -10,7 +10,7 @@ public class Side
 	private Deck deck;
 	private int maximumThreshold, threshold;
 	private List<Resource> maximumResources, resources;
-	boolean hasSacrificed;
+	private boolean hasSacrificed;
 	public Side(BoardHalf half, Deck deck)
 	{
 		this.half = half;
@@ -163,6 +163,23 @@ public class Side
 			}
 			threshold-=card.getThresholdCost();
 			resources = tempResources;
+			return true;
+		}
+		return false;
+	}
+	//Call to know if this side has lost
+	public boolean hasLost()
+	{
+		int idolsDown = 0;
+		for(int i=0;i<half.numberOfRows();i++)
+		{
+			if(half.getIdolAt(i)<=0)
+			{
+				idolsDown++;
+			}
+		}
+		if(idolsDown>=3)
+		{
 			return true;
 		}
 		return false;
