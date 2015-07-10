@@ -2,7 +2,6 @@ package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Player;
-import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.alvarpq.GOTF.entity.Entity;
@@ -54,10 +53,7 @@ public abstract class Unit extends Entity
 	public Vector2 getLocation(){
 		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());
 	}
-	//call BoardHalf.resetCountdown instead
-	
-	//override for self-buffs and buffs on other units
-	public abstract void applyPresence(Side mySide, Side opponentsSide);
+	//call BoardHalf.resetCountdown instead	
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;

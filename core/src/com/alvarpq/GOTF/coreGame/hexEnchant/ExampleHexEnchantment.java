@@ -1,9 +1,10 @@
 package com.alvarpq.GOTF.coreGame.hexEnchant;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
-public class Hill extends HexEnchantment
+import com.alvarpq.GOTF.coreGame.units.PresenceApplier;
+public class ExampleHexEnchantment extends HexEnchantment implements PresenceApplier
 {
-	public Hill(int row, int column)
+	public ExampleHexEnchantment(int row, int column)
 	{
 		super("Hill", row, column);
 	}
@@ -12,7 +13,7 @@ public class Hill extends HexEnchantment
 	{
 		if(mySide.getHalf().getUnitAt(getRow(), getColumn())!=null)
 		{
-			mySide.getHalf().getUnitAt(getRow(), getColumn()).applyEffect(Presence.HEALTH_2);
+			mySide.getHalf().getUnitAt(getRow(), getColumn()).applyEffect(Presence.ATTACK_1);
 		}
 	}
 }

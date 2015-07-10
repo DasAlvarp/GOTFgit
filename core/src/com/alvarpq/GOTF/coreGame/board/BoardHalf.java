@@ -13,6 +13,7 @@ import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledListener;
 import com.alvarpq.GOTF.coreGame.hexEnchant.HexEnchantment;
+import com.alvarpq.GOTF.coreGame.units.PresenceApplier;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.entity.EntityManager;
 public class BoardHalf
@@ -55,23 +56,35 @@ public class BoardHalf
 		}
 		for(Unit unit:getUnits())
 		{
-			unit.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
+			if(unit instanceof PresenceApplier)
+			{
+				((PresenceApplier)unit).applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
+			}
 		}
 		for(HexEnchantment hexEnchant:getHexEnchantments())
 		{
-			hexEnchant.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
+			if(hexEnchant instanceof PresenceApplier)
+			{
+				((PresenceApplier)hexEnchant).applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
+			}
 		}
-		for(Unit unit:game.getSide(owner).getHalf().getUnits())
+		for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
 		{
 			unit.clearPresenceEffects();
 		}
 		for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
 		{
-			unit.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
+			if(unit instanceof PresenceApplier)
+			{
+				((PresenceApplier)unit).applyPresence(game.getSide(owner.otherPlayer()), game.getSide(owner));
+			}
 		}
 		for(HexEnchantment hexEnchant:game.getSide(owner.otherPlayer()).getHalf().getHexEnchantments())
 		{
-			hexEnchant.applyPresence(game.getSide(owner), game.getSide(owner.otherPlayer()));
+			if(hexEnchant instanceof PresenceApplier)
+			{
+				((PresenceApplier)hexEnchant).applyPresence(game.getSide(owner.otherPlayer()), game.getSide(owner));
+			}
 		}
 		boolean newUpdate = false;
 		for(int i=0;i<numberOfRows();i++)

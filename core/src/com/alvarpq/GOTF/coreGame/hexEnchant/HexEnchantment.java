@@ -13,8 +13,6 @@ public abstract class HexEnchantment
 		this.column = column;
 		owner = Player.NONE;
 	}
-	//override for buffs on other units
-	public abstract void applyPresence(Side mySide, Side opponentsSide);
 	public String getName()
 	{
 		return name;

@@ -1,5 +1,4 @@
 package com.alvarpq.GOTF.coreGame.units.real;
-import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.units.MoveType;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.entity.AnimatedSprite;
@@ -10,8 +9,6 @@ public class JumpingWhale extends Unit
 		super("Jumping Whale", 3, 2, 3, 1, true, new String[]{"Whale"}, row, column);
 		setMoveType(MoveType.NOT_ADJACENT);
 	}
-	@Override
-	public void applyPresence(Side mySide, Side opponentsSide){}
 	@Override
 	public AnimatedSprite getSprite(){return null;}
 	@Override
