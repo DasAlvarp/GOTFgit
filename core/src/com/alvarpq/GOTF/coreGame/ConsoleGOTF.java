@@ -9,25 +9,36 @@ import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
 import com.alvarpq.GOTF.requirement.RowRequirement;
 import com.alvarpq.GOTF.requirement.UnitRequirement;
+
+//I am alvaro. I have come to comment your code and press space and enter a lot.
+
 public class ConsoleGOTF
 {
 	private static Scanner input;
+	/*
+	 * Returns the Row number a tile is on. Takes a tile number.
+	 */
 	public static int tileNumberToRow(int tileNumber)
 	{
-		if(tileNumber>15)
+		if(tileNumber > 15)
 		{
-			tileNumber -=15;
+			tileNumber -= 15;
 		}
-		return (tileNumber-1)/3;
+		return (tileNumber - 1) / 3;
 	}
+	
+	//Returns a column number based off of a tile number
 	public static int tileNumberToColumn(int tileNumber)
 	{
-		if(tileNumber>15)
+		if(tileNumber > 15)
 		{
-			tileNumber -=15;
+			tileNumber -= 15;
 		}
-		return (tileNumber-1)%3;
+		return (tileNumber - 1) % 3;
 	}
+	
+	
+	//Returns the player that controls a tile, based on its number.
 	public static Player tileNumberToSide(int tileNumber)
 	{
 		if(tileNumber<=15)
@@ -36,24 +47,30 @@ public class ConsoleGOTF
 		}
 		return Player.PLAYER2;
 	}
+	
+	
+	//Returns the proper tile number based on the controlling player, row and column.
 	public static int toTileNumber(Player side, int row, int column)
 	{
-		if(side==Player.NONE)
+		if(side == Player.NONE)
 		{
 			return -1;
 		}
-		else if(side==Player.PLAYER1)
+		else if(side == Player.PLAYER1)
 		{
-			return row*3+column+1;
+			return row * 3 + column + 1;
 		}
 		else
 		{
-			return 15+row*3+column+1;
+			return 15 + row * 3 + column + 1;
 		}
 	}
+	
+	
+	//returns total cost of a unit, in string form
 	public static String costString(Card card)
 	{
-		String toReturn = card.getThresholdCost()+"Threshold";
+		String toReturn = card.getThresholdCost() + "Threshold";
 		int air = 0;
 		int earth = 0;
 		int fire = 0;
@@ -62,33 +79,39 @@ public class ConsoleGOTF
 		{
 			switch(resource)
 			{
-				case AIR: air++; break;
-				case EARTH: earth++; break;
-				case FIRE: fire++; break;
-				case WATER: water++; break;
+				case AIR:	air++; 
+							break;
+				case EARTH:	earth++;
+							break;
+				case FIRE: 	fire++; 
+							break;
+				case WATER: water++;
+							break;
 			}
 		}
-		if(air>0)
+		if(air > 0)
 		{
-			toReturn+=" "+air+"Air";
+			toReturn += " " + air + "Air";
 		}
-		if(earth>0)
+		if(earth > 0)
 		{
-			toReturn+=" "+earth+"Earth";
+			toReturn += " " + earth + "Earth";
 		}
-		if(fire>0)
+		if(fire > 0)
 		{
-			toReturn+=" "+fire+"Fire";
+			toReturn += " " + fire + "Fire";
 		}
-		if(water>0)
+		if(water > 0)
 		{
-			toReturn+=" "+water+"Water";
+			toReturn += " " + water + "Water";
 		}
 		return toReturn;
 	}
+	
+	//returns your current resources and total resources, in string form.
 	public static String resourcesString(Side side)
 	{
-		String toReturn = side.getThreshold()+"/"+side.getMaximumThreshold()+"Threshold";
+		String toReturn = side.getThreshold() + "/" + side.getMaximumThreshold() + "Threshold";
 		int air = 0;
 		int earth = 0;
 		int fire = 0;
@@ -99,42 +122,56 @@ public class ConsoleGOTF
 		int maximumWater = 0;
 		for(Resource resource:side.getResources())
 		{
+			
+			//have you considered making this switch statement a private method?
 			switch(resource)
 			{
-				case AIR: air++; break;
-				case EARTH: earth++; break;
-				case FIRE: fire++; break;
-				case WATER: water++; break;
+				case AIR:	air++; 
+							break;
+				case EARTH: earth++; 
+							break;
+				case FIRE:	fire++;
+							break;
+				case WATER: water++;
+							break;
 			}
 		}
+		
 		for(Resource resource:side.getMaximumResources())
 		{
 			switch(resource)
 			{
-				case AIR: maximumAir++; break;
-				case EARTH: maximumEarth++; break;
-				case FIRE: maximumFire++; break;
-				case WATER: maximumWater++; break;
+				case AIR:	maximumAir++;
+							break;
+				case EARTH:	maximumEarth++; 
+							break;
+				case FIRE:	maximumFire++;
+							break;
+				case WATER:	maximumWater++;
+							break;
 			}
 		}
-		if(air>0||maximumAir>0)
+		if(air > 0 || maximumAir > 0)
 		{
-			toReturn+=" "+air+"/"+maximumAir+"Air";
+			toReturn += " " + air + "/" + maximumAir + "Air";
 		}
-		if(earth>0||maximumEarth>0)
+		if(earth > 0 || maximumEarth > 0)
 		{
-			toReturn+=" "+earth+"/"+maximumEarth+"Earth";
+			toReturn += " " + earth + "/" + maximumEarth + "Earth";
 		}
-		if(fire>0||maximumFire>0)
+		if(fire > 0 || maximumFire > 0)
 		{
-			toReturn+=" "+fire+"/"+maximumFire+"Fire";
+			toReturn += " " + fire + "/" + maximumFire + "Fire";
 		}
-		if(water>0||maximumWater>0)
+		if(water > 0 || maximumWater > 0)
 		{
-			toReturn+=" "+water+"/"+maximumWater+"Water";
+			toReturn += " " + water + "/" + maximumWater + "Water";
 		}
 		return toReturn;
 	}
+	
+	
+	//Runs the damn thing. Lots of spaghetti code here, I'm not even gonna try.
 	public static void main(String[] args)
 	{	
 		input = new Scanner(System.in);
