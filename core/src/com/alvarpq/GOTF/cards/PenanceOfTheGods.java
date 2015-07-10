@@ -4,12 +4,12 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
 import com.alvarpq.GOTF.requirement.UnitRequirement;
-public class Spark extends SpellCard
+public class PenanceOfTheGods extends SpellCard
 {
 	private UnitRequirement target;
-	public Spark()
+	public PenanceOfTheGods()
 	{
-		super("Spark", 2, new Resource[]{Resource.FIRE});
+		super("Penance of the Gods", 10, new Resource[]{Resource.EARTH, Resource.EARTH, Resource.EARTH, Resource.EARTH, Resource.EARTH});
 		target = new UnitRequirement(RequirementType.UNIT);
 		setRequirements(new Requirement[]{target});
 	}
@@ -18,11 +18,8 @@ public class Spark extends SpellCard
 	{
 		if(isReady())
 		{
-			opponentsHalf.damage(target.getUnit(), 2);
-			for(Requirement requirement:getRequirements())
-			{
-				requirement.reset();
-			}
+			opponentsHalf.damage(target.getUnit(), 5);
+			reset();
 			return true;
 		}
 		return false;
