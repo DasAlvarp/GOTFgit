@@ -404,7 +404,9 @@ public class ConsoleGOTF
 										{
 											System.out.print("(1-30)> ");
 											int tileNumber = Integer.parseInt(input.nextLine());
-											if(tileNumber>=1&&tileNumber<=30&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))!=null)
+											if(tileNumber>=1&&tileNumber<=30&&
+											game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))!=null
+											&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)).getTargetable())
 											{
 												((UnitRequirement)requirement).setUnit(game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)));
 												break;
@@ -421,7 +423,10 @@ public class ConsoleGOTF
 										{
 											System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(1-15)> ":"(16-30)> ");
 											int tileNumber = Integer.parseInt(input.nextLine());
-											if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer()==tileNumberToSide(tileNumber)&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null)
+											if(tileNumber>=1&&tileNumber<=30&&
+											game.getCurrentPlayer()==tileNumberToSide(tileNumber)&&
+											game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null&&
+											game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)).getTargetable())
 											{
 												((UnitRequirement)requirement).setUnit(game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)));
 												break;
@@ -438,7 +443,10 @@ public class ConsoleGOTF
 										{
 											System.out.print(game.getCurrentPlayer()==Player.PLAYER1?"(16-30)> ":"(1-15)> ");
 											int tileNumber = Integer.parseInt(input.nextLine());
-											if(tileNumber>=1&&tileNumber<=30&&game.getCurrentPlayer().otherPlayer()==tileNumberToSide(tileNumber)&&game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null)
+											if(tileNumber>=1&&tileNumber<=30&&
+											game.getCurrentPlayer().otherPlayer()==tileNumberToSide(tileNumber)&&
+											game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber))==null&&
+											game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)).getTargetable())
 											{
 												((UnitRequirement)requirement).setUnit(game.getSide(tileNumberToSide(tileNumber)).getHalf().getUnitAt(tileNumberToRow(tileNumber), tileNumberToColumn(tileNumber)));
 												break;

@@ -196,7 +196,6 @@ public abstract class Unit extends Entity
 	{
 		return move;
 	}
-	//make sure to check this value before sending unit to requirement
 	public boolean getTargetable()
 	{
 		return targetable;
