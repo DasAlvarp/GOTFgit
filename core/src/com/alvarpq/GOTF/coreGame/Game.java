@@ -79,7 +79,12 @@ public class Game
 	{
 		if(sides.get(side).getDeck().getHand().get(indexInHand).isReady()&&sides.get(side).payForCard(indexInHand))
 		{
-			return sides.get(side).getDeck().getHand().get(indexInHand).play(sides.get(side).getHalf(), sides.get(side.otherPlayer()).getHalf());
+			if(sides.get(side).getDeck().getHand().get(indexInHand).play(sides.get(side).getHalf(), sides.get(side.otherPlayer()).getHalf()))
+			{
+				sides.get(side).getDeck().discardCard(indexInHand);
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}
@@ -88,7 +93,12 @@ public class Game
 	{
 		if(card.isReady()&&sides.get(side).payForCard(card))
 		{
-			return card.play(sides.get(side).getHalf(), sides.get(side.otherPlayer()).getHalf());
+			if(card.play(sides.get(side).getHalf(), sides.get(side.otherPlayer()).getHalf()))
+			{
+				sides.get(side).getDeck().discardCard(card);
+				return true;
+			}
+			return false;
 		}
 		return false;
 	}

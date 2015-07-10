@@ -4,8 +4,7 @@ import java.util.Scanner;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.coreGame.cards.real.DarkYounglingCard;
-import com.alvarpq.GOTF.coreGame.cards.real.ExampleSpellCard;
-import com.alvarpq.GOTF.coreGame.cards.real.ExampleUnitCard;
+import com.alvarpq.GOTF.coreGame.cards.real.JumpingWhaleCard;
 import com.alvarpq.GOTF.coreGame.cards.real.PenanceOfTheGods;
 import com.alvarpq.GOTF.coreGame.cards.real.TunnelGuardCard;
 import com.alvarpq.GOTF.requirement.TileRequirement;
@@ -141,9 +140,9 @@ public class ConsoleGOTF
 	{	
 		Scanner input = new Scanner(System.in);
 		Deck deck1 = new Deck(Arrays.asList(new Card[]{new DarkYounglingCard(), new DarkYounglingCard(), new TunnelGuardCard()
-		, new TunnelGuardCard(), new UselessContraptionCard(), new PenanceOfTheGods()}), true);
+		, new TunnelGuardCard(), new JumpingWhaleCard(), new PenanceOfTheGods()}), true);
 		Deck deck2 = new Deck(Arrays.asList(new Card[]{new DarkYounglingCard(), new DarkYounglingCard(), new TunnelGuardCard()
-		, new TunnelGuardCard(), new ExampleSpellCard(), new PenanceOfTheGods()}), true);
+		, new TunnelGuardCard(), new JumpingWhaleCard(), new PenanceOfTheGods()}), true);
 		Game game = new Game(deck1, deck2);
 		game.start(3);
 		while(!game.getSide(Player.PLAYER1).hasLost()&&!game.getSide(Player.PLAYER2).hasLost())
@@ -222,10 +221,10 @@ public class ConsoleGOTF
 					System.out.println(side1+" "+side2);
 				}
 			}
-			System.out.print("Hand: "+game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0).getName().substring(0, 3)+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0))+") ");
+			System.out.print("Hand: "+game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0).getName()+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0))+") ");
 			for(int i=1;i<game.getSide(game.getCurrentPlayer()).getDeck().getHand().size();i++)
 			{
-				System.out.print(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i).getName().substring(0, 3)+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i))+") ");
+				System.out.print(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i).getName()+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(i))+") ");
 			}
 			System.out.println();
 			System.out.println("Resources: "+resourcesString(game.getSide(game.getCurrentPlayer())));
