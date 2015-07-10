@@ -4,17 +4,17 @@ public interface MoveType
 {
 	public static final Normal NORMAL = new Normal();
 	public static final Immovable IMMOVABLE = new Immovable();
-	public boolean move(Unit unit, int row, int column, BoardHalf myHalf, BoardHalf opponentsHalf, Unit[][] myHalfUnits);
+	public boolean move(Unit unit, int row, int column, BoardHalf mySide, BoardHalf opponentsSide, Unit[][] mySideUnits);
 	class Normal implements MoveType
 	{
 		@Override
-		public boolean move(Unit unit, int row, int column, BoardHalf myHalf, BoardHalf opponentsHalf, Unit[][] myHalfUnits)
+		public boolean move(Unit unit, int row, int column, BoardHalf mySide, BoardHalf opponentsSide, Unit[][] mySideUnits)
 		{
-			if(unit.getMove()>0&&myHalf.getUnitAt(row, column)==null&&BoardHalf.isAdjacent(unit.getRow(), unit.getColumn(), row, column))
+			if(unit.getMove()>0&&mySide.getUnitAt(row, column)==null&&BoardHalf.isAdjacent(unit.getRow(), unit.getColumn(), row, column))
 			{
 				unit.changeMove(-1);
-				myHalfUnits[row][column] = unit;
-				myHalfUnits[unit.getRow()][unit.getColumn()] = null;
+				mySideUnits[row][column] = unit;
+				mySideUnits[unit.getRow()][unit.getColumn()] = null;
 				unit.setRow(row);
 				unit.setColumn(column);
 				return true;
@@ -30,7 +30,7 @@ public interface MoveType
 	class Immovable implements MoveType
 	{
 		@Override
-		public boolean move(Unit unit, int row, int column, BoardHalf myHalf, BoardHalf opponentsHalf, Unit[][] myHalfUnits)
+		public boolean move(Unit unit, int row, int column, BoardHalf mySide, BoardHalf opponentsSide, Unit[][] mySideUnits)
 		{
 			return false;
 		}

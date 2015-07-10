@@ -7,8 +7,8 @@ import com.alvarpq.GOTF.GOTF;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 870;
-		config.height = 412;
+		config.width = 700;
+		config.height = 900;
 		new LwjglApplication(new GOTF(), config);
 	}
 }

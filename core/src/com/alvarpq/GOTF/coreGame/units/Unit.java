@@ -1,11 +1,17 @@
 package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
-public abstract class Unit
+import com.alvarpq.GOTF.entity.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
+public abstract class Unit extends Entity
 {
 	private String name;
 	private int baseCountdown, maximumHealth, baseMove;
@@ -15,8 +21,11 @@ public abstract class Unit
 	private AttackType attackType;
 	private MoveType moveType;
 	private List<Effect> effects;
+	//Temp frame variable to do animations
+	protected int frame=0;
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
 	{
+		super();
 		this.name = name;
 		this.baseCountdown = baseCountdown;
 		this.maximumHealth = maximumHealth;
@@ -32,8 +41,34 @@ public abstract class Unit
 		setMoveType(MoveType.NORMAL);
 		effects = new LinkedList<Effect>();
 	}
+<<<<<<< HEAD
 	//override for self-buffs and buffs on other units
+<<<<<<< HEAD
 	public abstract void applyPresence(BoardHalf myHalf, BoardHalf opponentsHalf);
+=======
+	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
+	//call BoardHalf.move instead
+=======
+>>>>>>> Stuff.
+	
+	//NEW METHOD~TO IMPLEMENT
+	public Sprite getSprite() {
+		// TODO Auto-generated method stub
+		 return new Sprite(new Texture(Gdx.files.internal("noTexture.png")));
+		
+	}
+	
+	public Vector2 getLocation(){
+		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());
+	}
+<<<<<<< HEAD
+	//call BoardHalf.resetCountdown instead
+>>>>>>> Stuff.
+=======
+	
+	//override for self-buffs and buffs on other units
+	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);
+>>>>>>> Stuff.
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;
@@ -62,11 +97,19 @@ public abstract class Unit
 		{
 			health = maximumHealth;
 		}
+<<<<<<< HEAD
 	}
 	public void damage(int amount)
 	{
 		health-=amount;
 	}
+=======
+	}
+	public void damage(int amount)
+	{
+		health-=amount;
+	}
+>>>>>>> Stuff.
 	public void changeMove(int amount)
 	{
 		move+=amount;

@@ -2,25 +2,25 @@ package com.alvarpq.GOTF.coreGame.event;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 public abstract class UnitEvent
 {
-	private BoardHalf myHalf;
-	private BoardHalf opponentsHalf;
-	public UnitEvent(BoardHalf myHalf, BoardHalf opponentsHalf)
+	private BoardHalf mySide;
+	private BoardHalf opponentsSide;
+	public UnitEvent(BoardHalf mySide, BoardHalf opponentsSide)
 	{
-		this.myHalf = myHalf;
-		this.opponentsHalf = opponentsHalf;
+		this.mySide = mySide;
+		this.opponentsSide = opponentsSide;
 	}
-	public BoardHalf getmyHalf()
+	public BoardHalf getMySide()
 	{
-		return myHalf;
+		return mySide;
 	}
-	public BoardHalf getopponentsHalf()
+	public BoardHalf getOpponentsSide()
 	{
-		return opponentsHalf;
+		return opponentsSide;
 	}
 	public void invertSides()
 	{
-		BoardHalf temp = myHalf;
-		myHalf = opponentsHalf;
-		opponentsHalf = temp;
+		BoardHalf temp = mySide;
+		mySide = opponentsSide;
+		opponentsSide = temp;
 	}
 }
