@@ -11,6 +11,8 @@ public class AnimatedSprite {
 	int frames;
 	boolean still=false;
 	ArrayList<Sprite> sprites;
+	
+	//A bunch of different constructors to create sprites. The update method should be called every frame.
 	public AnimatedSprite(int framesPer, ArrayList<Sprite> sprites){
 		tick=0;
 		currentFrame=0;

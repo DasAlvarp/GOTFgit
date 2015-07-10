@@ -9,8 +9,7 @@ public class AngelOfDestruction extends Unit implements AbilityBearer
 	{
 		super("Angel of Destruction", 4, 2, 4, 1, true, new String[]{"Angel"}, row, column);
 	}
-	@Override
-	public AnimatedSprite getSprite(){return null;}
+
 	@Override
 	public void update(){}
 	@Override

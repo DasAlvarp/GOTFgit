@@ -9,8 +9,7 @@ public class JumpingWhale extends Unit
 		super("Jumping Whale", 3, 2, 3, 1, true, new String[]{"Whale"}, row, column);
 		setMoveType(MoveType.NOT_ADJACENT);
 	}
-	@Override
-	public AnimatedSprite getSprite(){return null;}
+
 	@Override
 	public void update(){}
 }

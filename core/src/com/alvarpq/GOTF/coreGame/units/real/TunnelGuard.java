@@ -10,8 +10,8 @@ public class TunnelGuard extends Unit implements UnitDamagedListener
 	{
 		super("Tunnel Guard", 1, 2, 4, 1, true, new String[]{"Mulgoon", "Soldier"}, row, column);
 	}
-	@Override
-	public AnimatedSprite getSprite(){return null;}
+	
+	//Hey, don't make sprite methods if you don't have a sprite yet. Unit has a default one with a 'no texture file'
 	@Override
 	public void update(){}
 	@Override

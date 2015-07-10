@@ -7,8 +7,7 @@ public class ExampleUnit extends Unit
 	{
 		super("Example Unit", 2, 2, 2, 1, true, new String[]{"ExampleSubtype"}, row, column);
 	}
-	@Override
-	public AnimatedSprite getSprite(){return null;}
+
 	@Override
 	public void update(){}
 }

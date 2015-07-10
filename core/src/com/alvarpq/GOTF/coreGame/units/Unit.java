@@ -49,15 +49,14 @@ public abstract class Unit extends Entity
 	}
 	//call BoardHalf.move instead
 
+	
+	//Hey, don't make sprite methods if you don't have a sprite yet. Unit has a default one with a 'no texture file'
 	public AnimatedSprite getSprite() {
 		// TODO Auto-generated method stub
 		 return new AnimatedSprite(new Sprite(new Texture(Gdx.files.internal("noTexture.png"))));
 		
 	}
 	
-	public Vector2 getLocation(){
-		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());
-	}
 	//call BoardHalf.resetCountdown instead	
 	public void resetCountdown()
 	{

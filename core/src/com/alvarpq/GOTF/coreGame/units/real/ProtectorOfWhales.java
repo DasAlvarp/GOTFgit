@@ -22,8 +22,7 @@ public class ProtectorOfWhales extends Unit implements PresenceApplier
 			}
 		}
 	}
-	@Override
-	public AnimatedSprite getSprite(){return null;}
+
 	@Override
 	public void update(){}
 }
