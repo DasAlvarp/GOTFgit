@@ -125,6 +125,14 @@ public class BoardHalf
 		}
 		update();
 	}
+	public void allResetMove()
+	{
+		for(Unit unit:getUnits())
+		{
+			unit.resetMove();
+		}
+		update();
+	}
 	public Unit getUnitAt(int row, int column)
 	{
 		return units[row][column];

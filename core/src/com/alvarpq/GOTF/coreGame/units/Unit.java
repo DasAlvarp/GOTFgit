@@ -16,6 +16,7 @@ public abstract class Unit extends Entity
 	private String name;
 	private int baseCountdown, maximumHealth, baseMove;
 	private int attack, countdown, health, move;
+	private String[] subtypes;
 	private int row, column;
 	private Player owner;
 	private AttackType attackType;
@@ -23,7 +24,7 @@ public abstract class Unit extends Entity
 	private List<Effect> effects;
 	//Temp frame variable to do animations
 	protected int frame=0;
-	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
+	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, String[] subtypes, int row, int column)
 	{
 		super();
 		this.name = name;
@@ -34,6 +35,7 @@ public abstract class Unit extends Entity
 		countdown = baseCountdown;
 		health = maximumHealth;
 		move = baseMove;
+		this.subtypes = subtypes;
 		this.row = row;
 		this.column = column;
 		owner = Player.NONE;
@@ -169,6 +171,10 @@ public abstract class Unit extends Entity
 	public int getMove()
 	{
 		return move;
+	}
+	public String[] getSubtypes()
+	{
+		return subtypes;
 	}
 	public void setRow(int row)
 	{

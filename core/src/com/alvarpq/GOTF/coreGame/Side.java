@@ -66,7 +66,7 @@ public class Side
 		return false;
 	}
 	//Call when user sacrifices for cards
-	public boolean sacrificeForResorces(Card card, Resource resource)
+	public boolean sacrificeForResources(Card card, Resource resource)
 	{
 		if(!hasSacrificed&&	deck.discardCard(card))
 		{

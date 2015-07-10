@@ -9,7 +9,7 @@ public class Spark extends SpellCard
 	private UnitRequirement target;
 	public Spark()
 	{
-		super("Spark", 1, new Resource[]{});
+		super("Spark", 2, new Resource[]{Resource.FIRE});
 		target = new UnitRequirement(RequirementType.UNIT);
 		setRequirements(new Requirement[]{target});
 	}

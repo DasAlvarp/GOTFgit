@@ -3,7 +3,7 @@ package com.alvarpq.GOTF.screen;
 import java.util.Arrays;
 import com.alvarpq.GOTF.cards.Card;
 import com.alvarpq.GOTF.cards.Deck;
-import com.alvarpq.GOTF.cards.KinfolkBraveCard;
+import com.alvarpq.GOTF.cards.ExampleUnitCard;
 import com.alvarpq.GOTF.cards.Spark;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.gui.BackDraw;
@@ -25,7 +25,7 @@ public class GameScreen extends Screen{
 	public void create() {
 		batch = new SpriteBatch();
 		batch=new SpriteBatch();
-		game=new Game(new Deck(Arrays.asList(new Card[]{new KinfolkBraveCard(), new KinfolkBraveCard()}), false),
+		game=new Game(new Deck(Arrays.asList(new Card[]{new ExampleUnitCard(), new ExampleUnitCard()}), false),
 				new Deck(Arrays.asList(new Card[]{new Spark(), new Spark()}), false));
 		//board = new BoardDraw();
 		//bkgrnd = new BackDraw();
