@@ -1,10 +1,15 @@
 package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
+import com.alvarpq.GOTF.entity.AnimatedSprite;
 import com.alvarpq.GOTF.entity.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 public abstract class Unit extends Entity
 {
@@ -43,12 +48,12 @@ public abstract class Unit extends Entity
 		effects = new LinkedList<Effect>();
 	}
 	//call BoardHalf.move instead
-	//NEW METHOD~TO IMPLEMENT
-	/*public Sprite getSprite() {
+
+	public AnimatedSprite getSprite() {
 		// TODO Auto-generated method stub
-		 return new Sprite(new Texture(Gdx.files.internal("noTexture.png")));
+		 return new AnimatedSprite(new Sprite(new Texture(Gdx.files.internal("noTexture.png"))));
 		
-	}*/
+	}
 	
 	public Vector2 getLocation(){
 		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());

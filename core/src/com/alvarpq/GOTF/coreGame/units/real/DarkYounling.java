@@ -7,8 +7,7 @@ public class DarkYounling extends Unit
 	{
 		super("Dark Youngling", 1, 1, 1, 1, true, new String[]{"Mulgoon"}, row, column);
 	}
-	@Override
-	public AnimatedSprite getSprite(){return null;}
+
 	@Override
 	public void update(){}
 }

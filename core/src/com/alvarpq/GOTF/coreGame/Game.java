@@ -23,11 +23,16 @@ public class Game
 		sides.get(Player.PLAYER1).getHalf().setParentGame(this);
 		sides.get(Player.PLAYER2).getHalf().setParentGame(this);
 		currentPlayer = Player.values()[random.nextInt(2)];
-		//boardDraw=new BoardDraw(); temporarily removed to work in console
+		boardDraw=new BoardDraw(); 
 	}
 	public BoardDraw getBoard(){
 		return boardDraw;
 	}
+	
+	public void update(){
+		boardDraw.update();
+	}
+	
 	//Call to start game
 	public void start(int handSize)
 	{

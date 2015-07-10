@@ -1,7 +1,7 @@
 package com.alvarpq.GOTF.screen;
 
 import com.alvarpq.GOTF.coreGame.Game;
-import com.alvarpq.GOTF.coreGame.units.ProudMercenary;
+
 import com.alvarpq.GOTF.entity.Entity;
 import com.alvarpq.GOTF.entity.EntityManager;
 import com.alvarpq.GOTF.gui.BackDraw;
@@ -9,9 +9,7 @@ import com.alvarpq.GOTF.gui.BoardDraw;
 import com.alvarpq.GOTF.gui.Hex;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameScreen extends Screen{
@@ -28,19 +26,9 @@ public class GameScreen extends Screen{
 
 		batch=new SpriteBatch();
 		
-		game=new Game();
-		game.half1.addUnit(new ProudMercenary(0,2));
-		game.half1.addUnit(new ProudMercenary(0,0));
-		
-		game.half1.addUnit(new ProudMercenary(2,2));
-		game.half1.addUnit(new ProudMercenary(3,2));
-		
-		game.half2.addUnit(new ProudMercenary(0,2));
-		game.half2.addUnit(new ProudMercenary(0,0));
-		
-		game.half2.addUnit(new ProudMercenary(2,2));
-		game.half2.addUnit(new ProudMercenary(3,2));
-		//board = new BoardDraw();
+	//	game=new Game();
+
+		board = new BoardDraw();
 		//bkgrnd = new BackDraw();
 		
 	}
@@ -79,7 +67,7 @@ public class GameScreen extends Screen{
 	{
 		if(Gdx.input.isButtonPressed(Input.Buttons.LEFT))
 		{
-			ScreenManager.setScreen(new MenuScreen());
+			//ScreenManager.setScreen(new MenuScreen());
 			
 		}
 	}
