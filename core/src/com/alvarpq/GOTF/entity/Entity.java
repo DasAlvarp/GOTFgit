@@ -15,11 +15,11 @@ public abstract class Entity
 	public Entity()
 	{
 		if(this instanceof Hex){
-			//pos=((Hex)this).getLocation();
+			pos=((Hex)this).getLocation();
 		}
 		else if(this instanceof Unit){
 			Unit u=(Unit) this;
-		//pos=BoardDraw.getRenderLocation(u.getOwner(),u.getRow(), u.getColumn());
+		pos=BoardDraw.getRenderLocation(u.getOwner(),u.getRow(), u.getColumn());
 		}
 		sprite=getSprite();
 		
@@ -33,11 +33,11 @@ public abstract class Entity
 		update();
 		
 		if(this instanceof Hex){
-			//pos=((Hex)this).getLocation();
+			pos=((Hex)this).getLocation();
 		}
 		else if(this instanceof Unit){
 			Unit u=(Unit) this;
-		//pos=BoardDraw.getRenderLocation(u.getOwner(),u.getRow(), u.getColumn());
+		pos=BoardDraw.getRenderLocation(u.getOwner(),u.getRow(), u.getColumn());
 		}
 		getSprite().update();
 		sprite=getSprite();
