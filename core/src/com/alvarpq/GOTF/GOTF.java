@@ -1,14 +1,10 @@
 package com.alvarpq.GOTF;
 
-import com.alvarpq.GOTF.entity.EntityManager;
-import com.alvarpq.GOTF.gui.BackDraw;
-import com.alvarpq.GOTF.gui.BoardDraw;
 import com.alvarpq.GOTF.screen.GameScreen;
 import com.alvarpq.GOTF.screen.MenuScreen;
 import com.alvarpq.GOTF.screen.ScreenManager;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GOTF extends ApplicationAdapter
@@ -40,13 +36,12 @@ public class GOTF extends ApplicationAdapter
 		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
 		batch.begin();
 		
-	//	if(ScreenManager.getCurrentScreen()!=null){
-		//	ScreenManager.getCurrentScreen().render(batch);
-		//}
+		if(ScreenManager.getCurrentScreen()!=null){
+			ScreenManager.getCurrentScreen().render(batch);
+		}
 		if(ScreenManager.getCurrentScreen()!=null){
 			ScreenManager.getCurrentScreen().update();
 		}
-		EntityManager.renderAll(batch);
 		batch.end();
 	}
 	

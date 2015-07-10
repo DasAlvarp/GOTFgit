@@ -23,6 +23,10 @@ public class Game
 		boardDraw=new BoardDraw();
 	}
 	
+	public void update(){
+		boardDraw.update();
+	}
+	
 	public BoardDraw getBoard(){
 		return boardDraw;
 	}

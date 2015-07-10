@@ -6,6 +6,7 @@ import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
+import com.alvarpq.GOTF.entity.AnimatedSprite;
 import com.alvarpq.GOTF.entity.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,8 +22,7 @@ public abstract class Unit extends Entity
 	private AttackType attackType;
 	private MoveType moveType;
 	private List<Effect> effects;
-	//Temp frame variable to do animations
-	protected int frame=0;
+	protected AnimatedSprite anim;
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, int row, int column)
 	{
 		super();
@@ -42,16 +42,12 @@ public abstract class Unit extends Entity
 		effects = new LinkedList<Effect>();
 	}
 	
-	//NEW METHOD~TO IMPLEMENT
-	public Sprite getSprite() {
+	public AnimatedSprite getSprite() {
 		// TODO Auto-generated method stub
-		 return new Sprite(new Texture(Gdx.files.internal("noTexture.png")));
+		 return new AnimatedSprite(new Sprite(new Texture(Gdx.files.internal("noTexture.png"))));
 		
 	}
 	
-	public Vector2 getLocation(){
-		return new Vector2(owner.getBoard().getParentGame().getBoard().getP1()[row][column].getX(),owner.getBoard().getParentGame().getBoard().getP1()[row][column].getY());
-	}
 	
 	//override for self-buffs and buffs on other units
 	public abstract void applyPresence(BoardHalf mySide, BoardHalf opponentsSide);

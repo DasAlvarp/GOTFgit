@@ -1,6 +1,7 @@
 package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
+import com.alvarpq.GOTF.entity.AnimatedSprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -12,6 +13,12 @@ public class ProudMercenary extends Unit
 	public ProudMercenary(int row, int column)
 	{
 		super("Proud Mercenary", 2, 2, 3, 1, row, column);
+		
+		Sprite f1= new Sprite(new Texture(Gdx.files.internal("animFrame1.png")));
+		Sprite f2= new Sprite(new Texture(Gdx.files.internal("animFrame2.png")));
+		f1.setSize(50,90);
+		f2.setSize(50,90);
+		anim=new AnimatedSprite(30,f1,f2);
 	}
 	@Override
 	public void applyPresence(BoardHalf mySide, BoardHalf opponentsSide)
@@ -24,19 +31,14 @@ public class ProudMercenary extends Unit
 			}
 		}
 	}
-	public Sprite getSprite(){
-		Sprite f1= new Sprite(new Texture(Gdx.files.internal("animFrame1.png")));
-		Sprite f2= new Sprite(new Texture(Gdx.files.internal("animFrame2.png")));
-		f1.setSize(30,50);
-		Sprite[] anim={f1,f2};
-		return anim[frame];
+	public AnimatedSprite getSprite(){
+
+		return anim;
+		
 	}
 	@Override
 	public void update() {
-		double rand=Math.random();
-		if(rand>.98){
-			frame=1-frame;
-		}
+
 		
 	}
 }
