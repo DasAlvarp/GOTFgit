@@ -12,16 +12,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GameScreen extends Screen{
+public class GameScreen extends Screen
+{
 
 	BoardDraw board;
 	BackDraw bkgrnd;
 	SpriteBatch batch;
 	Game game;
-	boolean bool=false;
+	boolean bool = false;
 	
 	@Override
-	public void create() {
+	public void create()
+	{
 		// TODO Auto-generated method stub
 
 		batch=new SpriteBatch();

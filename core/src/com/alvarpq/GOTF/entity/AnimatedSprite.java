@@ -65,7 +65,8 @@ public class AnimatedSprite {
 	
 	
 	//Changes the frame of other
-	public void syncFrameWith(AnimatedSprite other){
+	public void syncFrameWith(AnimatedSprite other)
+	{
 		other.jumpToFrame(currentFrame);
 		timePassed = 0;
 	}
@@ -87,7 +88,7 @@ public class AnimatedSprite {
 	//		tick = (tick+1) % framesPer;
 			if(timePassed > millisecondsPerFrame && !still)
 			{
-				currentFrame = (currentFrame + 1) % frames;
+				currentFrame = (currentFrame + (int)(timePassed / millisecondsPerFrame)) % frames;
 				lastTime = System.currentTimeMillis();
 
 			}
