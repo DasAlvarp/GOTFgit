@@ -178,10 +178,12 @@ public class ConsoleGOTF
 		Deck deck1 = new Deck(Arrays.asList(new Card[]{new PenanceOfTheGods(), new PenanceOfTheGods()}), true);
 		Deck deck2 = new Deck(Arrays.asList(new Card[]{new PenanceOfTheGods(), new PenanceOfTheGods()}), true);
 		Game game = new Game(deck1, deck2);
-		game.start(2);
+		game.start(2); //hand size 2 so i don't have to create big decks
 		while(true)
 		{
+			//whose turn is it
 			System.out.println(game.getCurrentPlayer()+"'s turn");
+			//this loop prints the board, you don't have to understand it
 			for(int i=0;i<5;i++)
 			{
 				StringBuilder side1 = new StringBuilder();
@@ -268,6 +270,7 @@ public class ConsoleGOTF
 				}
 				System.out.println(side1+" "+side2);
 			}
+			//prints the hand
 			if(!game.getSide(game.getCurrentPlayer()).getDeck().getHand().isEmpty())
 			{
 				System.out.print("Hand: "+game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0).getName()+"("+costString(game.getSide(game.getCurrentPlayer()).getDeck().getHand().get(0))+") ");
@@ -281,14 +284,18 @@ public class ConsoleGOTF
 				System.out.print("Hand: ");
 			}
 			System.out.println();
+			// prints current resources
 			System.out.println("Resources: "+resourcesString(game.getSide(game.getCurrentPlayer())));
 			System.out.print("> ");
+			//splits up inputed command into words
 			String[] command = input.nextLine().split(" ");
+			//end command for ending turn, and starting a new one
 			if(command[0].equalsIgnoreCase("end"))
 			{
 				game.endTurn();
 				game.startTurn();
 			}
+			//sacrifice command for sacrificing, second word decides what to sac for, the side class makes sure you can't sac twice in a turn
 			else if(command[0].equalsIgnoreCase("sacrifice"))
 			{
 				for(int i=0;i<game.getSide(game.getCurrentPlayer()).getDeck().getHand().size();i++)
@@ -324,6 +331,7 @@ public class ConsoleGOTF
 					}
 				}
 			}
+			//move command and then the numbers of the two tiles to move from and to
 			else if(command[0].equalsIgnoreCase("move"))
 			{
 				try
@@ -337,16 +345,23 @@ public class ConsoleGOTF
 				}
 				catch(NumberFormatException exception){}
 			}
+			//this is the longest one, but to start with, play command for playing a card
 			else if(command[0].equalsIgnoreCase("play"))
 			{
+				//goes through hand until it finds a card with correct name
 				for(Card card:game.getSide(game.getCurrentPlayer()).getDeck().getHand())
 				{
 					if(command[1].equalsIgnoreCase(card.getName().substring(0, 3)))
 					{
+						//checks for enough resources
 						if(game.getSide(game.getCurrentPlayer()).hasResources(card))
 						{
+							//goes through all the card's requirements, like for example units need an own empty tile while damage spells need opponent units
+							//it's actually as easy as going through the card's requirements and fulfilling them by sending them the correct information with
+							//setRow, setColumn and setUnit. You also need to look at the type of requirement to see if it wants your own, your opponents or any players unit/tile/row
 							for(Requirement requirement:card.getRequirements())
 							{
+								//requires anyones tile
 								if(requirement.getType()==RequirementType.TILE)
 								{
 									while(true)
@@ -364,6 +379,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires your tile
 								else if(requirement.getType()==RequirementType.OWN_TILE)
 								{
 									while(true)
@@ -382,6 +398,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires opponents tile
 								else if(requirement.getType()==RequirementType.OPPONENT_TILE)
 								{
 									while(true)
@@ -399,6 +416,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires empty tile
 								else if(requirement.getType()==RequirementType.EMPTY_TILE)
 								{
 									System.out.print("(1-30)> ");
@@ -416,6 +434,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								// requires own empty tile (for exmaple unitcard)
 								else if(requirement.getType()==RequirementType.OWN_EMPTY_TILE)
 								{
 									while(true)
@@ -433,6 +452,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires opponent empty tile
 								else if(requirement.getType()==RequirementType.OPPONENT_EMPTY_TILE)
 								{
 									while(true)
@@ -450,6 +470,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires unit
 								else if(requirement.getType()==RequirementType.UNIT)
 								{
 									while(true)
@@ -469,6 +490,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires own unit
 								else if(requirement.getType()==RequirementType.OWN_UNIT)
 								{
 									while(true)
@@ -489,6 +511,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires opponent unit
 								else if(requirement.getType()==RequirementType.OPPONENT_UNIT)
 								{
 									while(true)
@@ -509,6 +532,7 @@ public class ConsoleGOTF
 										catch(NumberFormatException exception){	}
 									}
 								}
+								//requires row
 								else if(requirement.getType()==RequirementType.ROW)
 								{
 									while(true)
@@ -528,6 +552,7 @@ public class ConsoleGOTF
 									}
 								}
 							}
+							//when all requirements have been fulfilled you can call the game.playCard function on the card, in a graphical interface you do of course need to wait for user to input the requirements.
 							game.playCard(game.getCurrentPlayer(), card);
 							break;
 						}
