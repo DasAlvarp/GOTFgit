@@ -7,6 +7,6 @@ public class ProtectorOfWhalesCard extends UnitCard
 {
 	public ProtectorOfWhalesCard()
 	{
-		super("Protector of Whales", 1, new Resource[]{Resource.AIR}, new UnitFactory(ProtectorOfWhales.class));
+		super(10004, "Protector of Whales", 1, new Resource[]{Resource.AIR}, new UnitFactory(ProtectorOfWhales.class));
 	}
 }

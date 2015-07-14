@@ -7,6 +7,6 @@ public class JumpingWhaleCard extends UnitCard
 {
 	public JumpingWhaleCard()
 	{
-		super("Jumping Whale", 2, new Resource[]{Resource.AIR, Resource.WATER}, new UnitFactory(JumpingWhale.class));
+		super(10003, "Jumping Whale", 2, new Resource[]{Resource.AIR, Resource.WATER}, new UnitFactory(JumpingWhale.class));
 	}
 }

@@ -9,9 +9,9 @@ public abstract class UnitCard extends Card
 {
 	private UnitFactory unitFactory;
 	private TileRequirement position;
-	public UnitCard(String name, int thresholdCost, Resource[] resourceCost, UnitFactory unitFactory)
+	public UnitCard(int id, String name, int thresholdCost, Resource[] resourceCost, UnitFactory unitFactory)
 	{
-		super(name, thresholdCost, resourceCost);
+		super(id, name, thresholdCost, resourceCost);
 		position = new TileRequirement(RequirementType.OWN_EMPTY_TILE);
 		setRequirements(new Requirement[]{position});
 		this.unitFactory = unitFactory;

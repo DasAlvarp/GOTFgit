@@ -10,7 +10,7 @@ public class ExampleSpellCard extends SpellCard
 	private UnitRequirement target;
 	public ExampleSpellCard()
 	{
-		super("Example Spell", 4, new Resource[]{Resource.AIR, Resource.EARTH, Resource.FIRE, Resource.WATER});
+		super(20001, "Example Spell", 4, new Resource[]{Resource.AIR, Resource.EARTH, Resource.FIRE, Resource.WATER});
 		target = new UnitRequirement(RequirementType.UNIT);
 		setRequirements(new Requirement[]{target});
 	}

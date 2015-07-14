@@ -7,6 +7,6 @@ public class TunnelGuardCard extends UnitCard
 {
 	public TunnelGuardCard()
 	{
-		super("Tunnel Guard", 3, new Resource[]{Resource.EARTH}, new UnitFactory(TunnelGuard.class));
+		super(10005, "Tunnel Guard", 3, new Resource[]{Resource.EARTH}, new UnitFactory(TunnelGuard.class));
 	}
 }
