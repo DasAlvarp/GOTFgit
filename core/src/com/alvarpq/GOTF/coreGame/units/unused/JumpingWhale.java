@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.coreGame.units.temp;
+package com.alvarpq.GOTF.coreGame.units.unused;
 import com.alvarpq.GOTF.coreGame.units.MoveType;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 public class JumpingWhale extends Unit

@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.coreGame.units.temp;
+package com.alvarpq.GOTF.coreGame.units.unused;
 import java.util.Arrays;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.effect.Presence;

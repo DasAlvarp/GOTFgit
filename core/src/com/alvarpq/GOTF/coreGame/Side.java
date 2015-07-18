@@ -71,7 +71,7 @@ public class Side
 	//Call when user sacrifices for resources
 	public boolean sacrificeForResources(int indexInHand, Resource resource)
 	{
-		if(!hasSacrificed)
+		if(!hasSacrificed&&deck.getHand().get(indexInHand).getResourceCost().contains(resource))
 		{
 			deck.discardCard(indexInHand);
 			maximumThreshold++;
@@ -87,7 +87,7 @@ public class Side
 	//Call when user sacrifices for cards
 	public boolean sacrificeForResources(Card card, Resource resource)
 	{
-		if(!hasSacrificed&&	deck.discardCard(card))
+		if(!hasSacrificed&&card.getResourceCost().contains(resource)&&deck.discardCard(card))
 		{
 			maximumThreshold++;
 			threshold++;

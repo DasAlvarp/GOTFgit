@@ -1,9 +1,10 @@
 package com.alvarpq.GOTF.coreGame.cards;
+import java.util.List;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.requirement.Requirement;
 public abstract class SpellCard extends Card
 {
-	public SpellCard(int id, String name,int thresholdCost, Resource[] resourceCost)
+	public SpellCard(int id, String name,int thresholdCost, List<Resource> resourceCost)
 	{
 		super(id, name, thresholdCost, resourceCost);
 	}

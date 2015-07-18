@@ -1,19 +1,20 @@
 package com.alvarpq.GOTF.coreGame.cards;
+import java.util.List;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.requirement.Requirement;
 public abstract class Card
 {
-	private int id;			//ID # of unit
+	private int id;
 	private String name;
 	private int thresholdCost;
-	private Resource[] resourceCost;
+	private List<Resource> resourceCost;
 	private Requirement[] requirements;
 	private Player owner;
-	public Card(int ident, String name, int thresholdCost, Resource[] resourceCost)
+	public Card(int id, String name, int thresholdCost, List<Resource> resourceCost)
 	{
-		this.id = ident;
+		this.id = id;
 		this.name = name;
 		this.thresholdCost = thresholdCost;
 		this.resourceCost = resourceCost;
@@ -56,11 +57,11 @@ public abstract class Card
 	{
 		this.thresholdCost = thresholdCost;
 	}
-	public Resource[] getResourceCost()
+	public List<Resource> getResourceCost()
 	{
 		return resourceCost;
 	}
-	public void setResourceCost(Resource[] resourceCost)
+	public void setResourceCost(List<Resource> resourceCost)
 	{
 		this.resourceCost = resourceCost;
 	}

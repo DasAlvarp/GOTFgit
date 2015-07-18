@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.coreGame.units.temp;
+package com.alvarpq.GOTF.coreGame.units.unused;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
 import com.alvarpq.GOTF.coreGame.units.Unit;

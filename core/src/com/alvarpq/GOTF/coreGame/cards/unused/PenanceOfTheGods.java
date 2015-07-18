@@ -1,4 +1,5 @@
-package com.alvarpq.GOTF.coreGame.cards.temp;
+package com.alvarpq.GOTF.coreGame.cards.unused;
+import java.util.Arrays;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.cards.SpellCard;
@@ -9,7 +10,7 @@ public class PenanceOfTheGods extends SpellCard
 	private RowRequirement target;
 	public PenanceOfTheGods()
 	{
-		super(20002, "Penance of the Gods", 10, new Resource[]{Resource.EARTH, Resource.EARTH, Resource.EARTH, Resource.EARTH, Resource.EARTH});
+		super(100106, "Penance of the Gods", 10, Arrays.asList(new Resource[]{Resource.EARTH, Resource.EARTH, Resource.EARTH, Resource.EARTH, Resource.EARTH}));
 		target = new RowRequirement();
 		setRequirements(new Requirement[]{target});
 	}

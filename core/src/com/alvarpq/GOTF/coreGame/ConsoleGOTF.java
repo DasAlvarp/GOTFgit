@@ -175,10 +175,10 @@ public class ConsoleGOTF
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{	
 		input = new Scanner(System.in);
-		Deck deck1 = new Deck(Arrays.asList(new Integer[]{10001, 10001}), true);
-		Deck deck2 = new Deck(Arrays.asList(new Integer[]{10001, 10001}), true);
+		Deck deck1 = new Deck(Arrays.asList(new Integer[]{210102, 210104, 210105, 210109, 210111, 210112}), true);
+		Deck deck2 = new Deck(Arrays.asList(new Integer[]{210102, 210104, 210105, 210109, 210111, 210112}), true);
 		Game game = new Game(deck1, deck2);
-		game.start(2); //hand size 2 so i don't have to create big decks
+		game.start(5);
 		while(true)
 		{
 			//whose turn is it

@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF.coreGame.cards;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.requirement.Requirement;
@@ -9,7 +10,7 @@ public abstract class UnitCard extends Card
 {
 	private UnitFactory unitFactory;
 	private TileRequirement position;
-	public UnitCard(int id, String name, int thresholdCost, Resource[] resourceCost, UnitFactory unitFactory)
+	public UnitCard(int id, String name, int thresholdCost, List<Resource> resourceCost, UnitFactory unitFactory)
 	{
 		super(id, name, thresholdCost, resourceCost);
 		position = new TileRequirement(RequirementType.OWN_EMPTY_TILE);

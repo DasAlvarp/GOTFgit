@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.coreGame.units.temp;
+package com.alvarpq.GOTF.coreGame.units.unused;
 import com.alvarpq.GOTF.coreGame.Resource;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.units.Ability;

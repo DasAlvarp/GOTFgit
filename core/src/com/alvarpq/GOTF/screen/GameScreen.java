@@ -1,7 +1,7 @@
 package com.alvarpq.GOTF.screen;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
-import com.alvarpq.GOTF.coreGame.units.temp.TunnelGuard;
+import com.alvarpq.GOTF.coreGame.units.unused.TunnelGuard;
 import com.alvarpq.GOTF.entity.EntityManager;
 import com.alvarpq.GOTF.gui.BackDraw;
 import com.alvarpq.GOTF.gui.BoardDraw;
