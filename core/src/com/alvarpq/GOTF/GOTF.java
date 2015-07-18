@@ -1,14 +1,7 @@
 package com.alvarpq.GOTF;
-
-import com.alvarpq.GOTF.entity.EntityManager;
-import com.alvarpq.GOTF.gui.BackDraw;
-import com.alvarpq.GOTF.gui.BoardDraw;
 import com.alvarpq.GOTF.screen.GameScreen;
-import com.alvarpq.GOTF.screen.MenuScreen;
 import com.alvarpq.GOTF.screen.ScreenManager;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GOTF extends ApplicationAdapter

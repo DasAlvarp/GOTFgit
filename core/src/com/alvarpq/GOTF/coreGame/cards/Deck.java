@@ -1,4 +1,5 @@
 package com.alvarpq.GOTF.coreGame.cards;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -7,42 +8,18 @@ public class Deck
 	private Stack<Card> drawPile;
 	private List<Card> discardPile;
 	private List<Card> hand;
-	private CardExistor fredTheEternal;//top notch variable naming when low on sleep.
-	/*
-	 * I'm adding a function to turn an int list into a deck. 
-	 */
-	public Deck(List<Integer> list)
+	public static final CardFactory cards = new CardFactory();
+	public Deck(List<Integer> deckIds, boolean shuffle) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		List<Card> deck = new LinkedList<Card>();
-		for(int x = 0; x < list.size(); x++)
+		for(int cardId:deckIds)
 		{
-			Card temp = fredTheEternal.getCard(x);
-			if(temp != null)
+			Card tempCard = cards.createCard(cardId);
+			if(tempCard!=null)
 			{
-				deck.add(temp);
-			}
-			else
-			{
-				//panic!
-				System.out.println("SOMETHING BAD HAPPENED MAN YOUR BATTLE STATION, THE GAME IS SINKING GOD SAVE US NOW");
+				deck.add(tempCard);
 			}
 		}
-		
-		drawPile = new Stack<Card>();
-		for(Card card:deck)
-		{
-			drawPile.push(card);
-		}
-		
-		shuffle();//has to be true, or else the methods start fighting, and nobody wants that to happen.
-		
-		discardPile = new LinkedList<Card>();
-		hand = new LinkedList<Card>();
-	}
-	
-	
-	public Deck(List<Card> deck, boolean shuffle)
-	{
 		drawPile = new Stack<Card>();
 		for(Card card:deck)
 		{
@@ -55,7 +32,6 @@ public class Deck
 		discardPile = new LinkedList<Card>();
 		hand = new LinkedList<Card>();
 	}
-	
 	public void shuffle()
 	{
 		Stack<Card> shuffledDrawPile = new Stack<Card>();

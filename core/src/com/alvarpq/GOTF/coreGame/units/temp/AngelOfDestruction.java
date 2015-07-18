@@ -1,8 +1,7 @@
-package com.alvarpq.GOTF.coreGame.units.real;
+package com.alvarpq.GOTF.coreGame.units.temp;
 import com.alvarpq.GOTF.coreGame.units.Ability;
 import com.alvarpq.GOTF.coreGame.units.AbilityBearer;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.entity.AnimatedSprite;
 public class AngelOfDestruction extends Unit implements AbilityBearer
 {
 	public AngelOfDestruction(int row, int column)

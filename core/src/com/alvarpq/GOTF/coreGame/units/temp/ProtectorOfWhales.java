@@ -1,10 +1,9 @@
-package com.alvarpq.GOTF.coreGame.units.real;
+package com.alvarpq.GOTF.coreGame.units.temp;
 import java.util.Arrays;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.alvarpq.GOTF.coreGame.units.PresenceApplier;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.entity.AnimatedSprite;
 public class ProtectorOfWhales extends Unit implements PresenceApplier
 {
 	public ProtectorOfWhales(int row, int column)

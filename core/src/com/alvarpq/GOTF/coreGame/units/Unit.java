@@ -1,7 +1,6 @@
 package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
-
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
@@ -10,7 +9,6 @@ import com.alvarpq.GOTF.entity.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 public abstract class Unit extends Entity
 {
 	private String name;

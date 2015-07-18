@@ -1,7 +1,4 @@
 package com.alvarpq.GOTF.screen;
-
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
 public class ScreenManager {
 
 	private static Screen currentScreen;

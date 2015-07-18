@@ -2,7 +2,6 @@ package com.alvarpq.GOTF.gui;
 
 import java.util.ArrayList;
 
-import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.entity.AnimatedSprite;
@@ -23,8 +22,7 @@ public class BoardDraw
 	private Hex[][] us;
 	private Hex[][] them;
 	private boolean startClick=false;
-	private Game master;
-	
+	//private Game master;
 	Texture	tex = new Texture("BoardTile.png");
 	Texture selTex = new Texture("hex.png");
 	Sprite 	hx = new Sprite(tex);

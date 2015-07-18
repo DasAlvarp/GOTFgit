@@ -1,13 +1,9 @@
 package com.alvarpq.GOTF.gui;
-
-import java.util.ArrayList;
-
 import com.alvarpq.GOTF.entity.AnimatedSprite;
 import com.alvarpq.GOTF.entity.Entity;
 import com.alvarpq.GOTF.entity.EntityManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -17,7 +13,7 @@ public class Hex extends Entity
 	int x, y;
 	private AnimatedSprite hx;
 	private AnimatedSprite sel;
-	private AnimatedSprite atk;
+	//private AnimatedSprite atk;
 	private BitmapFont font;
 	private static int LENGTH = 117;
 	private static int HEIGHT = 135;

@@ -1,9 +1,9 @@
 package com.alvarpq.GOTF.coreGame;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Scanner;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
-import com.alvarpq.GOTF.coreGame.cards.real.PenanceOfTheGods;
 import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
@@ -172,11 +172,11 @@ public class ConsoleGOTF
 	
 	
 	//Runs the damn thing. Lots of spaghetti code here, I'm not even gonna try.
-	public static void main(String[] args)
+	public static void main(String[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{	
 		input = new Scanner(System.in);
-		Deck deck1 = new Deck(Arrays.asList(new Card[]{new PenanceOfTheGods(), new PenanceOfTheGods()}), true);
-		Deck deck2 = new Deck(Arrays.asList(new Card[]{new PenanceOfTheGods(), new PenanceOfTheGods()}), true);
+		Deck deck1 = new Deck(Arrays.asList(new Integer[]{10001, 10001}), true);
+		Deck deck2 = new Deck(Arrays.asList(new Integer[]{10001, 10001}), true);
 		Game game = new Game(deck1, deck2);
 		game.start(2); //hand size 2 so i don't have to create big decks
 		while(true)

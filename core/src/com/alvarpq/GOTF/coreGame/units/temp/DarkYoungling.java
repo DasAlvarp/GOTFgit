@@ -1,9 +1,8 @@
-package com.alvarpq.GOTF.coreGame.units.real;
+package com.alvarpq.GOTF.coreGame.units.temp;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.entity.AnimatedSprite;
-public class DarkYounling extends Unit
+public class DarkYoungling extends Unit
 {
-	public DarkYounling(int row, int column)
+	public DarkYoungling(int row, int column)
 	{
 		super("Dark Youngling", 1, 1, 1, 1, true, new String[]{"Mulgoon"}, row, column);
 	}

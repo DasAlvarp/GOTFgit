@@ -1,8 +1,7 @@
-package com.alvarpq.GOTF.coreGame.units.real;
+package com.alvarpq.GOTF.coreGame.units.temp;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.entity.AnimatedSprite;
 public class TunnelGuard extends Unit implements UnitDamagedListener
 {
 	private int armorValue = 1;

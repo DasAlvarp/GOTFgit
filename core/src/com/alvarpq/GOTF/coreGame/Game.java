@@ -8,7 +8,6 @@ import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.gui.BoardDraw;
 public class Game
 {
-	/*Gonna fix better instructions for tomorrow on how to use Requirement system*/
 	private Map<Player, Side> sides;
 	private Player currentPlayer;
 	private static final Random random = new Random();
@@ -23,7 +22,7 @@ public class Game
 		sides.get(Player.PLAYER1).getHalf().setParentGame(this);
 		sides.get(Player.PLAYER2).getHalf().setParentGame(this);
 		currentPlayer = Player.values()[random.nextInt(2)];
-		boardDraw=new BoardDraw(); 
+		//boardDraw=new BoardDraw(); 
 	}
 	public BoardDraw getBoard(){
 		return boardDraw;
