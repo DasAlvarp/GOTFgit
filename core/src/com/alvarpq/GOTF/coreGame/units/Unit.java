@@ -4,9 +4,7 @@ import java.util.List;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
-import com.alvarpq.GOTF.entity.AnimatedSprite;
-import com.alvarpq.GOTF.entity.Entity;
-public abstract class Unit extends Entity
+public abstract class Unit
 {
 	/**
 	 * The name of the unit.
@@ -76,8 +74,6 @@ public abstract class Unit extends Entity
 	 * The effects currently applied to the unit.
 	 */
 	private List<Effect> effects;
-	//Temp frame variable to do animations
-	protected int frame=0;
 	/**
 	 * Instantiates a new unit.
 	 * @param name the name of the unit
@@ -110,14 +106,6 @@ public abstract class Unit extends Entity
 		attackType = new AttackType.Normal();
 		moveType = new MoveType.Normal();
 		effects = new LinkedList<Effect>();
-	}
-	//Hey, don't make sprite methods if you don't have a sprite yet. Unit has a default one with a 'no texture file'
-	public AnimatedSprite getSprite() {
-		// TODO Auto-generated method stub
-		/*AnimatedSprite as=	new AnimatedSprite(new Sprite(new Texture("noTexture.png")));
-		as.setSize(40, 70);
-		 return as;*/
-		return null;
 	}
 	/**
 	 * Resets the unit's countdown.

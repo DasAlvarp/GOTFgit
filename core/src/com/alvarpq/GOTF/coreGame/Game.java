@@ -5,7 +5,6 @@ import java.util.Random;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
-import com.alvarpq.GOTF.gui.BoardDraw;
 public class Game
 {
 	/**
@@ -20,7 +19,6 @@ public class Game
 	 * Used to determine starting player.
 	 */
 	private static final Random random = new Random();
-	BoardDraw boardDraw;
 	/**
 	 * Instantiates a new Game.
 	 * @param deck1 the first player's deck
@@ -35,15 +33,7 @@ public class Game
 		sides.get(Player.PLAYER2).setParentGame(this);
 		sides.get(Player.PLAYER1).getHalf().setParentGame(this);
 		sides.get(Player.PLAYER2).getHalf().setParentGame(this);
-		currentPlayer = Player.values()[random.nextInt(2)];
-		//boardDraw=new BoardDraw(); 
-	}
-	public BoardDraw getBoard(){
-		return boardDraw;
-	}
-	
-	public void update(){
-		boardDraw.update();
+		currentPlayer = Player.values()[random.nextInt(2)]; 
 	}
 	/**
 	 * Starts the game with the given handSize.
