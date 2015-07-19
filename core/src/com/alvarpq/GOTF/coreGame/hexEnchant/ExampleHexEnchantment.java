@@ -13,7 +13,7 @@ public class ExampleHexEnchantment extends HexEnchantment implements PresenceApp
 	{
 		if(mySide.getHalf().getUnitAt(getRow(), getColumn())!=null)
 		{
-			mySide.getHalf().getUnitAt(getRow(), getColumn()).applyEffect(Presence.ATTACK_1);
+			mySide.getHalf().getUnitAt(getRow(), getColumn()).applyEffect(new Presence("+1 attack", 1, 0, 0, 0, false));
 		}
 	}
 }

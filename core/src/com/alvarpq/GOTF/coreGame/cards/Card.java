@@ -1,5 +1,8 @@
 package com.alvarpq.GOTF.coreGame.cards;
 import java.util.List;
+/**
+ * The superclass of all cards.
+ */
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Side;

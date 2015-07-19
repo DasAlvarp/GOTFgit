@@ -6,43 +6,83 @@ import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 public class Side
 {
+	/**
+	 * The board half belonging to this side.
+	 */
 	private BoardHalf half;
+	/**
+	 * The deck belonging to this side.
+	 */
 	private Deck deck;
-	private int maximumResource, resource;
-	private List<Element> maximumElements, elements;
+	/**
+	 * The maximum resources for this side.
+	 */
+	private int maximumResources;
+	/**
+	 * The current resources for this side.
+	 */
+	private int resources;
+	/**
+	 * The maximum elements for this side.
+	 */
+	private List<Element> maximumElements;
+	/**
+	 * The current elements for this side.
+	 */
+	private List<Element> elements;
+	/**
+	 * Whether this side has sacrificed this turn or not.
+	 */
 	private boolean hasSacrificed;
+	/**
+	 * The owner of this side.
+	 */
 	private Player owner;
+	/**
+	 * The game this side belongs to.
+	 */
 	private Game game;
-	
-	
+	/**
+	 * Instantiates a new Side.
+	 * @param half this side's BoardHalf
+	 * @param deck this side's deck
+	 */
 	public Side(BoardHalf half, Deck deck)
 	{
 		this.half = half;
 		this.deck = deck;
-		maximumResource = 0;
-		resource = 0;
+		maximumResources = 0;
+		resources = 0;
 		maximumElements = new LinkedList<Element>();
 		elements = new LinkedList<Element>();
 		hasSacrificed = false;
 	}
-	
+	/**
+	 * Sets this side's parent game.
+	 * @param g this side's new parent game
+	 */
 	public void setParentGame(Game g)
 	{
 		game = g;
 	}
-	
+	/**
+	 * Returns this side's parent game.
+	 * @return this side's parent game
+	 */
 	public Game getParentGame()
 	{
 		return game;
 	}
 	public void resetElements()
 	{
-		resource = maximumResource;
+		resources = maximumResources;
 		elements = new LinkedList<Element>(maximumElements);
 		hasSacrificed = false;
 	}
-	
-	//Call when user sacrifices for cards
+	/**
+	 * Sacrifice the card in hand with the specified index for cards.
+	 * @param indexInHand the index in hand of the card to sacrifice
+	 */
 	public boolean sacrificeForCards(int indexInHand)
 	{
 		if(!hasSacrificed)
@@ -54,8 +94,10 @@ public class Side
 		}
 		return false;
 	}
-	
-	//Call when user sacrifices for cards
+	/**
+	 * Sacrifice a card for cards.
+	 * @param card the card to sacrifice
+	 */
 	public boolean sacrificeForCards(Card card)
 	{
 		if(!hasSacrificed)
@@ -67,15 +109,18 @@ public class Side
 		}
 		return false;
 	}
-	
-	//Call when user sacrifices for elements
+	/**
+	 * Sacrifice the card in hand with the specified index for the specified element.
+	 * @param indexInHand the index in hand of the card to sacrifice
+	 * @param element the element to sacrifice for
+	 */
 	public boolean sacrificeForElements(int indexInHand, Element element)
 	{
 		if(!hasSacrificed&&deck.getHand().get(indexInHand).getElementCost().contains(element))
 		{
 			deck.discardCard(indexInHand);
-			maximumResource++;
-			resource++;
+			maximumResources++;
+			resources++;
 			maximumElements.add(element);
 			elements.add(element);
 			hasSacrificed = true;
@@ -83,14 +128,17 @@ public class Side
 		}
 		return false;
 	}
-	
-	//Call when user sacrifices for cards
+	/**
+	 * Sacrifice a card for the specified element.
+	 * @param card the card to sacrifice
+	 * @param element the element to sacrifice for
+	 */
 	public boolean sacrificeForElements(Card card, Element element)
 	{
 		if(!hasSacrificed&&card.getElementCost().contains(element)&&deck.discardCard(card))
 		{
-			maximumResource++;
-			resource++;
+			maximumResources++;
+			resources++;
 			maximumElements.add(element);
 			elements.add(element);
 			hasSacrificed = true;
@@ -98,11 +146,14 @@ public class Side
 		}
 		return false;
 	}
-	
-	//Call when user presses a card to play it, in order to see if sufficient elements exist
-	public boolean hasElements(int indexInHand)
+	/**
+	 * Returns whether this side has enough resources to play the card with specified index in hand.
+	 * @param indexInHand the index in hand of the card to check for enough resources
+	 * @return whether this side has enough resources to play the card with specified index in hand
+	 */
+	public boolean hasResources(int indexInHand)
 	{
-		if(resource>=deck.getHand().get(indexInHand).getResourceCost())
+		if(resources>=deck.getHand().get(indexInHand).getResourceCost())
 		{
 			List<Element> tempElements = new LinkedList<Element>(elements);
 			for(Element element:deck.getHand().get(indexInHand).getElementCost())
@@ -120,11 +171,14 @@ public class Side
 		}
 		return false;
 	}
-	
-	//Call when user presses a card to play it, in order to see if sufficient elements exist
+	/**
+	 * Returns whether this side has enough resources to play the specified card.
+	 * @param card the card to check for enough resources
+	 * @return whether this side has enough resources to play the specified card
+	 */
 	public boolean hasElements(Card card)
 	{
-		if(deck.getHand().contains(card)&&resource>=card.getResourceCost())
+		if(deck.getHand().contains(card)&&resources>=card.getResourceCost())
 		{
 			List<Element> tempElements = new LinkedList<Element>(elements);
 			for(Element element:card.getElementCost())
@@ -142,11 +196,14 @@ public class Side
 		}
 		return false;
 	}
-	
-	//Do not call unless you know what you are doing. But you can't know what your doing unless you call it. So there.
+	/**
+	 * Pays for the card with specified index in hand.
+	 * @param indexInHand the index in hand of the card to pay for
+	 * @return whether the card was payed for
+	 */
 	public boolean payForCard(int indexInHand)
 	{
-		if(resource>=deck.getHand().get(indexInHand).getResourceCost())
+		if(resources>=deck.getHand().get(indexInHand).getResourceCost())
 		{
 			List<Element> tempElements = new LinkedList<Element>(elements);
 			for(Element element:deck.getHand().get(indexInHand).getElementCost())
@@ -160,17 +217,20 @@ public class Side
 					return false;
 				}
 			}
-			resource-=deck.getHand().get(indexInHand).getResourceCost();
+			resources-=deck.getHand().get(indexInHand).getResourceCost();
 			elements = tempElements;
 			return true;
 		}
 		return false;
 	}
-	
-	//Do not call unless you know what you are doing. See above.
+	/**
+	 * Pays for the specified card
+	 * @param card the card to pay for
+	 * @return whether the card was payed for
+	 */
 	public boolean payForCard(Card card)
 	{
-		if(deck.getHand().contains(card)&&resource>=card.getResourceCost())
+		if(deck.getHand().contains(card)&&resources>=card.getResourceCost())
 		{
 			List<Element> tempElements = new LinkedList<Element>(elements);
 			for(Element element:card.getElementCost())
@@ -184,43 +244,64 @@ public class Side
 					return false;
 				}
 			}
-			resource-=card.getResourceCost();
+			resources-=card.getResourceCost();
 			elements = tempElements;
 			return true;
 		}
 		return false;
 	}
-	
+	/**
+	 * Returns this side's board half.
+	 * @return this side's board half
+	 */
 	public BoardHalf getHalf()
 	{
 		return half;
 	}
-	
+	/**
+	 * Returns this side's deck.
+	 * @return this side's deck
+	 */
 	public Deck getDeck()
 	{
 		return deck;
 	}
-	
-	public int getMaximumResource()
+	/**
+	 * Returns this side's maximum resources.
+	 * @return this side's parent game
+	 */
+	public int getMaximumResources()
 	{
-		return maximumResource;
+		return maximumResources;
 	}
-	
-	public int getResource()
+	/**
+	 * Returns this side's current resources.
+	 * @return this side's current resources
+	 */
+	public int getResources()
 	{
-		return resource;
+		return resources;
 	}
-	
+	/**
+	 * Returns this side's maximum elements.
+	 * @return this side's maximum elements
+	 */
 	public List<Element> getMaximumElements()
 	{
 		return maximumElements;
 	}
-	
+	/**
+	 * Returns this side's current elements.
+	 * @return this side's current elements
+	 */
 	public List<Element> getElements()
 	{
 		return elements;
 	}
-	
+	/**
+	 * Returns this side's owner.
+	 * @return this side's owner
+	 */
 	public Player getOwner()
 	{
 		return owner;

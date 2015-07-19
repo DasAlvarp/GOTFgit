@@ -1,7 +1,25 @@
 package com.alvarpq.GOTF.coreGame;
+/**
+ * An enumerator for handling ownership of cards, units, sides and board halves.
+ */
 public enum Player
 {
-	PLAYER1, PLAYER2, NONE;
+	/**
+	 * Player 1
+	 */
+	PLAYER1,
+	/**
+	 * Player 2
+	 */
+	PLAYER2,
+	/**
+	 * No player
+	 */
+	NONE;
+	/**
+	 * Returns the other player
+	 * @return the other player
+	 */
 	public Player otherPlayer()
 	{
 		if(this == PLAYER1)
@@ -14,6 +32,4 @@ public enum Player
 		}
 		return NONE;
 	}
-	
-	
 }

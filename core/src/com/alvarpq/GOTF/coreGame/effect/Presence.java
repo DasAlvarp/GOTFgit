@@ -1,12 +1,32 @@
 package com.alvarpq.GOTF.coreGame.effect;
+/**
+ * Used for permanent effects on units.
+ */
 public class Presence implements Effect
 {
-	public static final Presence ATTACK_1 = new Presence("+1 Attack", 1, 0, 0, 0, false);
-	public static final Presence HEALTH_1 = new Presence("+1 Health", 0, 0, 1, 0, false);
-	public static final Presence HEALTH_2 = new Presence("+2 Health", 0, 0, 2, 0, false);
-	public static final Presence UNTARGETABLE = new Presence("Untargetable", 0, 0, 0, 0, true);
+	/**
+	 * The name of the permanent effect.
+	 */
 	String name;
-	int attack, baseCountdown, health, baseMove;
+	/**
+	 * The attack change of the permanent effect.
+	 */
+	private int attack;
+	/**
+	 * The base countdown change of the permanent effect.
+	 */
+	private int baseCountdown;
+	/**
+	 * The health change of the permanent effect.
+	 */
+	private int health;
+	/**
+	 * The base move change of the permanent effect.
+	 */
+	private int baseMove;
+	/**
+	 * Whether this permanent effect makes the unit untargetable.
+	 */
 	boolean untargetable;
 	public Presence(String name, int attack, int baseCountdown, int health, int baseMove, boolean untargetable)
 	{
@@ -17,32 +37,50 @@ public class Presence implements Effect
 		this.baseMove = baseMove;
 		this.untargetable = untargetable;
 	}
-	@Override
+	/**
+	 * Returns the name of the effect.
+	 * @return the name of the effect
+	 */
 	public String getName()
 	{
 		return name;
 	}
-	@Override
+	/**
+	 * Returns the attack change of the effect.
+	 * @return the attack change of the effect
+	 */
 	public int attackChange()
 	{
 		return attack;
 	}
-	@Override
+	/**
+	 * Returns the base countdown change of the effect.
+	 * @return the base countdown change of the effect
+	 */
 	public int baseCountdownChange()
 	{
 		return baseCountdown;
 	}
-	@Override
+	/**
+	 * Returns the health change of the effect.
+	 * @return the health change of the effect
+	 */
 	public int healthChange()
 	{
 		return health;
 	}
-	@Override
+	/**
+	 * Returns the base move change of the effect.
+	 * @return the base move change of the effect
+	 */
 	public int baseMoveChange()
 	{
 		return baseMove;
 	}
-	@Override
+	/**
+	 * Returns whether the effect makes the unit untargetable.
+	 * @return whether the effect makes the unit untargetable
+	 */
 	public boolean untargetable()
 	{
 		return untargetable;

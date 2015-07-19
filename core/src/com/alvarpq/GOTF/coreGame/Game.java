@@ -8,10 +8,24 @@ import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.gui.BoardDraw;
 public class Game
 {
+	/**
+	 * A map containing the game's two sides.
+	 */
 	private Map<Player, Side> sides;
+	/**
+	 * The current player.
+	 */
 	private Player currentPlayer;
+	/**
+	 * Used to determine starting player.
+	 */
 	private static final Random random = new Random();
 	BoardDraw boardDraw;
+	/**
+	 * Instantiates a new Game.
+	 * @param deck1 the first player's deck
+	 * @param deck2 the second player's deck
+	 */
 	public Game(Deck deck1, Deck deck2)
 	{
 		sides = new HashMap<Player, Side>();
@@ -31,14 +45,18 @@ public class Game
 	public void update(){
 		boardDraw.update();
 	}
-	
-	//Call to start game
+	/**
+	 * Starts the game with the given handSize.
+	 * @param handSize the hand size to use
+	 */
 	public void start(int handSize)
 	{
 		sides.get(Player.PLAYER1).getDeck().drawHand(handSize);
 		sides.get(Player.PLAYER2).getDeck().drawHand(handSize);
 	}
-	//Call directly after endTurn
+	/**
+	 * Starts the next turn. Only call directly after endTurn
+	 */
 	public void startTurn()
 	{
 		if(currentPlayer==Player.PLAYER1)
@@ -56,7 +74,9 @@ public class Game
 			sides.get(Player.PLAYER2).getDeck().drawCards(1);
 		}
 	}
-	//Call when user presses end turn button
+	/**
+	 * Ends the current turn.
+	 */
 	public void endTurn()
 	{
 		if(currentPlayer==Player.PLAYER1)
@@ -69,19 +89,36 @@ public class Game
 		}
 		currentPlayer = currentPlayer.otherPlayer();
 	}
+	/**
+	 * Returns the current player.
+	 * @return the current player
+	 */
 	public Player getCurrentPlayer()
 	{
 		return currentPlayer;
 	}
+	/**
+	 * Set the current player.
+	 * @param currentPlayer the new current player
+	 */
 	public void setCurrentPlayer(Player currentPlayer)
 	{
 		this.currentPlayer = currentPlayer;
 	}
+	/**
+	 * Gets owner's side.
+	 * @param owner the owner of the side to get
+	 * @return owner's side.
+	 */
 	public Side getSide(Player owner)
 	{
 		return sides.get(owner);
 	}
-	//Call when user has inputed all needed data to play a card
+	/**
+	 * Plays a card with a certain index in a player's hand. Enough resources has to exist and the card has to be ready to be played.
+	 * @param side the player who plays the card
+	 * @param indexInHand the index in hand of the card to play
+	 */
 	public boolean playCard(Player side, int indexInHand)
 	{
 		if(sides.get(side).getDeck().getHand().get(indexInHand).isReady()&&sides.get(side).payForCard(indexInHand))
@@ -95,7 +132,11 @@ public class Game
 		}
 		return false;
 	}
-	//Call when user has inputed all needed data to play a card
+	/**
+	 * Plays a card  in a player's hand. Enough resources has to exist and the card has to be ready to be played.
+	 * @param side the player who plays the card
+	 * @param card the card to play
+	 */
 	public boolean playCard(Player side, Card card)
 	{
 		if(card.isReady()&&sides.get(side).payForCard(card))

@@ -6,10 +6,27 @@ import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
 import com.alvarpq.GOTF.requirement.TileRequirement;
+/**
+ * The superclass of all unit cards.
+ */
 public abstract class UnitCard extends Card
 {
+	/**
+	 * The unit factory for spawning units.
+	 */
 	private UnitFactory unitFactory;
+	/**
+	 * The tile to spawn the unit on.
+	 */
 	private TileRequirement position;
+	/**
+	 * Instantiates a new UnitCard.
+	 * @param id the id of the card
+	 * @param name the name of the card
+	 * @param resourceCost the cost in resources to play the card
+	 * @param elementCost the cost in elements to play the card
+	 * @param unitFactory the unitFactory used to spawn units
+	 */
 	public UnitCard(int id, String name, int resourceCost, List<Element> elementCost, UnitFactory unitFactory)
 	{
 		super(id, name, resourceCost, elementCost);
@@ -17,6 +34,12 @@ public abstract class UnitCard extends Card
 		setRequirements(new Requirement[]{position});
 		this.unitFactory = unitFactory;
 	}
+	/**
+	 * This function is called by the game when the card is played.
+	 * @param mySide theSide this card belongs to
+	 * @param opponentsSide the opponent to the side this card belongs to
+	 * @return whether the card was played
+	 */
 	@Override
 	public boolean play(Side mySide, Side opponentsSide)
 	{

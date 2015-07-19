@@ -8,19 +8,88 @@ import com.alvarpq.GOTF.entity.AnimatedSprite;
 import com.alvarpq.GOTF.entity.Entity;
 public abstract class Unit extends Entity
 {
+	/**
+	 * The name of the unit.
+	 */
 	private String name;
-	private int baseCountdown, maximumHealth, baseMove;
+	/**
+	 * The base countdown of the unit.
+	 */
+	private int baseCountdown;
+	/**
+	 * The maximum health of the unit.
+	 */
+	private int maximumHealth;
+	/**
+	 * The base move of the unit.
+	 */
+	private int baseMove;
+	/**
+	 * The base targetable value of the unit.
+	 */
 	private boolean baseTargetable;
-	private int attack, countdown, health, move;
+	/**
+	 * The attack of the unit.
+	 */
+	private int attack;
+	/**
+	 * The countdown of the unit.
+	 */
+	private int countdown;
+	/**
+	 * The health of the unit.
+	 */
+	private int health;
+	/**
+	 * The move of the unit.
+	 */
+	private int move;
+	/**
+	 * The targetable value of the unit.
+	 */
 	private boolean targetable;
+	/**
+	 * The unit's subtypes.
+	 */
 	private String[] subtypes;
-	private int row, column;
+	/**
+	 * The row of the unit.
+	 */
+	private int row;
+	/**
+	 * The column of the unit.
+	 */
+	private int column;
+	/**
+	 * The owner of the unit.
+	 */
 	private Player owner;
+	/**
+	 * The attack type of the unit.
+	 */
 	private AttackType attackType;
+	/**
+	 * The move type of the unit.
+	 */
 	private MoveType moveType;
+	/**
+	 * The effects currently applied to the unit.
+	 */
 	private List<Effect> effects;
 	//Temp frame variable to do animations
 	protected int frame=0;
+	/**
+	 * Instantiates a new unit.
+	 * @param name the name of the unit
+	 * @param attack the attack of the unit
+	 * @param baseCountdown the base countdown of the unit
+	 * @param maxiumumHealth the maximum health of the unit
+	 * @param baseMove the base move of the unit
+	 * @param baseTargetable the base targetable value of the unit
+	 * @param subtypes the unit's subtypes
+	 * @param row the row of the unit
+	 * @param column the column of the unit
+	 */
 	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, boolean baseTargetable, String[] subtypes, int row, int column)
 	{
 		super();
@@ -50,11 +119,16 @@ public abstract class Unit extends Entity
 		 return as;*/
 		return null;
 	}
-	//call BoardHalf.resetCountdown instead	
+	/**
+	 * Resets the unit's countdown.
+	 */
 	public void resetCountdown()
 	{
 		countdown = baseCountdown;
 	}
+	/**
+	 * Makes the unit count down.
+	 */
 	public boolean countDown()
 	{
 		if(countdown>0)
@@ -64,14 +138,25 @@ public abstract class Unit extends Entity
 		}
 		return false;
 	}
+	/**
+	 * Resets the unit's move.
+	 */
 	public void resetMove()
 	{
 		move = baseMove;
 	}
+	/**
+	 * Changes the unit's countdown.
+	 * @param amount the amount to change the countdown with
+	 */
 	public void changeCountdown(int amount)
 	{
 		countdown+=amount;
 	}
+	/**
+	 * Heals the unit.
+	 * @param amount the amount to heal with
+	 */
 	public void heal(int amount)
 	{
 		health+=amount;
@@ -80,14 +165,26 @@ public abstract class Unit extends Entity
 			health = maximumHealth;
 		}
 	}
+	/**
+	 * Damages the unit.
+	 * @param amount the amount to damage with
+	 */
 	public void damage(int amount)
 	{
 		health-=amount;
 	}
+	/**
+	 * Changes the unit's move.
+	 * @param amount the amount to change move with
+	 */
 	public void changeMove(int amount)
 	{
 		move+=amount;
 	}
+	/**
+	 * Applies an effect to the unit.
+	 * @param effect the effect to apply
+	 */
 	public void applyEffect(Effect effect)
 	{
 		effects.add(effect);
@@ -101,6 +198,10 @@ public abstract class Unit extends Entity
 			targetable = false;
 		}
 	}
+	/**
+	 * Removes an effect from the unit.
+	 * @param index the index of the effect to remove.
+	 */
 	public void removeEffect(int index)
 	{
 		attack-=effects.get(index).attackChange();
@@ -114,6 +215,9 @@ public abstract class Unit extends Entity
 		}
 		effects.remove(index);
 	}
+	/**
+	 * Applies all the unit's effects to it.
+	 */
 	public void applyAllEffects()
 	{
 		for(Effect effect:effects)
@@ -129,6 +233,9 @@ public abstract class Unit extends Entity
 			}
 		}
 	}
+	/**
+	 * Removes all the unit's presence effects.
+	 */
 	public void clearPresenceEffects()
 	{
 		for(int i=0;i<effects.size();i++)
@@ -149,90 +256,178 @@ public abstract class Unit extends Entity
 			}
 		}
 	}
+	/**
+	 * Returns the unit's name.
+	 * @return the unit's name
+	 */
 	public String getName()
 	{
 		return name;
 	}
+	/**
+	 * Returns the unit's base countdown.
+	 * @return the unit's base countdown
+	 */
 	public int getBaseCountdown()
 	{
 		return baseCountdown;
 	}
+	/**
+	 * Returns the unit's maximum health.
+	 * @return the unit's health
+	 */
 	public int getMaximumHealth()
 	{
 		return maximumHealth;
 	}
+	/**
+	 * Returns the unit's base move.
+	 * @return the unit's base move
+	 */
 	public int getBaseMove()
 	{
 		return baseMove;
 	}
+	/**
+	 * Returns the unit's base targetable value.
+	 * @return the unit's base targetable value
+	 */
 	public boolean getBaseTargetable()
 	{
 		return baseTargetable;
 	}
+	/**
+	 * Returns the unit's attack.
+	 * @return the unit's attack
+	 */
 	public int getAttack()
 	{
 		return attack;
 	}
+	/**
+	 * Returns the unit's countdown.
+	 * @return the unit's countdown
+	 */
 	public int getCountdown()
 	{
 		return countdown;
 	}
+	/**
+	 * Returns the unit's health.
+	 * @return the unit's health
+	 */
 	public int getHealth()
 	{
 		return health;
 	}
+	/**
+	 * Returns the unit's move.
+	 * @return the unit's move
+	 */
 	public int getMove()
 	{
 		return move;
 	}
+	/**
+	 * Returns the unit's targetable value.
+	 * @return the unit's targetable value
+	 */
 	public boolean getTargetable()
 	{
 		return targetable;
 	}
+	/**
+	 * Returns the unit's subtypes.
+	 * @return the unit's subtypes
+	 */
 	public String[] getSubtypes()
 	{
 		return subtypes;
 	}
+	/**
+	 * Sets the unit's row.
+	 * @param row the unit's new row
+	 */
 	public void setRow(int row)
 	{
 		this.row = row;
 	}
+	/**
+	 * Sets the unit's column.
+	 * @param column the unit's new column
+	 */
 	public void setColumn(int column)
 	{
 		this.column = column;
 	}
+	/**
+	 * Returns the unit's row.
+	 * @return the unit's row
+	 */
 	public int getRow()
 	{
 		return row;
 	}
+	/**
+	 * Returns the unit's column.
+	 * @return the unit's column
+	 */
 	public int getColumn()
 	{
 		return column;
 	}
+	/**
+	 * Returns the unit's owner.
+	 * @return the unit's owner
+	 */
 	public Player getOwner()
 	{
 		return owner;
 	}
+	/**
+	 * Sets the unit's owner.
+	 * @param owner the unit's new owner
+	 */
 	public void setOwner(Player owner)
 	{
 		this.owner = owner;
 	}
+	/**
+	 * Returns the unit's attack type.
+	 * @return the unit's attack type
+	 */
 	public AttackType getAttackType()
 	{
 		return attackType;
 	}
+	/**
+	 * Sets the unit's attack type.
+	 * @param attackType the unit's new attack type
+	 */
 	public void setAttackType(AttackType attackType)
 	{
 		this.attackType = attackType;
 	}
+	/**
+	 * Returns the unit's move type.
+	 * @return the unit's move type
+	 */
 	public MoveType getMoveType()
 	{
 		return moveType;
 	}
+	/**
+	 * Sets the unit's move type.
+	 * @param attackType the unit's new move type
+	 */
 	public void setMoveType(MoveType moveType)
 	{
 		this.moveType = moveType;
 	}
+	/**
+	 * Returns the unit as a String.
+	 * @return the unit as a String
+	 */
 	@Override
 	public String toString()
 	{

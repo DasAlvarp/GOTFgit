@@ -111,7 +111,7 @@ public class ConsoleGOTF
 	//returns your current elements and total elements, in string form.
 	public static String elementsString(Side side)
 	{
-		String toReturn = side.getResource() + "/" + side.getMaximumResource() + "Resource";
+		String toReturn = side.getResources() + "/" + side.getMaximumResources() + "Resource";
 		int air = 0;
 		int earth = 0;
 		int fire = 0;
