@@ -6,7 +6,4 @@ public class GoblinWarrior extends Unit
 	{
 		super("Goblin Warrior", 3, 2, 2, 1, true, new String[]{"Goblin, Soldier"}, row, column);
 	}
-
-	@Override
-	public void update(){}
 }

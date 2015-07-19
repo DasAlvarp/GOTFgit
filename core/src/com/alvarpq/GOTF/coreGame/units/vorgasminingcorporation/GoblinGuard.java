@@ -6,7 +6,4 @@ public class GoblinGuard extends Unit
 	{
 		super("Goblin Guard", 0, 2, 5, 1, true, new String[]{"Goblin, Soldier"}, row, column);
 	}
-
-	@Override
-	public void update(){}
 }

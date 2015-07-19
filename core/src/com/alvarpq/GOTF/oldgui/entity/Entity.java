@@ -1,8 +1,8 @@
-package com.alvarpq.GOTF.entity;
+package com.alvarpq.GOTF.oldgui.entity;
 
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.gui.BoardDraw;
-import com.alvarpq.GOTF.gui.Hex;
+import com.alvarpq.GOTF.oldgui.gui.BoardDraw;
+import com.alvarpq.GOTF.oldgui.gui.Hex;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 

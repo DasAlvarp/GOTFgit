@@ -6,7 +6,4 @@ public class DarkYoungling extends Unit
 	{
 		super("Dark Youngling", 1, 1, 1, 1, true, new String[]{"Mulgoon"}, row, column);
 	}
-
-	@Override
-	public void update(){}
 }

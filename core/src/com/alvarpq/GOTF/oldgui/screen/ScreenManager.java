@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.screen;
+package com.alvarpq.GOTF.oldgui.screen;
 public class ScreenManager {
 
 	private static Screen currentScreen;

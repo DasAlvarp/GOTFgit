@@ -6,9 +6,4 @@ public class RedDevil extends Unit
 	{
 		super("Red Devil", 1, 1, 1, 1, true, new String[]{"Goblin"}, row, column);
 	}
-
-	@Override
-	public void update()
-	{
-	}
 }

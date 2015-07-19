@@ -1,10 +1,10 @@
-package com.alvarpq.GOTF.screen;
+package com.alvarpq.GOTF.oldgui.screen;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.units.unused.TunnelGuard;
-import com.alvarpq.GOTF.entity.EntityManager;
-import com.alvarpq.GOTF.gui.BackDraw;
-import com.alvarpq.GOTF.gui.BoardDraw;
+import com.alvarpq.GOTF.oldgui.entity.EntityManager;
+import com.alvarpq.GOTF.oldgui.gui.BackDraw;
+import com.alvarpq.GOTF.oldgui.gui.BoardDraw;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

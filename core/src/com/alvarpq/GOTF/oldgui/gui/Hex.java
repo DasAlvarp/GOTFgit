@@ -1,7 +1,7 @@
-package com.alvarpq.GOTF.gui;
-import com.alvarpq.GOTF.entity.AnimatedSprite;
-import com.alvarpq.GOTF.entity.Entity;
-import com.alvarpq.GOTF.entity.EntityManager;
+package com.alvarpq.GOTF.oldgui.gui;
+import com.alvarpq.GOTF.oldgui.entity.AnimatedSprite;
+import com.alvarpq.GOTF.oldgui.entity.Entity;
+import com.alvarpq.GOTF.oldgui.entity.EntityManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

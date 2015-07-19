@@ -15,7 +15,6 @@ import com.alvarpq.GOTF.coreGame.event.UnitKilledListener;
 import com.alvarpq.GOTF.coreGame.hexEnchant.HexEnchantment;
 import com.alvarpq.GOTF.coreGame.units.PresenceApplier;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.entity.EntityManager;
 public class BoardHalf
 {
 	/**
@@ -217,7 +216,6 @@ public class BoardHalf
 	{
 		units[unit.getRow()][unit.getColumn()] = unit;
 		unit.setOwner(owner);
-		EntityManager.addEntity(unit);
 		update();
 	}
 	/**

@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.screen;
+package com.alvarpq.GOTF.oldgui.screen;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

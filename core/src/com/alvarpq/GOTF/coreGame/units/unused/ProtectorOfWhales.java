@@ -21,7 +21,4 @@ public class ProtectorOfWhales extends Unit implements PresenceApplier
 			}
 		}
 	}
-
-	@Override
-	public void update(){}
 }

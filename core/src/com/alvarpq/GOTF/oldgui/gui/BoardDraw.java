@@ -1,10 +1,10 @@
-package com.alvarpq.GOTF.gui;
+package com.alvarpq.GOTF.oldgui.gui;
 
 import java.util.ArrayList;
 
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
-import com.alvarpq.GOTF.entity.AnimatedSprite;
+import com.alvarpq.GOTF.oldgui.entity.AnimatedSprite;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;

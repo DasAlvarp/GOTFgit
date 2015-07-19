@@ -8,7 +8,4 @@ public class JumpingWhale extends Unit
 		super("Jumping Whale", 3, 2, 3, 1, true, new String[]{"Whale"}, row, column);
 		setMoveType(new MoveType.NonAdjacent());
 	}
-
-	@Override
-	public void update(){}
 }

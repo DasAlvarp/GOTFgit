@@ -1,4 +1,4 @@
-package com.alvarpq.GOTF.entity;
+package com.alvarpq.GOTF.oldgui.entity;
 
 import java.util.ArrayList;
 

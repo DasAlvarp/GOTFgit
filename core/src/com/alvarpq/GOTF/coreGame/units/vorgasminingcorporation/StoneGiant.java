@@ -6,7 +6,4 @@ public class StoneGiant extends Unit
 	{
 		super("Stone Giant", 4, 2, 5, 1, true, new String[]{"Giant"}, row, column);
 	}
-
-	@Override
-	public void update(){}
 }

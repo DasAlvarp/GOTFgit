@@ -6,7 +6,4 @@ public class TamedDemon extends Unit
 	{
 		super("Tamed Demon", 4, 1, 2, 1, true, new String[]{"Demon"}, row, column);
 	}
-
-	@Override
-	public void update(){}
 }

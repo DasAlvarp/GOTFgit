@@ -1,6 +1,6 @@
 package com.alvarpq.GOTF;
-import com.alvarpq.GOTF.screen.GameScreen;
-import com.alvarpq.GOTF.screen.ScreenManager;
+import com.alvarpq.GOTF.oldgui.screen.GameScreen;
+import com.alvarpq.GOTF.oldgui.screen.ScreenManager;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
