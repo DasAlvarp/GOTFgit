@@ -1,6 +1,5 @@
 package com.alvarpq.GOTF.coreGame;
-
-public enum Resource
+public enum Element
 {
 	AIR, EARTH, FIRE, WATER;
 }

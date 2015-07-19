@@ -70,14 +70,14 @@ public class ConsoleGOTF
 	//returns total cost of a unit, in string form
 	public static String costString(Card card)
 	{
-		String toReturn = card.getThresholdCost() + "Threshold";
+		String toReturn = card.getResourceCost() + "Resource";
 		int air = 0;
 		int earth = 0;
 		int fire = 0;
 		int water = 0;
-		for(Resource resource:card.getResourceCost())
+		for(Element element:card.getElementCost())
 		{
-			switch(resource)
+			switch(element)
 			{
 				case AIR:	air++; 
 							break;
@@ -108,10 +108,10 @@ public class ConsoleGOTF
 		return toReturn;
 	}
 	
-	//returns your current resources and total resources, in string form.
-	public static String resourcesString(Side side)
+	//returns your current elements and total elements, in string form.
+	public static String elementsString(Side side)
 	{
-		String toReturn = side.getThreshold() + "/" + side.getMaximumThreshold() + "Threshold";
+		String toReturn = side.getResource() + "/" + side.getMaximumResource() + "Resource";
 		int air = 0;
 		int earth = 0;
 		int fire = 0;
@@ -120,11 +120,11 @@ public class ConsoleGOTF
 		int maximumEarth = 0;
 		int maximumFire = 0;
 		int maximumWater = 0;
-		for(Resource resource:side.getResources())
+		for(Element element:side.getElements())
 		{
 			
 			//have you considered making this switch statement a private method?
-			switch(resource)
+			switch(element)
 			{
 				case AIR:	air++; 
 							break;
@@ -137,9 +137,9 @@ public class ConsoleGOTF
 			}
 		}
 		
-		for(Resource resource:side.getMaximumResources())
+		for(Element element:side.getMaximumElements())
 		{
-			switch(resource)
+			switch(element)
 			{
 				case AIR:	maximumAir++;
 							break;
@@ -284,8 +284,8 @@ public class ConsoleGOTF
 				System.out.print("Hand: ");
 			}
 			System.out.println();
-			// prints current resources
-			System.out.println("Resources: "+resourcesString(game.getSide(game.getCurrentPlayer())));
+			// prints current elements
+			System.out.println("Elements: "+elementsString(game.getSide(game.getCurrentPlayer())));
 			System.out.print("> ");
 			//splits up inputed command into words
 			String[] command = input.nextLine().split(" ");
@@ -309,19 +309,19 @@ public class ConsoleGOTF
 						}
 						else if(command[2].equalsIgnoreCase("air"))
 						{
-							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForResources(i, Resource.AIR);
+							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForElements(i, Element.AIR);
 						}
 						else if(command[2].equalsIgnoreCase("earth"))
 						{
-							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForResources(i, Resource.EARTH);
+							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForElements(i, Element.EARTH);
 						}
 						else if(command[2].equalsIgnoreCase("fire"))
 						{
-							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForResources(i, Resource.FIRE);
+							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForElements(i, Element.FIRE);
 						}
 						else if(command[2].equalsIgnoreCase("water"))
 						{
-							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForResources(i, Resource.WATER);
+							didSacrifice = game.getSide(game.getCurrentPlayer()).sacrificeForElements(i, Element.WATER);
 						}
 						if(!didSacrifice)
 						{
@@ -353,8 +353,8 @@ public class ConsoleGOTF
 				{
 					if(command[1].equalsIgnoreCase(card.getName().substring(0, 3)))
 					{
-						//checks for enough resources
-						if(game.getSide(game.getCurrentPlayer()).hasResources(card))
+						//checks for enough elements
+						if(game.getSide(game.getCurrentPlayer()).hasElements(card))
 						{
 							//goes through all the card's requirements, like for example units need an own empty tile while damage spells need opponent units
 							//it's actually as easy as going through the card's requirements and fulfilling them by sending them the correct information with
@@ -558,7 +558,7 @@ public class ConsoleGOTF
 						}
 						else
 						{
-							System.out.println("You don't have enough resources!");
+							System.out.println("You don't have enough elements!");
 							break;
 						}
 					}

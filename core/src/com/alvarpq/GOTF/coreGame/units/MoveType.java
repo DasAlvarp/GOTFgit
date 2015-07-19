@@ -6,6 +6,16 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
  */
 public interface MoveType
 {
+	/**
+	 * The function used to move a unit.
+	 * @param unit the unit to move
+	 * @param row the row to move the unit to
+	 * @param column the column to move the unit to
+	 * @param mySide the unit's side
+	 * @param opponentsSide the side of the unit's opponent
+	 * @param mySideUnits all the units on the unit's side
+	 * @return whether the unit has moved or not
+	 */
 	public boolean move(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits);
 	/**
 	 * The normal move type. Used as default in all units.

@@ -43,14 +43,14 @@ public class Game
 	{
 		if(currentPlayer==Player.PLAYER1)
 		{
-			sides.get(Player.PLAYER1).resetResources();
+			sides.get(Player.PLAYER1).resetElements();
 			sides.get(Player.PLAYER1).getHalf().allResetMove();
 			sides.get(Player.PLAYER1).getHalf().allCountDown();
 			sides.get(Player.PLAYER1).getDeck().drawCards(1);
 		}
 		else
 		{
-			sides.get(Player.PLAYER2).resetResources();
+			sides.get(Player.PLAYER2).resetElements();
 			sides.get(Player.PLAYER2).getHalf().allResetMove();
 			sides.get(Player.PLAYER2).getHalf().allCountDown();
 			sides.get(Player.PLAYER2).getDeck().drawCards(1);

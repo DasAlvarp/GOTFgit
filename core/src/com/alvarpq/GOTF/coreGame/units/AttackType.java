@@ -8,6 +8,12 @@ import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
  */
 public interface AttackType
 {
+	/**
+	 * The function used to make a unit attack.
+	 * @param unit the unit to attack with
+	 * @param mySide the unit's side
+	 * @param opponentsSide the side of the unit's opponent
+	 */
 	public void attack(Unit unit, Side mySide, Side opponentsSide);
 	/**
 	 * The normal attack type. Used as default in all units.

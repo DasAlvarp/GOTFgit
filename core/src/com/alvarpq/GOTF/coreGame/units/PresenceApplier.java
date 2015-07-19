@@ -7,6 +7,8 @@ public interface PresenceApplier
 {
 	/**
 	 * Override this function to apply buffs and debuffs to units.
+	 * @param mySide the side of the applier
+	 * @param opponentsSide the side of the applier's opponent
 	 */
 	public abstract void applyPresence(Side mySide, Side opponentsSide);
 }

@@ -8,8 +8,8 @@ public class Side
 {
 	private BoardHalf half;
 	private Deck deck;
-	private int maximumThreshold, threshold;
-	private List<Resource> maximumResources, resources;
+	private int maximumResource, resource;
+	private List<Element> maximumElements, elements;
 	private boolean hasSacrificed;
 	private Player owner;
 	private Game game;
@@ -19,10 +19,10 @@ public class Side
 	{
 		this.half = half;
 		this.deck = deck;
-		maximumThreshold = 0;
-		threshold = 0;
-		maximumResources = new LinkedList<Resource>();
-		resources = new LinkedList<Resource>();
+		maximumResource = 0;
+		resource = 0;
+		maximumElements = new LinkedList<Element>();
+		elements = new LinkedList<Element>();
 		hasSacrificed = false;
 	}
 	
@@ -35,10 +35,10 @@ public class Side
 	{
 		return game;
 	}
-	public void resetResources()
+	public void resetElements()
 	{
-		threshold = maximumThreshold;
-		resources = new LinkedList<Resource>(maximumResources);
+		resource = maximumResource;
+		elements = new LinkedList<Element>(maximumElements);
 		hasSacrificed = false;
 	}
 	
@@ -68,16 +68,16 @@ public class Side
 		return false;
 	}
 	
-	//Call when user sacrifices for resources
-	public boolean sacrificeForResources(int indexInHand, Resource resource)
+	//Call when user sacrifices for elements
+	public boolean sacrificeForElements(int indexInHand, Element element)
 	{
-		if(!hasSacrificed&&deck.getHand().get(indexInHand).getResourceCost().contains(resource))
+		if(!hasSacrificed&&deck.getHand().get(indexInHand).getElementCost().contains(element))
 		{
 			deck.discardCard(indexInHand);
-			maximumThreshold++;
-			threshold++;
-			maximumResources.add(resource);
-			resources.add(resource);
+			maximumResource++;
+			resource++;
+			maximumElements.add(element);
+			elements.add(element);
 			hasSacrificed = true;
 			return true;
 		}
@@ -85,31 +85,31 @@ public class Side
 	}
 	
 	//Call when user sacrifices for cards
-	public boolean sacrificeForResources(Card card, Resource resource)
+	public boolean sacrificeForElements(Card card, Element element)
 	{
-		if(!hasSacrificed&&card.getResourceCost().contains(resource)&&deck.discardCard(card))
+		if(!hasSacrificed&&card.getElementCost().contains(element)&&deck.discardCard(card))
 		{
-			maximumThreshold++;
-			threshold++;
-			maximumResources.add(resource);
-			resources.add(resource);
+			maximumResource++;
+			resource++;
+			maximumElements.add(element);
+			elements.add(element);
 			hasSacrificed = true;
 			return true;
 		}
 		return false;
 	}
 	
-	//Call when user presses a card to play it, in order to see if sufficient resources exist
-	public boolean hasResources(int indexInHand)
+	//Call when user presses a card to play it, in order to see if sufficient elements exist
+	public boolean hasElements(int indexInHand)
 	{
-		if(threshold>=deck.getHand().get(indexInHand).getThresholdCost())
+		if(resource>=deck.getHand().get(indexInHand).getResourceCost())
 		{
-			List<Resource> tempResources = new LinkedList<Resource>(resources);
-			for(Resource resource:deck.getHand().get(indexInHand).getResourceCost())
+			List<Element> tempElements = new LinkedList<Element>(elements);
+			for(Element element:deck.getHand().get(indexInHand).getElementCost())
 			{
-				if(tempResources.contains(resource))
+				if(tempElements.contains(element))
 				{
-					tempResources.remove(resource);
+					tempElements.remove(element);
 				}
 				else
 				{
@@ -121,17 +121,17 @@ public class Side
 		return false;
 	}
 	
-	//Call when user presses a card to play it, in order to see if sufficient resources exist
-	public boolean hasResources(Card card)
+	//Call when user presses a card to play it, in order to see if sufficient elements exist
+	public boolean hasElements(Card card)
 	{
-		if(deck.getHand().contains(card)&&threshold>=card.getThresholdCost())
+		if(deck.getHand().contains(card)&&resource>=card.getResourceCost())
 		{
-			List<Resource> tempResources = new LinkedList<Resource>(resources);
-			for(Resource resource:card.getResourceCost())
+			List<Element> tempElements = new LinkedList<Element>(elements);
+			for(Element element:card.getElementCost())
 			{
-				if(tempResources.contains(resource))
+				if(tempElements.contains(element))
 				{
-					tempResources.remove(resource);
+					tempElements.remove(element);
 				}
 				else
 				{
@@ -146,22 +146,22 @@ public class Side
 	//Do not call unless you know what you are doing. But you can't know what your doing unless you call it. So there.
 	public boolean payForCard(int indexInHand)
 	{
-		if(threshold>=deck.getHand().get(indexInHand).getThresholdCost())
+		if(resource>=deck.getHand().get(indexInHand).getResourceCost())
 		{
-			List<Resource> tempResources = new LinkedList<Resource>(resources);
-			for(Resource resource:deck.getHand().get(indexInHand).getResourceCost())
+			List<Element> tempElements = new LinkedList<Element>(elements);
+			for(Element element:deck.getHand().get(indexInHand).getElementCost())
 			{
-				if(tempResources.contains(resource))
+				if(tempElements.contains(element))
 				{
-					tempResources.remove(resource);
+					tempElements.remove(element);
 				}
 				else
 				{
 					return false;
 				}
 			}
-			threshold-=deck.getHand().get(indexInHand).getThresholdCost();
-			resources = tempResources;
+			resource-=deck.getHand().get(indexInHand).getResourceCost();
+			elements = tempElements;
 			return true;
 		}
 		return false;
@@ -170,22 +170,22 @@ public class Side
 	//Do not call unless you know what you are doing. See above.
 	public boolean payForCard(Card card)
 	{
-		if(deck.getHand().contains(card)&&threshold>=card.getThresholdCost())
+		if(deck.getHand().contains(card)&&resource>=card.getResourceCost())
 		{
-			List<Resource> tempResources = new LinkedList<Resource>(resources);
-			for(Resource resource:card.getResourceCost())
+			List<Element> tempElements = new LinkedList<Element>(elements);
+			for(Element element:card.getElementCost())
 			{
-				if(tempResources.contains(resource))
+				if(tempElements.contains(element))
 				{
-					tempResources.remove(resource);
+					tempElements.remove(element);
 				}
 				else
 				{
 					return false;
 				}
 			}
-			threshold-=card.getThresholdCost();
-			resources = tempResources;
+			resource-=card.getResourceCost();
+			elements = tempElements;
 			return true;
 		}
 		return false;
@@ -201,24 +201,24 @@ public class Side
 		return deck;
 	}
 	
-	public int getMaximumThreshold()
+	public int getMaximumResource()
 	{
-		return maximumThreshold;
+		return maximumResource;
 	}
 	
-	public int getThreshold()
+	public int getResource()
 	{
-		return threshold;
+		return resource;
 	}
 	
-	public List<Resource> getMaximumResources()
+	public List<Element> getMaximumElements()
 	{
-		return maximumResources;
+		return maximumElements;
 	}
 	
-	public List<Resource> getResources()
+	public List<Element> getElements()
 	{
-		return resources;
+		return elements;
 	}
 	
 	public Player getOwner()
