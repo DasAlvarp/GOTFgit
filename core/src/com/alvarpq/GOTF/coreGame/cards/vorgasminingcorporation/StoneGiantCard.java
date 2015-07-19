@@ -8,6 +8,6 @@ public class StoneGiantCard extends UnitCard
 {
 	public StoneGiantCard()
 	{
-		super(210111, "Stone Giant", 4, Arrays.asList(new Resource[]{Resource.EARTH}), new UnitFactory(StoneGiant.class));
+		super(110111, "Stone Giant", 4, Arrays.asList(new Resource[]{Resource.EARTH}), new UnitFactory(StoneGiant.class));
 	}
 }

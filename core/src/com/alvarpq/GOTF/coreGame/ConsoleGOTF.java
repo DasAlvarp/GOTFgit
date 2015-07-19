@@ -175,8 +175,8 @@ public class ConsoleGOTF
 	public static void main(String[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{	
 		input = new Scanner(System.in);
-		Deck deck1 = new Deck(Arrays.asList(new Integer[]{210102, 210104, 210105, 210109, 210111, 210112}), true);
-		Deck deck2 = new Deck(Arrays.asList(new Integer[]{210102, 210104, 210105, 210109, 210111, 210112}), true);
+		Deck deck1 = new Deck(Arrays.asList(new Integer[]{110102, 110104, 110105, 110109, 110111, 110112}), true);
+		Deck deck2 = new Deck(Arrays.asList(new Integer[]{110102, 110104, 110105, 110109, 110111, 110112}), true);
 		Game game = new Game(deck1, deck2);
 		game.start(5);
 		while(true)

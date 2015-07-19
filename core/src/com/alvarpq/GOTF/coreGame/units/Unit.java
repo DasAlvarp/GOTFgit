@@ -6,9 +6,6 @@ import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 import com.alvarpq.GOTF.entity.AnimatedSprite;
 import com.alvarpq.GOTF.entity.Entity;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 public abstract class Unit extends Entity
 {
 	private String name;
@@ -45,18 +42,14 @@ public abstract class Unit extends Entity
 		setMoveType(MoveType.NORMAL);
 		effects = new LinkedList<Effect>();
 	}
-	//call BoardHalf.move instead
-
-	
 	//Hey, don't make sprite methods if you don't have a sprite yet. Unit has a default one with a 'no texture file'
 	public AnimatedSprite getSprite() {
 		// TODO Auto-generated method stub
-		AnimatedSprite as=	new AnimatedSprite(new Sprite(new Texture(Gdx.files.internal("noTexture.png"))));
+		/*AnimatedSprite as=	new AnimatedSprite(new Sprite(new Texture(Gdx.files.internal("noTexture.png"))));
 		as.setSize(40, 70);
-		 return as;
-		
+		 return as;*/
+		return null;
 	}
-
 	//call BoardHalf.resetCountdown instead	
 	public void resetCountdown()
 	{

@@ -8,7 +8,7 @@ public abstract class SpellCard extends Card
 	{
 		super(id, name, thresholdCost, resourceCost);
 	}
-	//Make sure to call at the end of play in SpellCards, also make sure to use isReady in play
+	//Make sure to call at the end of play in SpellCards if isReady, also make sure to use isReady in play
 	public void reset()
 	{
 		for(Requirement requirement:getRequirements())

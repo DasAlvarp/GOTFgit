@@ -8,5 +8,7 @@ public class RedDevil extends Unit
 	}
 
 	@Override
-	public void update(){}
+	public void update()
+	{
+	}
 }

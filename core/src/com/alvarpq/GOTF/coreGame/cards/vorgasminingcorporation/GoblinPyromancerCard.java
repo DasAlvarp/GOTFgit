@@ -8,6 +8,6 @@ public class GoblinPyromancerCard extends UnitCard
 {
 	public GoblinPyromancerCard()
 	{
-		super(210109, "Goblin Pyromancer", 3, Arrays.asList(new Resource[]{Resource.EARTH, Resource.FIRE}), new UnitFactory(GoblinPyromancer.class));
+		super(110109, "Goblin Pyromancer", 3, Arrays.asList(new Resource[]{Resource.EARTH, Resource.FIRE}), new UnitFactory(GoblinPyromancer.class));
 	}
 }

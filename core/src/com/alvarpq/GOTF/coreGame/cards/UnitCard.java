@@ -31,11 +31,11 @@ public abstract class UnitCard extends Card
 				}
 				return true;
 			}
-			catch(InstantiationException e){}
-			catch(IllegalAccessException e){}
-			catch(IllegalArgumentException e){}
-			catch(InvocationTargetException e){}
-			catch(SecurityException e){}
+			catch(InstantiationException e){e.printStackTrace();}
+			catch(IllegalAccessException e){e.printStackTrace();}
+			catch(IllegalArgumentException e){e.printStackTrace();}
+			catch(InvocationTargetException e){e.printStackTrace();}
+			catch(SecurityException e){e.printStackTrace();}
 		}
 		return false;
 	}

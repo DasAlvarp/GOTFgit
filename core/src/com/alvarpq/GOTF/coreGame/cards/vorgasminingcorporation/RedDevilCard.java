@@ -8,6 +8,6 @@ public class RedDevilCard extends UnitCard
 {
 	public RedDevilCard()
 	{
-		super(210102, "Red Devil", 1, Arrays.asList(new Resource[]{Resource.EARTH}), new UnitFactory(RedDevil.class));
+		super(110102, "Red Devil", 1, Arrays.asList(new Resource[]{Resource.EARTH}), new UnitFactory(RedDevil.class));
 	}
 }

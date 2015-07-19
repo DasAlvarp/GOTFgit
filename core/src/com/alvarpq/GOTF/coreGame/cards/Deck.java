@@ -8,13 +8,12 @@ public class Deck
 	private Stack<Card> drawPile;
 	private List<Card> discardPile;
 	private List<Card> hand;
-	public static final CardFactory cards = new CardFactory();
 	public Deck(List<Integer> deckIds, boolean shuffle) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		List<Card> deck = new LinkedList<Card>();
 		for(int cardId:deckIds)
 		{
-			Card tempCard = cards.createCard(cardId);
+			Card tempCard = CardFactory.createCard(cardId);
 			if(tempCard!=null)
 			{
 				deck.add(tempCard);
