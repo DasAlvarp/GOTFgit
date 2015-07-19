@@ -1,12 +1,15 @@
 package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
+/**
+ * This interface defines the different move types a unit can have.
+ */
 public interface MoveType
 {
-	public static final Normal NORMAL = new Normal();
-	public static final NotAdjacent NOT_ADJACENT = new NotAdjacent();
-	public static final Immovable IMMOVABLE = new Immovable();
 	public boolean move(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits);
+	/**
+	 * The normal move type. Used as default in all units.
+	 */
 	class Normal implements MoveType
 	{
 		@Override
@@ -29,7 +32,10 @@ public interface MoveType
 			return "Normal";
 		}
 	}
-	class NotAdjacent implements MoveType
+	/**
+	 * A move type which makes a unit only being able to move to non-adjacent tiles.
+	 */
+	class NonAdjacent implements MoveType
 	{
 		@Override
 		public boolean move(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits)
@@ -51,6 +57,9 @@ public interface MoveType
 			return "Normal";
 		}
 	}
+	/**
+	 * A move type which makes a unit unable to move.
+	 */
 	class Immovable implements MoveType
 	{
 		@Override

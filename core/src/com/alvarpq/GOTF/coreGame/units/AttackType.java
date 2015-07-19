@@ -3,12 +3,15 @@ import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
+/**
+ * This interface defines the different attack types a unit can have.
+ */
 public interface AttackType
 {
-	public static final Normal NORMAL = new Normal();
-	public static final Relentless RELENTLESS = new Relentless();
-	public static final NoAttack NO_ATTACK = new NoAttack();
 	public void attack(Unit unit, Side mySide, Side opponentsSide);
+	/**
+	 * The normal attack type. Used as default in all units.
+	 */
 	class Normal implements AttackType
 	{
 		@Override
@@ -45,6 +48,9 @@ public interface AttackType
 			return "Normal";
 		}
 	}
+	/**
+	 * An attack type which makes a unit continue attacking with it's remaining attack after destroying an enemy.
+	 */
 	class Relentless implements AttackType
 	{
 		@Override
@@ -90,6 +96,9 @@ public interface AttackType
 			return "Relentless";
 		}
 	}
+	/**
+	 * An attack type which makes a unit unable to attack.
+	 */
 	class NoAttack implements AttackType
 	{
 		@Override

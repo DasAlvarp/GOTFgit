@@ -38,14 +38,14 @@ public abstract class Unit extends Entity
 		this.row = row;
 		this.column = column;
 		owner = Player.NONE;
-		attackType = AttackType.NORMAL;
-		setMoveType(MoveType.NORMAL);
+		attackType = new AttackType.Normal();
+		moveType = new MoveType.Normal();
 		effects = new LinkedList<Effect>();
 	}
 	//Hey, don't make sprite methods if you don't have a sprite yet. Unit has a default one with a 'no texture file'
 	public AnimatedSprite getSprite() {
 		// TODO Auto-generated method stub
-		/*AnimatedSprite as=	new AnimatedSprite(new Sprite(new Texture(Gdx.files.internal("noTexture.png"))));
+		/*AnimatedSprite as=	new AnimatedSprite(new Sprite(new Texture("noTexture.png")));
 		as.setSize(40, 70);
 		 return as;*/
 		return null;
