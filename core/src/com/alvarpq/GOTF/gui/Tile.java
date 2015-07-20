@@ -1,12 +1,18 @@
 package com.alvarpq.GOTF.gui;
+import com.alvarpq.GOTF.coreGame.units.Unit;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-//actor to draw a tile and it's unit (unit not fixed yet)
+//actor to draw a tile and it's unit
 public class Tile extends Actor
 {
+	//holds eventual unit
+	private Unit unit;
+	//holds the unit's sprite
+	private Sprite unitSprite;
 	//holds the unselected tile sprite
 	private Sprite tile;
 	//holds the animated selectedTile animation
@@ -18,6 +24,8 @@ public class Tile extends Actor
 	//constructs a new unselected sprite
 	public Tile(Sprite tile, Animation selectedTile)
 	{
+		unit = null;
+		unitSprite = null;
 		this.tile = tile;
 		this.selectedTile = selectedTile;
 		animationTime = 0;
@@ -40,6 +48,11 @@ public class Tile extends Actor
 		{
 			//draws the normal tile
 			tile.draw(batch);
+		}
+		//draws the unit if there is one
+		if(unit!=null)
+		{
+			unitSprite.draw(batch);
 		}
 	}
 	@Override
@@ -76,5 +89,26 @@ public class Tile extends Actor
 	public boolean isSelected()
 	{
 		return selected;
+	}
+	//sets the tile's unit and fixes it's sprite
+	public void setUnit(Unit unit)
+	{
+		this.unit = unit;
+		if(unit==null)
+		{
+			unitSprite = null;
+		}
+		else
+		{
+			if(unit.getImage()==null)
+			{
+				unitSprite = new Sprite(new Texture("noTexture.png"));
+			}
+			else
+			{
+				unitSprite = new Sprite(new Texture(unit.getImage()));
+			}
+			unitSprite.setBounds(tile.getX()+tile.getWidth()/4, tile.getY(), tile.getWidth()/2, tile.getHeight());
+		}
 	}
 }

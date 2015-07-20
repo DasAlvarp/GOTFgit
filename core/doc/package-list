@@ -10,7 +10,9 @@ com.alvarpq.GOTF.coreGame.hexEnchant
 com.alvarpq.GOTF.coreGame.units
 com.alvarpq.GOTF.coreGame.units.unused
 com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation
-com.alvarpq.GOTF.entity
 com.alvarpq.GOTF.gui
+com.alvarpq.GOTF.oldgui
+com.alvarpq.GOTF.oldgui.entity
+com.alvarpq.GOTF.oldgui.gui
+com.alvarpq.GOTF.oldgui.screen
 com.alvarpq.GOTF.requirement
-com.alvarpq.GOTF.screen

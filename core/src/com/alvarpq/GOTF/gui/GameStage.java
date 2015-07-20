@@ -3,6 +3,8 @@ import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinGuard;
+import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -101,6 +103,9 @@ public class GameStage extends Stage
     	}
 		//instantiates the list of selected positions
 		selectedPositions = new LinkedList<Position>();
+		//just to try out adding a unit
+		game.getSide(Player.PLAYER1).getHalf().addUnit(new GoblinWarrior(0, 0));
+		half1[0][0].setUnit(game.getSide(Player.PLAYER1).getHalf().getUnitAt(0, 0));
 	}
 	@Override
 	public boolean mouseMoved(int x, int y)
