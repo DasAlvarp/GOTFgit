@@ -1,5 +1,4 @@
 package com.alvarpq.GOTF.client;
-
 import java.net.*;
 import java.io.*;
 import java.util.Scanner;
@@ -27,17 +26,7 @@ public class Client {
 		}
 	}
 	
-	public void run() throws Exception{
-		Socket sock=new Socket("192.168.0.3",9879);
-		PrintStream ps=new PrintStream(sock.getOutputStream());
-		ps.println("Hello from the client!");
-		
-		InputStreamReader ir=new InputStreamReader(sock.getInputStream());
-		BufferedReader br=new BufferedReader(ir);
-		
-		String message=br.readLine();
-		//System.out.println(message);
-	}
+
 }
 
 class Input implements Runnable{
