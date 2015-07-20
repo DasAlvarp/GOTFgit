@@ -1,8 +1,10 @@
 package com.alvarpq.GOTF.gui;
 import com.alvarpq.GOTF.coreGame.units.Unit;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -21,6 +23,8 @@ public class Tile extends Actor
 	private float animationTime;
 	//whether this tile is selected or not
 	boolean selected;
+	//holds the font for drawing stats
+	BitmapFont font;
 	//constructs a new unselected sprite
 	public Tile(Sprite tile, Animation selectedTile)
 	{
@@ -30,6 +34,9 @@ public class Tile extends Actor
 		this.selectedTile = selectedTile;
 		animationTime = 0;
 		selected = false;
+		font = new BitmapFont();
+		font.setColor(Color.BLACK);
+		
 	}
 	//draws the tile
 	@Override
@@ -53,6 +60,8 @@ public class Tile extends Actor
 		if(unit!=null)
 		{
 			unitSprite.draw(batch);
+			font.draw(batch, unit.getAttack()+"", tile.getX()+15, tile.getY()+tile.getHeight()/2+7.5f);
+			font.draw(batch, unit.getAttack()+"", tile.getX()+15, tile.getY()+tile.getHeight()/2+7.5f);
 		}
 	}
 	@Override
