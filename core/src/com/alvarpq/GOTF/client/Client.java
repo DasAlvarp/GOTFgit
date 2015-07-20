@@ -21,8 +21,14 @@ public class Client {
 		name=scan.nextLine().replaceAll(" ", "_");
 		out.writeUTF(name);
 		while(true){
-			String send=scan.nextLine();
-			out.writeUTF(send);
+			String send;
+			try{
+			send=scan.nextLine();
+			out.writeUTF(send);}
+			catch(IOException e){
+				System.out.println("Whoops! Connection failed. Maybe the server is down?");
+			}
+
 		}
 	}
 	
