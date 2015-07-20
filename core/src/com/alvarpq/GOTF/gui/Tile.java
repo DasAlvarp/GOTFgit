@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -35,8 +36,7 @@ public class Tile extends Actor
 		animationTime = 0;
 		selected = false;
 		font = new BitmapFont();
-		font.setColor(Color.BLACK);
-		
+		font.setColor(Color.BLACK);		
 	}
 	//draws the tile
 	@Override
@@ -60,8 +60,12 @@ public class Tile extends Actor
 		if(unit!=null)
 		{
 			unitSprite.draw(batch);
-			font.draw(batch, unit.getAttack()+"", tile.getX()+15, tile.getY()+tile.getHeight()/2+7.5f);
-			font.draw(batch, unit.getAttack()+"", tile.getX()+15, tile.getY()+tile.getHeight()/2+7.5f);
+			GlyphLayout temp = new GlyphLayout(font, unit.getAttack()+"");
+			font.draw(batch, temp, tile.getX()+15-temp.width/2, tile.getY()+tile.getHeight()/2+temp.height/2);
+			temp.setText(font, unit.getCountdown()+"");
+			font.draw(batch, temp, tile.getX()+tile.getWidth()/2-temp.width/2, tile.getY()+15+temp.height/2);
+			temp.setText(font, unit.getHealth()+"");
+			font.draw(batch, temp, tile.getX()+tile.getWidth()-15-temp.width/2, tile.getY()+tile.getHeight()/2+temp.height/2);
 		}
 	}
 	@Override
