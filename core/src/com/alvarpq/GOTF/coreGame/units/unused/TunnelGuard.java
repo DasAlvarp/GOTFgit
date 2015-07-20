@@ -7,7 +7,7 @@ public class TunnelGuard extends Unit implements UnitDamagedListener
 	private int armorValue = 1;
 	public TunnelGuard(int row, int column)
 	{
-		super("Tunnel Guard", 1, 2, 4, 1, true, new String[]{"Mulgoon", "Soldier"}, row, column);
+		super("Tunnel Guard", null, 1, 2, 4, 1, true, new String[]{"Mulgoon", "Soldier"}, row, column);
 	}
 	@Override
 	public void onUnitDamaged(UnitDamagedEvent event)

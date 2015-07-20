@@ -4,6 +4,6 @@ public class TamedDemon extends Unit
 {
 	public TamedDemon(int row, int column)
 	{
-		super("Tamed Demon", 4, 1, 2, 1, true, new String[]{"Demon"}, row, column);
+		super("Tamed Demon", null, 4, 1, 2, 1, true, new String[]{"Demon"}, row, column);
 	}
 }

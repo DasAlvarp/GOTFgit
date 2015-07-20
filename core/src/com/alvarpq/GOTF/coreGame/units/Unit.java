@@ -11,6 +11,10 @@ public abstract class Unit
 	 */
 	private String name;
 	/**
+	 * The filename of the unit's image.
+	 */
+	private String image;
+	/**
 	 * The base countdown of the unit.
 	 */
 	private int baseCountdown;
@@ -77,6 +81,7 @@ public abstract class Unit
 	/**
 	 * Instantiates a new unit.
 	 * @param name the name of the unit
+	 * @param image the filename of the unit's image
 	 * @param attack the attack of the unit
 	 * @param baseCountdown the base countdown of the unit
 	 * @param maxiumumHealth the maximum health of the unit
@@ -86,10 +91,11 @@ public abstract class Unit
 	 * @param row the row of the unit
 	 * @param column the column of the unit
 	 */
-	public Unit(String name, int attack, int baseCountdown, int maximumHealth, int baseMove, boolean baseTargetable, String[] subtypes, int row, int column)
+	public Unit(String name, String image, int attack, int baseCountdown, int maximumHealth, int baseMove, boolean baseTargetable, String[] subtypes, int row, int column)
 	{
 		super();
 		this.name = name;
+		this.image = image;
 		this.baseCountdown = baseCountdown;
 		this.maximumHealth = maximumHealth;
 		this.baseMove = baseMove;
@@ -251,6 +257,14 @@ public abstract class Unit
 	public String getName()
 	{
 		return name;
+	}
+	/**
+	 * Returns the filename of the unit's image.
+	 * @return the filename of the unit's image
+	 */
+	public String getImage()
+	{
+		return image;
 	}
 	/**
 	 * Returns the unit's base countdown.

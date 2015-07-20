@@ -8,7 +8,7 @@ public class ProtectorOfWhales extends Unit implements PresenceApplier
 {
 	public ProtectorOfWhales(int row, int column)
 	{
-		super("Protector of Whales", 2, 2, 2, 1, true, new String[]{"Angel"}, row, column);
+		super("Protector of Whales", null, 2, 2, 2, 1, true, new String[]{"Angel"}, row, column);
 	}
 	@Override
 	public void applyPresence(Side mySide, Side opponentsSide)

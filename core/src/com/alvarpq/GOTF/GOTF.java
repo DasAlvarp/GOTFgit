@@ -1,50 +1,42 @@
 package com.alvarpq.GOTF;
-import com.alvarpq.GOTF.oldgui.screen.GameScreen;
-import com.alvarpq.GOTF.oldgui.screen.ScreenManager;
+import com.alvarpq.GOTF.gui.GameStage;
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 public class GOTF extends ApplicationAdapter
 {
-
-	//Trying Solaus background, change back if needed to
-	SpriteBatch batch;
-
-	
+	//the current stage
+	Stage stage;
+	//sets the current stage to game stage
 	@Override
 	public void create() 
-	{//batch is what lets images exist..I think. Rest of names are intuitive.
-		batch = new SpriteBatch();
-		ScreenManager.setScreen(new GameScreen());
-	}
-
-	
-	public void dispose(){
-		if(ScreenManager.getCurrentScreen()!=null){
-			ScreenManager.getCurrentScreen().dispose();
-		}
-		batch=new SpriteBatch();
-	}
-	//for VC
-	//MORE FOR VC
-	@Override
-	public void render ()
 	{
-		//Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);  
-		batch.begin();
-		
-		if(ScreenManager.getCurrentScreen()!=null){
-			ScreenManager.getCurrentScreen().render(batch);
-		}
-		if(ScreenManager.getCurrentScreen()!=null){
-			ScreenManager.getCurrentScreen().update();
-		}
-		batch.end();
+		setupGameStage();
 	}
-	
-	public void resize(int width, int height){
-		if(ScreenManager.getCurrentScreen()!=null){
-			ScreenManager.getCurrentScreen().resize(width, height);
-		}
+	//standard resize
+	@Override
+	public void resize(int width, int height)
+	{
+		stage.getViewport().update(width, height, true);
+	}
+	//clears the screen, renders and updates the current stage
+	@Override
+	public void render()
+	{
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	    stage.act(Gdx.graphics.getDeltaTime());
+	    stage.draw();
+	}
+	//standard dispose
+	@Override
+	public void dispose() {
+	    stage.dispose();
+	}
+	//sets the current stage to game stage and makes sure all input is sent there
+	public void setupGameStage()
+	{
+		stage = new GameStage();
+		Gdx.input.setInputProcessor(stage);
 	}
 }

@@ -4,6 +4,6 @@ public class DarkYoungling extends Unit
 {
 	public DarkYoungling(int row, int column)
 	{
-		super("Dark Youngling", 1, 1, 1, 1, true, new String[]{"Mulgoon"}, row, column);
+		super("Dark Youngling", null, 1, 1, 1, 1, true, new String[]{"Mulgoon"}, row, column);
 	}
 }

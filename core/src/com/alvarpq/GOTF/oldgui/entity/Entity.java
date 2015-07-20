@@ -1,11 +1,7 @@
 package com.alvarpq.GOTF.oldgui.entity;
-
-import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.oldgui.gui.BoardDraw;
 import com.alvarpq.GOTF.oldgui.gui.Hex;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-
 public abstract class Entity 
 {
 	
