@@ -9,7 +9,7 @@ public class Client {
 	static DataOutputStream out;
 	static String name;
 	public static void main(String[] args) throws Exception{
-		Socket sock=new Socket("192.168.0.3",9879);
+		Socket sock=new Socket("81.226.10.43",55555);
 		System.out.println("Connected to the chat server.");
 		in=new DataInputStream(sock.getInputStream());
 		out=new DataOutputStream(sock.getOutputStream());

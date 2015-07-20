@@ -7,7 +7,7 @@ public class Server{
 	static ServerSocket srvsock;
 	static Users[] user=new Users[30];
 	public static void main(String[] args) throws Exception{
-		srvsock=new ServerSocket(9879);
+		srvsock=new ServerSocket(55555);
 		System.out.println("Server up!");
 		while(true){
 			Socket sock=srvsock.accept();
