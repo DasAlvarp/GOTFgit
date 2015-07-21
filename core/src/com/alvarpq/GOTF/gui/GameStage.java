@@ -4,15 +4,24 @@ import java.util.List;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinGuard;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
 import com.alvarpq.GOTF.server.User;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.badlogic.gdx.scenes.scene2d.Event;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 public class GameStage extends Stage
 {
@@ -53,6 +62,8 @@ public class GameStage extends Stage
 	private static final float HEIGHT = 117;
 	//the game this GameStage displays
 	private Game game;
+	//holds the font for drawing text
+	private BitmapFont font;
 	//the texture for the unselected tile
 	private Texture defaultTile;
 	//the animation for a selected tile
@@ -60,8 +71,9 @@ public class GameStage extends Stage
 	//all the tiles (graphical class for displaying tiles and corresponding units)
 	private Tile[][] half1;
 	private Tile[][] half2;
-	//the currently selected unit
+	//the currently selected positions
 	private List<Position> selectedPositions;
+	//the currently selected unit
 	private Unit selectedUnit;
 	public GameStage()
 	{
@@ -69,8 +81,22 @@ public class GameStage extends Stage
 		super(new FitViewport(1080, 829));
 		//creates a new game
 		game = new Game(new User(null, null, null), new User(null, null, null));
+		//instantiates font
+		font = new BitmapFont();
+		font.setColor(Color.BLACK);
 		//adds the background
-		addActor(new GameBackground());
+		//addActor(new GameBackground());
+		SpriteDrawable buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
+		SpriteDrawable buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
+		TextButton button = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
+		addActor(button);
+		button.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	System.exit(0);
+	        }
+	    });
 		//instantiates the unselected tile
 		defaultTile = new Texture("BoardTile.png");
 		//instantiates the selected tile animation
@@ -120,7 +146,7 @@ public class GameStage extends Stage
     	{
     		for(int j=0;j<3;j++)
     		{
-    			//is the mouse over player 1's tile at i, j
+    			/*//is the mouse over player 1's tile at i, j
     			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
     			{
     				if(!selectedPositions.contains(new Position(Player.PLAYER1, i, j)))
@@ -128,7 +154,7 @@ public class GameStage extends Stage
     					deselectAll();
     				}
 	    			selectPosition(new Position(Player.PLAYER1, i, j));
-    				return true;
+    				return false;
     			}
     			//same for player2
     			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
@@ -138,13 +164,13 @@ public class GameStage extends Stage
     					deselectAll();
     				}
 	    			selectPosition(new Position(Player.PLAYER2, i, j));
-    				return true;
-    			}
+    				return false;
+    			}*/
     		}
     	}
 		//in case the mouse is over no tile, deselect all tiles
 		deselectAll();
-		return true;
+		return false;
 	}
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button)
@@ -172,7 +198,7 @@ public class GameStage extends Stage
     				{
     					selectedUnit = game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j);
     				}
-    				return true;
+    				return false;
     			}
     			//same for player2
     			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
@@ -192,11 +218,11 @@ public class GameStage extends Stage
     				{
     					selectedUnit = game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j);
     				}
-    				return true;
+    				return false;
     			}
     		}
     	}
-		return true;
+		return false;
 	}
 	//selects a position and adds it to the selectedpositions
 	public void selectPosition(Position p)
