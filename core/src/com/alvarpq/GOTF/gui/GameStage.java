@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinGuard;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
 import com.alvarpq.GOTF.server.User;
@@ -59,7 +60,9 @@ public class GameStage extends Stage
 	//all the tiles (graphical class for displaying tiles and corresponding units)
 	private Tile[][] half1;
 	private Tile[][] half2;
+	//the currently selected unit
 	private List<Position> selectedPositions;
+	private Unit selectedUnit;
 	public GameStage()
 	{
 		//sets the size of the stage to fill the whole window
@@ -104,6 +107,7 @@ public class GameStage extends Stage
     	}
 		//instantiates the list of selected positions
 		selectedPositions = new LinkedList<Position>();
+		selectedUnit = null;
 		//just to try out adding a unit
 		game.getSide(Player.PLAYER1).getHalf().addUnit(new GoblinWarrior(0, 0));
 		half1[0][0].setUnit(game.getSide(Player.PLAYER1).getHalf().getUnitAt(0, 0));
@@ -142,9 +146,58 @@ public class GameStage extends Stage
 		deselectAll();
 		return true;
 	}
-	
-	
-	
+	@Override
+	public boolean touchDown(int x, int y, int pointer, int button)
+	{
+		//to select a unit
+		for(int i=0;i<5;i++)
+    	{
+    		for(int j=0;j<3;j++)
+    		{
+    			//is the mouse over player 1's tile at i, j
+    			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
+    			{
+    				if(selectedUnit!=null&&selectedUnit.getOwner()==Player.PLAYER1)
+    				{
+    					int oldRow = selectedUnit.getRow();
+    					int oldColumn = selectedUnit.getColumn();
+    					if(game.getSide(Player.PLAYER1).getHalf().move(selectedUnit, i, j))
+    					{
+    						half1[oldRow][oldColumn].setUnit(null);
+    						half1[i][j].setUnit(selectedUnit);
+    						selectedUnit = null;
+    					}
+    				}
+    				else if(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j)!=null)
+    				{
+    					selectedUnit = game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j);
+    				}
+    				return true;
+    			}
+    			//same for player2
+    			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
+    			{
+    				if(selectedUnit!=null&&selectedUnit.getOwner()==Player.PLAYER2)
+    				{
+    					int oldRow = selectedUnit.getRow();
+    					int oldColumn = selectedUnit.getColumn();
+    					if(game.getSide(Player.PLAYER2).getHalf().move(selectedUnit, i, j))
+    					{
+    						half2[oldRow][oldColumn].setUnit(null);
+    						half2[i][j].setUnit(selectedUnit);
+    						selectedUnit = null;
+    					}
+    				}
+    				else if(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j)!=null)
+    				{
+    					selectedUnit = game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j);
+    				}
+    				return true;
+    			}
+    		}
+    	}
+		return true;
+	}
 	//selects a position and adds it to the selectedpositions
 	public void selectPosition(Position p)
 	{

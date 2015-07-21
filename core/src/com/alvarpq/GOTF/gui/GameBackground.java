@@ -9,6 +9,6 @@ public class GameBackground extends Actor
     @Override
     public void draw(Batch batch, float parentAlpha)
     {
-    	Gdx.gl.glClearColor(1, 1, 1, 0);
+    	Gdx.gl.glClearColor(0, 1f, 0.5f, 0);
     }
 }
