@@ -14,7 +14,7 @@ public class Server {
 	static ServerSocket srvsock;
 	static User[] user=new User[30];
 	public static void main(String[] args) throws Exception{
-		srvsock=new ServerSocket(55555);
+		srvsock=new ServerSocket(4444);
 		System.out.println("Server up!");
 		while(true){
 			Socket sock=srvsock.accept();
@@ -23,7 +23,7 @@ public class Server {
 					System.out.println("Connection from: "+sock.getInetAddress());
 					DataOutputStream out=new DataOutputStream(sock.getOutputStream());
 					DataInputStream in=new DataInputStream(sock.getInputStream());
-					user[i]=new User(out, in);
+					user[i]=new User(out, in, null);
 					Thread th=new Thread(user[i]);
 					th.start();
 					break;

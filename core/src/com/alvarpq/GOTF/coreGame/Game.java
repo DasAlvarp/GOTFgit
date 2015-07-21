@@ -2,11 +2,15 @@ package com.alvarpq.GOTF.coreGame;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.cards.Card;
+import com.alvarpq.GOTF.server.CommandReader;
 import com.alvarpq.GOTF.server.User;
 public class Game
 {
+	//Readers take inputs from the client to the server and apply them to the game.
+	private CommandReader reader;
 	/**
 	 * A map containing the game's two sides.
 	 */
@@ -26,6 +30,7 @@ public class Game
 	 */
 	public Game(User u1, User u2)
 	{
+		reader=new CommandReader(this);
 		sides = new HashMap<Player, Side>();
 		sides.put(Player.PLAYER1, new Side(new BoardHalf(5, 3, 8, Player.PLAYER1), u1.getCurrentDeck()));
 		sides.put(Player.PLAYER2, new Side(new BoardHalf(5, 3, 8, Player.PLAYER2), u2.getCurrentDeck()));
@@ -34,6 +39,10 @@ public class Game
 		sides.get(Player.PLAYER1).getHalf().setParentGame(this);
 		sides.get(Player.PLAYER2).getHalf().setParentGame(this);
 		currentPlayer = Player.values()[random.nextInt(2)]; 
+	}
+	
+	public CommandReader getReader(){
+		return reader;
 	}
 	/**
 	 * Starts the game with the given handSize.

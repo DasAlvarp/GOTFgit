@@ -18,10 +18,12 @@ public class GOTF extends ApplicationAdapter
 	@Override
 	public void create() 
 	{
-		setupGameStage();
 		try {
-			//connect();
-		} catch (Exception e){}
+			connect();
+			setupGameStage();
+		} catch (Exception e){
+			System.out.println("Failed to connect to the game server.");
+		}
 	}
 	//standard resize
 	@Override
@@ -49,17 +51,36 @@ public class GOTF extends ApplicationAdapter
 		Gdx.input.setInputProcessor(stage);
 	}
 	
-/*	public void connect() throws UnknownHostException, IOException{
-		Socket sock=new Socket("81.226.10.43",55555);
-		System.out.println("Connected to the chat server.");
+	public void connect() throws UnknownHostException, IOException{
+		Socket sock=new Socket("localhost",4444);
+		System.out.println("Connected to the game server.");
 		in=new DataInputStream(sock.getInputStream());
 		out=new DataOutputStream(sock.getOutputStream());
-		Input input=new Input(in);
-		Thread thread=new Thread(input);
-		thread.start();
 	}
-	*/
+	
 }
 
+class Input implements Runnable{
+
+	DataInputStream in;
+
+	public Input(DataInputStream in){
+		this.in=in;
+	}
+	
+	@Override
+	public void run() {
+		while(true){
+			String msg;
+			try {
+				msg=in.readUTF();
+				System.out.println(msg);
+			} catch (IOException e) {
+			}
+		}
+		
+	}
+	
+}
 
 
