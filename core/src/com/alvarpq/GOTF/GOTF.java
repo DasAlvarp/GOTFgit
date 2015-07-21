@@ -1,4 +1,8 @@
 package com.alvarpq.GOTF;
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import com.alvarpq.GOTF.gui.GameStage;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
@@ -8,11 +12,16 @@ public class GOTF extends ApplicationAdapter
 {
 	//the current stage
 	Stage stage;
+	DataInputStream in;
+	DataOutputStream out;
 	//sets the current stage to game stage
 	@Override
 	public void create() 
 	{
 		setupGameStage();
+		try {
+			//connect();
+		} catch (Exception e){}
 	}
 	//standard resize
 	@Override
@@ -39,4 +48,18 @@ public class GOTF extends ApplicationAdapter
 		stage = new GameStage();
 		Gdx.input.setInputProcessor(stage);
 	}
+	
+/*	public void connect() throws UnknownHostException, IOException{
+		Socket sock=new Socket("81.226.10.43",55555);
+		System.out.println("Connected to the chat server.");
+		in=new DataInputStream(sock.getInputStream());
+		out=new DataOutputStream(sock.getOutputStream());
+		Input input=new Input(in);
+		Thread thread=new Thread(input);
+		thread.start();
+	}
+	*/
 }
+
+
+
