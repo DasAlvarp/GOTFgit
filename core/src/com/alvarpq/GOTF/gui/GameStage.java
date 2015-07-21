@@ -5,6 +5,7 @@ import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinGuard;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
+import com.alvarpq.GOTF.server.User;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -64,7 +65,7 @@ public class GameStage extends Stage
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(540, 829));
 		//creates a new game
-		game = new Game(null, null);
+		game = new Game(new User(null, null, null), new User(null, null, null));
 		//adds the background
 		addActor(new GameBackground());
 		//instantiates the unselected tile
@@ -118,14 +119,20 @@ public class GameStage extends Stage
     			//is the mouse over player 1's tile at i, j
     			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
     			{
-	    			deselectAll();
+    				if(!selectedPositions.contains(new Position(Player.PLAYER1, i, j)))
+    				{
+    					deselectAll();
+    				}
 	    			selectPosition(new Position(Player.PLAYER1, i, j));
     				return true;
     			}
     			//same for player2
     			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
     			{
-	    			deselectAll();
+    				if(!selectedPositions.contains(new Position(Player.PLAYER2, i, j)))
+    				{
+    					deselectAll();
+    				}
 	    			selectPosition(new Position(Player.PLAYER2, i, j));
     				return true;
     			}
@@ -155,17 +162,17 @@ public class GameStage extends Stage
 	//deselects all positions, removing them from selectedPositions
 	public void deselectAll()
 	{
-		for(Position p:selectedPositions)
+		for(int i=0;i<selectedPositions.size();i++)
 		{
-			if(p.side==Player.PLAYER1)
+			if(selectedPositions.get(i).side==Player.PLAYER1)
 			{
-				half1[p.row][p.column].deselect();
-				selectedPositions.remove(p);
+				half1[selectedPositions.get(i).row][selectedPositions.get(i).column].deselect();
+				selectedPositions.remove(selectedPositions.get(i));
 			}
-			else if(p.side==Player.PLAYER2)
+			else if(selectedPositions.get(i).side==Player.PLAYER2)
 			{
-				half2[p.row][p.column].deselect();
-				selectedPositions.remove(p);
+				half2[selectedPositions.get(i).row][selectedPositions.get(i).column].deselect();
+				selectedPositions.remove(selectedPositions.get(i));
 			}
 		}
 		selectedPositions.clear();
