@@ -1,20 +1,19 @@
 package com.alvarpq.GOTF.server;
-
 import java.io.*;
-
 import com.alvarpq.GOTF.coreGame.cards.Deck;
-
-public class User implements Runnable{
-
+public class User implements Runnable
+{
 	private DataOutputStream out;
 	private DataInputStream in;
-	
-	public User(DataOutputStream out, DataInputStream in){
+	private Deck currentDeck;
+	public User(DataOutputStream out, DataInputStream in, Deck currentDeck)
+	{
 		this.out=out;
 		this.in=in;
+		this.currentDeck = currentDeck;
 	}
 	public Deck getCurrentDeck(){
-		return null;
+		return currentDeck;
 	}
 	@Override
 	public void run() {
