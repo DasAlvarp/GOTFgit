@@ -1,7 +1,6 @@
 package com.alvarpq.GOTF.server;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.*;
 
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 
@@ -19,7 +18,12 @@ public class User implements Runnable{
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		while(true){
+			try{
+				String cmd=in.readUTF();
+			}
+			catch(IOException e){}
 		
 	}
+}
 }
