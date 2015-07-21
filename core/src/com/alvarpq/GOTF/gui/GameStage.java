@@ -66,7 +66,7 @@ public class GameStage extends Stage
 	public GameStage()
 	{
 		//sets the size of the stage to fill the whole window
-		super(new FitViewport(540, 829));
+		super(new FitViewport(1080, 829));
 		//creates a new game
 		game = new Game(new User(null, null, null), new User(null, null, null));
 		//adds the background
@@ -90,7 +90,7 @@ public class GameStage extends Stage
     			//creates a sprite from the unselected tile texture
     			Sprite temp = new Sprite(defaultTile);
     			//gives the sprite correct bounds
-    			temp.setBounds(i*LENGTH*3/4, (2-j)*HEIGHT+i%2*HEIGHT/2, LENGTH, HEIGHT);
+    			temp.setBounds(270+i*LENGTH*3/4, (2-j)*HEIGHT+i%2*HEIGHT/2, LENGTH, HEIGHT);
     			//rotates the sprite to fit a top-down game view
     			temp.rotate90(true);
     			//creates the tile and adds it to tile array
@@ -99,7 +99,7 @@ public class GameStage extends Stage
     			addActor(half1[i][j]);
     			//same for player2
     			temp = new Sprite(defaultTile);
-    			temp.setBounds(i*LENGTH*3/4, getHeight()-HEIGHT-((2-j)*HEIGHT+i%2*HEIGHT/2), LENGTH, HEIGHT);
+    			temp.setBounds(270+i*LENGTH*3/4, getHeight()-HEIGHT-((2-j)*HEIGHT+i%2*HEIGHT/2), LENGTH, HEIGHT);
     			temp.rotate90(true);
     			half2[i][j] = new Tile(temp, selectedTile);
     			addActor(half2[i][j]);
