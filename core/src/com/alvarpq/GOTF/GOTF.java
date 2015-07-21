@@ -23,6 +23,7 @@ public class GOTF extends ApplicationAdapter
 			setupGameStage();
 		} catch (Exception e){
 			System.out.println("Failed to connect to the game server.");
+			setupGameStage();
 		}
 	}
 	//standard resize
