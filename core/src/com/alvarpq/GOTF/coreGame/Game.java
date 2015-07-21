@@ -2,9 +2,11 @@ package com.alvarpq.GOTF.coreGame;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
+import com.alvarpq.GOTF.server.User;
 public class Game
 {
 	/**
@@ -24,11 +26,11 @@ public class Game
 	 * @param deck1 the first player's deck
 	 * @param deck2 the second player's deck
 	 */
-	public Game(Deck deck1, Deck deck2)
+	public Game(User u1, User u2)
 	{
 		sides = new HashMap<Player, Side>();
-		sides.put(Player.PLAYER1, new Side(new BoardHalf(5, 3, 8, Player.PLAYER1), deck1));
-		sides.put(Player.PLAYER2, new Side(new BoardHalf(5, 3, 8, Player.PLAYER2), deck2));
+		sides.put(Player.PLAYER1, new Side(new BoardHalf(5, 3, 8, Player.PLAYER1), u1.getCurrentDeck()));
+		sides.put(Player.PLAYER2, new Side(new BoardHalf(5, 3, 8, Player.PLAYER2), u2.getCurrentDeck()));
 		sides.get(Player.PLAYER1).setParentGame(this);
 		sides.get(Player.PLAYER2).setParentGame(this);
 		sides.get(Player.PLAYER1).getHalf().setParentGame(this);

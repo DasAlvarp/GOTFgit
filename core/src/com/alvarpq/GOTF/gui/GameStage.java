@@ -135,6 +135,9 @@ public class GameStage extends Stage
 		deselectAll();
 		return true;
 	}
+	
+	
+	
 	//selects a position and adds it to the selectedpositions
 	public void selectPosition(Position p)
 	{
