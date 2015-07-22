@@ -49,6 +49,34 @@ public class Deck
 		hand = new LinkedList<Card>();
 	}
 	/**
+	 * Instantiates a new Deck with 40 copies of one card.
+	 * @param cardId the id of the card to make the game from
+	 * @param shuffle whether the deck should be shuffled or not
+	 */
+	public Deck(int cardId, boolean shuffle) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
+	{
+		List<Card> deck = new LinkedList<Card>();
+		for(int i=0;i<40;i++)
+		{
+			Card tempCard = CardFactory.createCard(cardId);
+			if(tempCard!=null)
+			{
+				deck.add(tempCard);
+			}
+		}
+		drawPile = new Stack<Card>();
+		for(Card card:deck)
+		{
+			drawPile.push(card);
+		}
+		if(shuffle)
+		{
+			shuffle();
+		}
+		discardPile = new LinkedList<Card>();
+		hand = new LinkedList<Card>();
+	}
+	/**
 	 * Shuffles the deck.
 	 */
 	public void shuffle()

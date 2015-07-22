@@ -1,8 +1,11 @@
 package com.alvarpq.GOTF.gui;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
 import com.alvarpq.GOTF.server.User;
@@ -16,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -68,35 +72,29 @@ public class GameStage extends Stage
 	private Texture defaultTile;
 	//the animation for a selected tile
 	private Animation selectedTile;
+	//Button spriteDrawables
+	SpriteDrawable buttonUp;
+	SpriteDrawable buttonDown;
 	//all the tiles (graphical class for displaying tiles and corresponding units)
 	private Tile[][] half1;
 	private Tile[][] half2;
+	//the end turn button
+	private TextButton endTurn;
 	//the currently selected positions
 	private List<Position> selectedPositions;
 	//the currently selected unit
 	private Unit selectedUnit;
-	public GameStage()
+	public GameStage() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1080, 829));
 		//creates a new game
-		game = new Game(new User(null, null, null), new User(null, null, null));
+		game = new Game(new User(null, null, new Deck(110105, true)), new User(null, null, new Deck(110105, true)));
 		//instantiates font
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
 		//adds the background
-		//addActor(new GameBackground());
-		SpriteDrawable buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
-		SpriteDrawable buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
-		TextButton button = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
-		addActor(button);
-		button.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y)
-	        {
-	        	System.exit(0);
-	        }
-	    });
+		addActor(new GameBackground());
 		//instantiates the unselected tile
 		defaultTile = new Texture("BoardTile.png");
 		//instantiates the selected tile animation
@@ -105,6 +103,9 @@ public class GameStage extends Stage
     	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(3).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(4).png")),
     	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(5).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(6).png")));
     	selectedTile.setPlayMode(PlayMode.LOOP_REVERSED);
+    	//instantiates button SpriteDrawables
+    	buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
+    	buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
     	//instantiates tile arrays
 		half1 = new Tile[5][3];
 		half2 = new Tile[5][3];
@@ -131,6 +132,17 @@ public class GameStage extends Stage
     			addActor(half2[i][j]);
     		}
     	}
+		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
+		endTurn.setDisabled(true);
+		endTurn.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	game.endTurn();
+	        	game.startTurn();
+	        }
+	    });
+		addActor(endTurn);
 		//instantiates the list of selected positions
 		selectedPositions = new LinkedList<Position>();
 		selectedUnit = null;
@@ -141,12 +153,13 @@ public class GameStage extends Stage
 	@Override
 	public boolean mouseMoved(int x, int y)
 	{
+		super.mouseMoved(x, y);
 		//current mousemoved code to make sure the tile the mouse is over is selected, loops go through all tiles
 		for(int i=0;i<5;i++)
     	{
     		for(int j=0;j<3;j++)
     		{
-    			/*//is the mouse over player 1's tile at i, j
+    			//is the mouse over player 1's tile at i, j
     			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
     			{
     				if(!selectedPositions.contains(new Position(Player.PLAYER1, i, j)))
@@ -165,7 +178,7 @@ public class GameStage extends Stage
     				}
 	    			selectPosition(new Position(Player.PLAYER2, i, j));
     				return false;
-    			}*/
+    			}
     		}
     	}
 		//in case the mouse is over no tile, deselect all tiles
@@ -175,6 +188,7 @@ public class GameStage extends Stage
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button)
 	{
+		super.touchDown(x, y, pointer, button);
 		//to select a unit
 		for(int i=0;i<5;i++)
     	{
@@ -183,7 +197,8 @@ public class GameStage extends Stage
     			//is the mouse over player 1's tile at i, j
     			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
     			{
-    				if(selectedUnit!=null&&selectedUnit.getOwner()==Player.PLAYER1)
+    				//checks whether a unit is already selected and if it's on the current players side (can be moved)
+    				if(selectedUnit!=null&&selectedUnit.getOwner()==game.getCurrentPlayer()&&selectedUnit.getOwner()==Player.PLAYER1)
     				{
     					int oldRow = selectedUnit.getRow();
     					int oldColumn = selectedUnit.getColumn();
@@ -203,7 +218,7 @@ public class GameStage extends Stage
     			//same for player2
     			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
     			{
-    				if(selectedUnit!=null&&selectedUnit.getOwner()==Player.PLAYER2)
+    				if(selectedUnit!=null&&selectedUnit.getOwner()==game.getCurrentPlayer()&&selectedUnit.getOwner()==Player.PLAYER2)
     				{
     					int oldRow = selectedUnit.getRow();
     					int oldColumn = selectedUnit.getColumn();

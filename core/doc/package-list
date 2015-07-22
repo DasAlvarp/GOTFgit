@@ -1,4 +1,5 @@
 com.alvarpq.GOTF
+com.alvarpq.GOTF.client
 com.alvarpq.GOTF.coreGame
 com.alvarpq.GOTF.coreGame.board
 com.alvarpq.GOTF.coreGame.cards
@@ -16,3 +17,4 @@ com.alvarpq.GOTF.oldgui.entity
 com.alvarpq.GOTF.oldgui.gui
 com.alvarpq.GOTF.oldgui.screen
 com.alvarpq.GOTF.requirement
+com.alvarpq.GOTF.server

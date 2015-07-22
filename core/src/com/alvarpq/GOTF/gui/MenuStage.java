@@ -12,6 +12,6 @@ public class MenuStage extends Stage {
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(540, 829));
 		int k;
-		addActor(new Actor())
+		//addActor(new Actor())
 	}
 }

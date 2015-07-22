@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF;
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import com.alvarpq.GOTF.gui.GameStage;
@@ -23,7 +24,15 @@ public class GOTF extends ApplicationAdapter
 			setupGameStage();
 		} catch (Exception e){
 			System.out.println("Failed to connect to the game server.");
-			setupGameStage();
+			try
+			{
+				setupGameStage();
+			}
+			catch(InstantiationException e1){}
+			catch(IllegalAccessException e1){}
+			catch(IllegalArgumentException e1){}
+			catch(InvocationTargetException e1){}
+			catch(SecurityException e1){}
 		}
 	}
 	//standard resize
@@ -46,7 +55,7 @@ public class GOTF extends ApplicationAdapter
 	    stage.dispose();
 	}
 	//sets the current stage to game stage and makes sure all input is sent there
-	public void setupGameStage()
+	public void setupGameStage() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		stage = new GameStage();
 		Gdx.input.setInputProcessor(stage);
