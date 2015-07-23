@@ -23,7 +23,7 @@ public class GraphicalCard extends Actor
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);		
 	}
-	//draws the card
+	//draws the card (currently only name)
 	@Override
 	public void draw(Batch batch, float parentAlpha)
 	{
