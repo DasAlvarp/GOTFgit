@@ -1,6 +1,5 @@
 package com.alvarpq.GOTF.gui;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Game;
@@ -14,15 +13,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
@@ -64,6 +58,10 @@ public class GameStage extends Stage
 	private static final float LENGTH = 135;
 	//a tile's height
 	private static final float HEIGHT = 117;
+	//a card's length
+	private static final float CARD_LENGTH = 110;
+	//a card's height
+	private static final float CARD_HEIGHT = 165;
 	//the game this GameStage displays
 	private Game game;
 	//holds the font for drawing text
@@ -72,12 +70,17 @@ public class GameStage extends Stage
 	private Texture defaultTile;
 	//the animation for a selected tile
 	private Animation selectedTile;
+	//the texture for a card
+	private Texture card;
 	//Button spriteDrawables
 	SpriteDrawable buttonUp;
 	SpriteDrawable buttonDown;
 	//all the tiles (graphical class for displaying tiles and corresponding units)
 	private Tile[][] half1;
 	private Tile[][] half2;
+	//all the GraphicalCards in hands
+	private List<GraphicalCard> hand1;
+	private List<GraphicalCard> hand2;
 	//the end turn button
 	private TextButton endTurn;
 	//the currently selected positions
@@ -88,8 +91,9 @@ public class GameStage extends Stage
 	{
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1080, 829));
-		//creates a new game
+		//creates a new game and starts it with 5 in hand size
 		game = new Game(new User(null, null, new Deck(110105, true)), new User(null, null, new Deck(110105, true)));
+		game.start(5);
 		//instantiates font
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
@@ -103,6 +107,8 @@ public class GameStage extends Stage
     	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(3).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(4).png")),
     	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(5).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(6).png")));
     	selectedTile.setPlayMode(PlayMode.LOOP_REVERSED);
+    	//instantiates the card texture
+    	card = new Texture("card.png");
     	//instantiates button SpriteDrawables
     	buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
     	buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
@@ -132,6 +138,26 @@ public class GameStage extends Stage
     			addActor(half2[i][j]);
     		}
     	}
+		//instantiates hand lists
+		hand1 = new LinkedList<GraphicalCard>();
+		hand2 = new LinkedList<GraphicalCard>();
+		//these loops instantiates the tiles, it goes through all board positions
+		for(int i=0;i<5;i++)
+    	{
+    			//creates a sprite from the card texture
+    			Sprite temp = new Sprite(card);
+    			//gives the sprite correct bounds
+    			temp.setBounds(100, i*CARD_HEIGHT, CARD_LENGTH, CARD_HEIGHT);
+    			//creates the card and adds it to card array
+    			hand1.add(new GraphicalCard(game.getSide(Player.PLAYER1).getDeck().getHand().get(i), temp));
+    			//adds the card to the stage
+    			addActor(hand1.get(i));
+    			//same for player2
+    			temp = new Sprite(card);
+    			temp.setBounds(880, i*CARD_HEIGHT, CARD_LENGTH, CARD_HEIGHT);
+    			hand2.add(new GraphicalCard(game.getSide(Player.PLAYER2).getDeck().getHand().get(i), temp));
+    			addActor(hand2.get(i));
+    	}
 		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
 		endTurn.setDisabled(true);
 		endTurn.addListener(new ClickListener(){
@@ -154,7 +180,7 @@ public class GameStage extends Stage
 	public boolean mouseMoved(int x, int y)
 	{
 		super.mouseMoved(x, y);
-		//current mousemoved code to make sure the tile the mouse is over is selected, loops go through all tiles
+		//current mousemoved code to make sure the tile the mouse is over is highlighted, loops go through all tiles
 		for(int i=0;i<5;i++)
     	{
     		for(int j=0;j<3;j++)
@@ -189,7 +215,7 @@ public class GameStage extends Stage
 	public boolean touchDown(int x, int y, int pointer, int button)
 	{
 		super.touchDown(x, y, pointer, button);
-		//to select a unit
+		//current touch down funtion to select units and make them move
 		for(int i=0;i<5;i++)
     	{
     		for(int j=0;j<3;j++)

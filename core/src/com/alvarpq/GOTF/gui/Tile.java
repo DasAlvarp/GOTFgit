@@ -26,7 +26,7 @@ public class Tile extends Actor
 	boolean selected;
 	//holds the font for drawing stats
 	private BitmapFont font;
-	//constructs a new unselected sprite
+	//constructs a new unselected tile
 	public Tile(Sprite tile, Animation selectedTile)
 	{
 		unit = null;
