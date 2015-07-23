@@ -76,6 +76,8 @@ public class GameStage extends Stage
 	//Button spriteDrawables
 	SpriteDrawable buttonUp;
 	SpriteDrawable buttonDown;
+	SpriteDrawable buttonUpSmall;
+	SpriteDrawable buttonDownSmall;
 	//all the tiles (graphical class for displaying tiles and corresponding units)
 	private Tile[][] half1;
 	private Tile[][] half2;
@@ -86,6 +88,11 @@ public class GameStage extends Stage
 	private TextButton endTurn;
 	//the sacrifice for cards button
 	private TextButton sacCards;
+	//the sacrifice for resources buttons
+	private TextButton sacAir;
+	private TextButton sacEarth;
+	private TextButton sacFire;
+	private TextButton sacWater;
 	//the currently highlighted positions
 	private List<Position> highlightedPositions;
 	//the currently selected unit
@@ -117,6 +124,8 @@ public class GameStage extends Stage
     	//instantiates button SpriteDrawables
     	buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
     	buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
+    	buttonUpSmall = new SpriteDrawable(new Sprite(new Texture("buttonUpSmall.png")));
+    	buttonDownSmall = new SpriteDrawable(new Sprite(new Texture("buttonDownSmall.png")));
     	//instantiates tile arrays
 		half1 = new Tile[5][3];
 		half2 = new Tile[5][3];
@@ -162,8 +171,30 @@ public class GameStage extends Stage
 	        }
 	    });
 		addActor(endTurn);
-		sacCards = new TextButton("Get cards", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
-		sacCards.setBounds(0, getHeight()-100, 100, 50);
+		sacCards = new TextButton("C", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		sacCards.setBounds(0, getHeight()-100, 50, 50);
+		sacCards.setDisabled(true);
+		sacCards.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		sacCards = new TextButton("C", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		sacCards.setBounds(0, getHeight()-100, 50, 50);
 		sacCards.setDisabled(true);
 		sacCards.addListener(new ClickListener(){
 	        @Override
@@ -185,6 +216,29 @@ public class GameStage extends Stage
 	        }
 	    });
 		addActor(sacCards);
+		sacAir = new TextButton("A", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		sacAir.setBounds(50, getHeight()-100, 50, 50);
+		sacAir.setDisabled(true);
+		sacAir.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		addActor(sacAir);
 		//instantiates the list of selected positions
 		highlightedPositions = new LinkedList<Position>();
 		//instantiates selected things
