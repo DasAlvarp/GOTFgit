@@ -23,13 +23,15 @@ public class GraphicalCard extends Actor
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);		
 	}
-	//draws the card (currently only name)
+	//draws the card (currently only name and resource cost)
 	@Override
 	public void draw(Batch batch, float parentAlpha)
 	{
 		cardSprite.draw(batch);
 		GlyphLayout temp = new GlyphLayout(font, card.getName()+"");
 		font.draw(batch, temp, cardSprite.getX()+cardSprite.getWidth()/2-temp.width/2, cardSprite.getY()+cardSprite.getHeight()-cardSprite.getHeight()/15+temp.height/2);
+		temp.setText(font, card.getResourceCost()+"");
+		font.draw(batch, temp, cardSprite.getX()+cardSprite.getWidth()/2-temp.width/2, cardSprite.getY()+cardSprite.getHeight()-cardSprite.getHeight()/6.67f+temp.height/2);
 	}
 	//returns whether a certain coordinate is within the card's bounds
 	public boolean hasInsideBounds(float x, float y)
