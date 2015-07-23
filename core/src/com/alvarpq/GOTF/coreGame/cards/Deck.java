@@ -3,6 +3,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import com.alvarpq.GOTF.coreGame.Player;
 /**
  * A class for handling a deck.
  */
@@ -23,14 +24,15 @@ public class Deck
 	/**
 	 * Instantiates a new Deck.
 	 * @param deckIds a list of the ids of the cards to add to the deck
+	 * @param owner the owner of the deck
 	 * @param shuffle whether the deck should be shuffled or not
 	 */
-	public Deck(List<Integer> deckIds, boolean shuffle) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
+	public Deck(List<Integer> deckIds, Player owner, boolean shuffle) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		List<Card> deck = new LinkedList<Card>();
 		for(int cardId:deckIds)
 		{
-			Card tempCard = CardFactory.createCard(cardId);
+			Card tempCard = CardFactory.createCard(cardId, owner);
 			if(tempCard!=null)
 			{
 				deck.add(tempCard);
@@ -51,14 +53,15 @@ public class Deck
 	/**
 	 * Instantiates a new Deck with 40 copies of one card.
 	 * @param cardId the id of the card to make the game from
+	 * @param owner the owner of the deck
 	 * @param shuffle whether the deck should be shuffled or not
 	 */
-	public Deck(int cardId, boolean shuffle) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
+	public Deck(int cardId, Player owner, boolean shuffle) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		List<Card> deck = new LinkedList<Card>();
 		for(int i=0;i<40;i++)
 		{
-			Card tempCard = CardFactory.createCard(cardId);
+			Card tempCard = CardFactory.createCard(cardId, owner);
 			if(tempCard!=null)
 			{
 				deck.add(tempCard);

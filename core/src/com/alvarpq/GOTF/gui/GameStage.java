@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
@@ -83,16 +84,20 @@ public class GameStage extends Stage
 	private Hand hand2;
 	//the end turn button
 	private TextButton endTurn;
+	//the sacrifice for cards button
+	private TextButton sacCards;
 	//the currently highlighted positions
 	private List<Position> highlightedPositions;
 	//the currently selected unit
 	private Unit selectedUnit;
+	//the currently selected card
+	private Card selectedCard;
 	public GameStage() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1080, 979));
 		//creates a new game and starts it with 5 in hand size
-		game = new Game(new User(null, null, new Deck(110105, true)), new User(null, null, new Deck(110106, true)));
+		game = new Game(new User(null, null, new Deck(110105, Player.PLAYER1, true)), new User(null, null, new Deck(110106, Player.PLAYER2, true)));
 		game.start(5);
 		//instantiates font
 		font = new BitmapFont();
@@ -152,13 +157,39 @@ public class GameStage extends Stage
 	        	game.endTurn();
 	        	game.startTurn();
 	        	deselectUnit();
+	        	selectedCard = null;
 	        	updateHands();
 	        }
 	    });
 		addActor(endTurn);
+		sacCards = new TextButton("Get cards", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
+		sacCards.setBounds(0, getHeight()-100, 100, 50);
+		sacCards.setDisabled(true);
+		sacCards.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		addActor(sacCards);
 		//instantiates the list of selected positions
 		highlightedPositions = new LinkedList<Position>();
+		//instantiates selected things
 		selectedUnit = null;
+		selectedCard = null;
 		//just to try out adding a unit
 		game.getSide(Player.PLAYER1).getHalf().addUnit(new GoblinWarrior(0, 0));
 		half1[0][0].setUnit(game.getSide(Player.PLAYER1).getHalf().getUnitAt(0, 0));
@@ -205,6 +236,34 @@ public class GameStage extends Stage
 	public boolean touchDown(int x, int y, int pointer, int button)
 	{
 		super.touchDown(x, y, pointer, button);
+		if(game.getCurrentPlayer()==Player.PLAYER1)
+		{
+			Card clickedCard = hand1.cardClicked(x, (int)(getHeight()-y));
+			if(clickedCard==selectedCard)
+			{
+				selectedCard = null;
+				hand1.highlightIndex(-1);
+			}
+			else if(clickedCard!=null)
+			{
+				selectedCard = clickedCard;
+				hand1.highlight(selectedCard);
+			}
+		}
+		else if(game.getCurrentPlayer()==Player.PLAYER2)
+		{
+			Card clickedCard = hand2.cardClicked(x, (int)(getHeight()-y));
+			if(clickedCard==selectedCard)
+			{
+				selectedCard = null;
+				hand2.highlightIndex(-1);
+			}
+			else if(clickedCard!=null)
+			{
+				selectedCard = clickedCard;
+				hand2.highlight(selectedCard);
+			}
+		}
 		//current touch down funtion to select units and make them move
 		for(int i=0;i<5;i++)
     	{

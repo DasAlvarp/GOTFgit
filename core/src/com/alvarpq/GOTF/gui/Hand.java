@@ -15,17 +15,20 @@ public class Hand extends Actor
 {
 	//holds the cards in the hand
 	private List<Card> hand;
+	//the currently highlighted/selected card's index
+	private int highlightedIndex;
 	//holds the card sprite
 	private Texture card;
 	//where to draw
 	private float x, y, cardWidth, cardHeight;
 	//holds the font for drawing stats
 	private BitmapFont font;
-	//constructs a card
+	//constructs a hand
 	public Hand(List<Card> hand, Texture card, float x, float y, float cardWidth, float cardHeight)
 	{
 		this.hand = hand;
 		this.card = card;
+		highlightedIndex = -1;
 		this.x = x;
 		this.y = y;
 		this.cardWidth = cardWidth;
@@ -33,14 +36,21 @@ public class Hand extends Actor
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);		
 	}
-	//draws the card (currently only name and resource cost)
+	//draws the hand (currently only name and resource cost)
 	@Override
 	public void draw(Batch batch, float parentAlpha)
 	{
 		for(int i=0;i<hand.size();i++)
 		{
 			Sprite temp = new Sprite(card);
-			temp.setBounds(x+i*cardWidth, y, cardWidth, cardHeight);
+			if(i==highlightedIndex)
+			{
+				temp.setBounds(x+i*cardWidth, y+cardWidth/3, cardWidth, cardHeight);
+			}
+			else
+			{
+				temp.setBounds(x+i*cardWidth, y, cardWidth, cardHeight);
+			}
 			temp.draw(batch);
 			GlyphLayout temp2 = new GlyphLayout(font, hand.get(i).getName()+"");
 			font.draw(batch, temp2, temp.getX()+temp.getWidth()/2-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/15+temp2.height/2);
@@ -48,6 +58,7 @@ public class Hand extends Actor
 			font.draw(batch, temp2, temp.getX()+temp.getWidth()/2-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/6.67f+temp2.height/2);
 		}
 	}
+	//is a click in these coordinates on a card
 	public Card cardClicked(int x, int y)
 	{
 		if(x>this.x&&x<this.x+cardWidth*hand.size()&&y>this.y&&y<this.y+cardHeight)
@@ -55,5 +66,15 @@ public class Hand extends Actor
 			return hand.get((int)((x-this.x)/cardWidth));
 		}
 		return null;
+	}
+	//highlights specified index
+	public void highlightIndex(int index)
+	{
+		highlightedIndex = index;
+	}
+	//highlights specified card
+	public void highlight(Card card)
+	{
+		highlightedIndex = hand.indexOf(card);
 	}
 }

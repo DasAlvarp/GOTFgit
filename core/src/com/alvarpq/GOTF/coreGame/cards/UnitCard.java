@@ -2,6 +2,7 @@ package com.alvarpq.GOTF.coreGame.cards;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Element;
+import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
@@ -25,11 +26,12 @@ public abstract class UnitCard extends Card
 	 * @param name the name of the card
 	 * @param resourceCost the cost in resources to play the card
 	 * @param elementCost the cost in elements to play the card
+	 * @param owner the owner of the card
 	 * @param unitFactory the unitFactory used to spawn units
 	 */
-	public UnitCard(int id, String name, int resourceCost, List<Element> elementCost, UnitFactory unitFactory)
+	public UnitCard(int id, String name, int resourceCost, List<Element> elementCost, Player owner, UnitFactory unitFactory)
 	{
-		super(id, name, resourceCost, elementCost);
+		super(id, name, resourceCost, elementCost, owner);
 		position = new TileRequirement(RequirementType.OWN_EMPTY_TILE);
 		setRequirements(new Requirement[]{position});
 		this.unitFactory = unitFactory;

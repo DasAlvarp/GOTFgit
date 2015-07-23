@@ -39,14 +39,16 @@ public abstract class Card
 	 * @param name the name of the card
 	 * @param resourceCost the cost in resources to play the card
 	 * @param elementCost the cost in elements to play the card
+	 * @param owner the owner of the card
 	 */
-	public Card(int id, String name, int resourceCost, List<Element> elementCost)
+	public Card(int id, String name, int resourceCost, List<Element> elementCost, Player owner)
 	{
 		this.id = id;
 		this.name = name;
 		this.resourceCost = resourceCost;
 		this.elementCost = elementCost;
 		this.requirements = new Requirement[]{};
+		this.owner = owner;
 	}
 	/**
 	 * This function is called by the game when the card is played.
