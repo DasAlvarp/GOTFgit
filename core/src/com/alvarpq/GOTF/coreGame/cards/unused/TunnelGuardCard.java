@@ -8,6 +8,6 @@ public class TunnelGuardCard extends UnitCard
 {
 	public TunnelGuardCard()
 	{
-		super(100108, "Tunnel Guard", 3, Arrays.asList(new Element[]{Element.EARTH}), new UnitFactory(TunnelGuard.class));
+		super(100107, "Tunnel Guard", 3, Arrays.asList(new Element[]{Element.EARTH}), new UnitFactory(TunnelGuard.class));
 	}
 }

@@ -11,7 +11,7 @@ public class ExampleSpellCard extends SpellCard
 	private UnitRequirement target;
 	public ExampleSpellCard()
 	{
-		super(100103, "Example Spell", 4, Arrays.asList(new Element[]{Element.AIR, Element.EARTH, Element.FIRE, Element.WATER}));
+		super(100102, "Example Spell", 4, Arrays.asList(new Element[]{Element.AIR, Element.EARTH, Element.FIRE, Element.WATER}));
 		target = new UnitRequirement(RequirementType.UNIT);
 		setRequirements(new Requirement[]{target});
 	}

@@ -59,9 +59,9 @@ public class GameStage extends Stage
 	//a tile's height
 	private static final float HEIGHT = 117;
 	//a card's length
-	private static final float CARD_LENGTH = 110;
+	private static final float CARD_LENGTH = 200;
 	//a card's height
-	private static final float CARD_HEIGHT = 165;
+	private static final float CARD_HEIGHT = 300;
 	//the game this GameStage displays
 	private Game game;
 	//holds the font for drawing text
@@ -79,8 +79,8 @@ public class GameStage extends Stage
 	private Tile[][] half1;
 	private Tile[][] half2;
 	//all the GraphicalCards in hands
-	private List<GraphicalCard> hand1;
-	private List<GraphicalCard> hand2;
+	private Hand hand1;
+	private Hand hand2;
 	//the end turn button
 	private TextButton endTurn;
 	//the currently highlighted positions
@@ -90,9 +90,9 @@ public class GameStage extends Stage
 	public GameStage() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		//sets the size of the stage to fill the whole window
-		super(new FitViewport(1080, 829));
+		super(new FitViewport(1080, 979));
 		//creates a new game and starts it with 5 in hand size
-		game = new Game(new User(null, null, new Deck(110105, true)), new User(null, null, new Deck(110105, true)));
+		game = new Game(new User(null, null, new Deck(110105, true)), new User(null, null, new Deck(110106, true)));
 		game.start(5);
 		//instantiates font
 		font = new BitmapFont();
@@ -123,7 +123,7 @@ public class GameStage extends Stage
     			//creates a sprite from the unselected tile texture
     			Sprite temp = new Sprite(defaultTile);
     			//gives the sprite correct bounds
-    			temp.setBounds(270+i*LENGTH*3/4, (2-j)*HEIGHT+i%2*HEIGHT/2, LENGTH, HEIGHT);
+    			temp.setBounds(270+i*LENGTH*3/4, 150+(2-j)*HEIGHT+i%2*HEIGHT/2, LENGTH, HEIGHT);
     			//rotates the sprite to fit a top-down game view
     			temp.rotate90(true);
     			//creates the tile and adds it to tile array
@@ -138,26 +138,10 @@ public class GameStage extends Stage
     			addActor(half2[i][j]);
     		}
     	}
-		//instantiates hand lists
-		hand1 = new LinkedList<GraphicalCard>();
-		hand2 = new LinkedList<GraphicalCard>();
-		//these loops instantiates the tiles, it goes through all board positions
-		for(int i=0;i<5;i++)
-    	{
-    			//creates a sprite from the card texture
-    			Sprite temp = new Sprite(card);
-    			//gives the sprite correct bounds
-    			temp.setBounds(100, i*CARD_HEIGHT, CARD_LENGTH, CARD_HEIGHT);
-    			//creates the card and adds it to card array
-    			hand1.add(new GraphicalCard(game.getSide(Player.PLAYER1).getDeck().getHand().get(i), temp));
-    			//adds the card to the stage
-    			addActor(hand1.get(i));
-    			//same for player2
-    			temp = new Sprite(card);
-    			temp.setBounds(880, i*CARD_HEIGHT, CARD_LENGTH, CARD_HEIGHT);
-    			hand2.add(new GraphicalCard(game.getSide(Player.PLAYER2).getDeck().getHand().get(i), temp));
-    			addActor(hand2.get(i));
-    	}
+		//instantiates hands
+		hand1 = new Hand(game.getSide(Player.PLAYER1).getDeck().getHand(), card, 0, -150, CARD_LENGTH, CARD_HEIGHT);
+		hand2 = new Hand(game.getSide(Player.PLAYER2).getDeck().getHand(), card, 0, -150, CARD_LENGTH, CARD_HEIGHT);
+		updateHands();
 		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
 		endTurn.setBounds(0, getHeight()-50, 100, 50);
 		endTurn.setDisabled(true);
@@ -168,6 +152,7 @@ public class GameStage extends Stage
 	        	game.endTurn();
 	        	game.startTurn();
 	        	deselectUnit();
+	        	updateHands();
 	        }
 	    });
 		addActor(endTurn);
@@ -356,6 +341,20 @@ public class GameStage extends Stage
 		{
 			half2[p.row][p.column].dehighlight();
 			highlightedPositions.remove(p);
+		}
+	}
+	//adds the right players hand
+	public void updateHands()
+	{
+		hand1.remove();
+		hand2.remove();
+		if(game.getCurrentPlayer()==Player.PLAYER1)
+		{
+			addActor(hand1);
+		}
+		else if(game.getCurrentPlayer()==Player.PLAYER2)
+		{
+			addActor(hand2);
 		}
 	}
 }

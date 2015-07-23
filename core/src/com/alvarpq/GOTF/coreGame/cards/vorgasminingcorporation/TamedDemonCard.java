@@ -8,6 +8,6 @@ public class TamedDemonCard extends UnitCard
 {
 	public TamedDemonCard()
 	{
-		super(110112, "Tamed Demon", 4, Arrays.asList(new Element[]{Element.EARTH, Element.FIRE}), new UnitFactory(TamedDemon.class));
+		super(110106, "Tamed Demon", 4, Arrays.asList(new Element[]{Element.EARTH, Element.FIRE}), new UnitFactory(TamedDemon.class));
 	}
 }

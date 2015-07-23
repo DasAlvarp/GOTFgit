@@ -8,6 +8,6 @@ public class ExampleUnitCard extends UnitCard
 {
 	public ExampleUnitCard()
 	{
-		super(100104, "Example Unit", 4, Arrays.asList(new Element[]{Element.AIR, Element.EARTH, Element.FIRE, Element.WATER}), new UnitFactory(ExampleUnit.class));
+		super(100103, "Example Unit", 4, Arrays.asList(new Element[]{Element.AIR, Element.EARTH, Element.FIRE, Element.WATER}), new UnitFactory(ExampleUnit.class));
 	}
 }

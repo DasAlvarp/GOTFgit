@@ -8,6 +8,6 @@ public class DarkYounglingCard extends UnitCard
 {
 	public DarkYounglingCard()
 	{
-		super(100102, "Dark Youngling", 1, Arrays.asList(new Element[]{Element.EARTH}), new UnitFactory(DarkYoungling.class));
+		super(100101, "Dark Youngling", 1, Arrays.asList(new Element[]{Element.EARTH}), new UnitFactory(DarkYoungling.class));
 	}
 }

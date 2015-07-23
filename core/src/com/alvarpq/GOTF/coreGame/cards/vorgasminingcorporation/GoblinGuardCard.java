@@ -8,6 +8,6 @@ public class GoblinGuardCard extends UnitCard
 {
 	public GoblinGuardCard()
 	{
-		super(110104, "Goblin Guard", 2, Arrays.asList(new Element[]{Element.EARTH}), new UnitFactory(GoblinGuard.class));
+		super(110101, "Goblin Guard", 2, Arrays.asList(new Element[]{Element.EARTH}), new UnitFactory(GoblinGuard.class));
 	}
 }
