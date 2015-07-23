@@ -18,23 +18,23 @@ public class Tile extends Actor
 	private Sprite unitSprite;
 	//holds the unselected tile sprite
 	private Sprite tile;
-	//holds the animated selectedTile animation
-	private Animation selectedTile;
+	//holds the animated highlightedTile animation
+	private Animation highlightedTile;
 	//holds the current time in the animation
 	private float animationTime;
 	//whether this tile is selected or not
-	boolean selected;
+	boolean highlighted;
 	//holds the font for drawing stats
 	private BitmapFont font;
 	//constructs a new unselected tile
-	public Tile(Sprite tile, Animation selectedTile)
+	public Tile(Sprite tile, Animation highlightedTile)
 	{
 		unit = null;
 		unitSprite = null;
 		this.tile = tile;
-		this.selectedTile = selectedTile;
+		this.highlightedTile = highlightedTile;
 		animationTime = 0;
-		selected = false;
+		highlighted = false;
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);		
 	}
@@ -42,11 +42,11 @@ public class Tile extends Actor
 	@Override
 	public void draw(Batch batch, float parentAlpha)
 	{
-		//checks whether the tile is selected or not
-		if(selected)
+		//checks whether the tile is highlighted or not
+		if(highlighted)
 		{
-			//draws the selected animation
-			Sprite temp = new Sprite(selectedTile.getKeyFrame(animationTime));
+			//draws the highlighted animation
+			Sprite temp = new Sprite(highlightedTile.getKeyFrame(animationTime));
 			temp.setBounds(tile.getX(), tile.getY(), tile.getWidth(), tile.getHeight());
 			temp.rotate90(true);
 			temp.draw(batch);
@@ -83,25 +83,25 @@ public class Tile extends Actor
 		}
 		return false;
 	}
-	//selects the tile and resets the animation to start from the beginning
-	public void select()
+	//highlighteds the tile and resets the animation to start from the beginning
+	public void highlight()
 	{
-		//if stops animation from restarting when selecting a selected tile
-		if(!selected)
+		//if stops animation from restarting when highlighting a highlighted tile
+		if(!highlighted)
 		{
-			selected = true;
+			highlighted = true;
 			animationTime = 0;
 		}
 	}
-	//deselects the tile
-	public void deselect()
+	//dehighlight the tile
+	public void dehighlight()
 	{
-		selected = false;
+		highlighted = false;
 	}
 	//returns whether the tile is selected
-	public boolean isSelected()
+	public boolean isHighlighted()
 	{
-		return selected;
+		return highlighted;
 	}
 	//sets the tile's unit and fixes it's sprite
 	public void setUnit(Unit unit)

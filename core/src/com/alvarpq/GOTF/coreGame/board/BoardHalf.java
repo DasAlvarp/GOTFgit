@@ -293,7 +293,7 @@ public class BoardHalf
 		return toReturn;
 	}
 	/**
-	 * Moves the specified unit move to specified destination.
+	 * Moves the specified unit to specified destination.
 	 * @param unit the unit to move
 	 * @param row the row to move the unit to
 	 * @param column the column to move the unit to
@@ -303,6 +303,30 @@ public class BoardHalf
 	{
 		boolean toReturn = unit.getMoveType().move(unit, row, column, game.getSide(owner), game.getSide(owner.otherPlayer()), units);
 		update();
+		return toReturn;
+	}
+	/**
+	 * Checks whether the unit at specified position can move to specified destination.
+	 * @param row the row to move the unit from
+	 * @param column the column to move the unit from
+	 * @param destinationRow the row to move the unit to
+	 * @param destinationColumn the column to move the unit to
+	 */
+	public boolean canMove(int row, int column, int destinationRow, int destinationColumn)
+	{
+		boolean toReturn = getUnitAt(row, column).getMoveType().canMove(getUnitAt(row, column), destinationRow, destinationColumn, game.getSide(owner), game.getSide(owner.otherPlayer()), units);
+		return toReturn;
+	}
+	/**
+	 * Checks whether the specified unit can move to specified destination.
+	 * @param unit the unit to move
+	 * @param row the row to move the unit to
+	 * @param column the column to move the unit to
+	 * @return whether the unit was moved or not
+	 */
+	public boolean canMove(Unit unit, int row, int column)
+	{
+		boolean toReturn = unit.getMoveType().canMove(unit, row, column, game.getSide(owner), game.getSide(owner.otherPlayer()), units);
 		return toReturn;
 	}
 	/**

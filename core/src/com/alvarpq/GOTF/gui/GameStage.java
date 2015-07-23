@@ -68,8 +68,8 @@ public class GameStage extends Stage
 	private BitmapFont font;
 	//the texture for the unselected tile
 	private Texture defaultTile;
-	//the animation for a selected tile
-	private Animation selectedTile;
+	//the animation for a highlighted tile
+	private Animation highlightedTile;
 	//the texture for a card
 	private Texture card;
 	//Button spriteDrawables
@@ -83,8 +83,8 @@ public class GameStage extends Stage
 	private List<GraphicalCard> hand2;
 	//the end turn button
 	private TextButton endTurn;
-	//the currently selected positions
-	private List<Position> selectedPositions;
+	//the currently highlighted positions
+	private List<Position> highlightedPositions;
 	//the currently selected unit
 	private Unit selectedUnit;
 	public GameStage() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
@@ -101,12 +101,12 @@ public class GameStage extends Stage
 		addActor(new GameBackground());
 		//instantiates the unselected tile
 		defaultTile = new Texture("BoardTile.png");
-		//instantiates the selected tile animation
-    	selectedTile = new Animation(0.125f, new TextureRegion(new Texture("gui/selectedTiles/selectedTile(0).png")),
+		//instantiates the highlighted tile animation
+		highlightedTile = new Animation(0.125f, new TextureRegion(new Texture("gui/selectedTiles/selectedTile(0).png")),
     	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(1).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(2).png")),
     	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(3).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(4).png")),
     	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(5).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(6).png")));
-    	selectedTile.setPlayMode(PlayMode.LOOP_REVERSED);
+		highlightedTile.setPlayMode(PlayMode.LOOP_REVERSED);
     	//instantiates the card texture
     	card = new Texture("card.png");
     	//instantiates button SpriteDrawables
@@ -127,14 +127,14 @@ public class GameStage extends Stage
     			//rotates the sprite to fit a top-down game view
     			temp.rotate90(true);
     			//creates the tile and adds it to tile array
-    			half1[i][j] = new Tile(temp, selectedTile);
+    			half1[i][j] = new Tile(temp, highlightedTile);
     			//adds the tile to the stage
     			addActor(half1[i][j]);
     			//same for player2
     			temp = new Sprite(defaultTile);
     			temp.setBounds(270+i*LENGTH*3/4, getHeight()-HEIGHT-((2-j)*HEIGHT+i%2*HEIGHT/2), LENGTH, HEIGHT);
     			temp.rotate90(true);
-    			half2[i][j] = new Tile(temp, selectedTile);
+    			half2[i][j] = new Tile(temp, highlightedTile);
     			addActor(half2[i][j]);
     		}
     	}
@@ -159,6 +159,7 @@ public class GameStage extends Stage
     			addActor(hand2.get(i));
     	}
 		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
+		endTurn.setBounds(0, getHeight()-50, 100, 50);
 		endTurn.setDisabled(true);
 		endTurn.addListener(new ClickListener(){
 	        @Override
@@ -166,11 +167,12 @@ public class GameStage extends Stage
 	        {
 	        	game.endTurn();
 	        	game.startTurn();
+	        	deselectUnit();
 	        }
 	    });
 		addActor(endTurn);
 		//instantiates the list of selected positions
-		selectedPositions = new LinkedList<Position>();
+		highlightedPositions = new LinkedList<Position>();
 		selectedUnit = null;
 		//just to try out adding a unit
 		game.getSide(Player.PLAYER1).getHalf().addUnit(new GoblinWarrior(0, 0));
@@ -180,35 +182,38 @@ public class GameStage extends Stage
 	public boolean mouseMoved(int x, int y)
 	{
 		super.mouseMoved(x, y);
-		//current mousemoved code to make sure the tile the mouse is over is highlighted, loops go through all tiles
-		for(int i=0;i<5;i++)
-    	{
-    		for(int j=0;j<3;j++)
-    		{
-    			//is the mouse over player 1's tile at i, j
-    			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
-    			{
-    				if(!selectedPositions.contains(new Position(Player.PLAYER1, i, j)))
-    				{
-    					deselectAll();
-    				}
-	    			selectPosition(new Position(Player.PLAYER1, i, j));
-    				return false;
-    			}
-    			//same for player2
-    			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
-    			{
-    				if(!selectedPositions.contains(new Position(Player.PLAYER2, i, j)))
-    				{
-    					deselectAll();
-    				}
-	    			selectPosition(new Position(Player.PLAYER2, i, j));
-    				return false;
-    			}
-    		}
-    	}
-		//in case the mouse is over no tile, deselect all tiles
-		deselectAll();
+		if(selectedUnit==null)
+		{
+			//current mousemoved code to make sure the tile the mouse is over is highlighted, loops go through all tiles
+			for(int i=0;i<5;i++)
+	    	{
+	    		for(int j=0;j<3;j++)
+	    		{
+	    			//is the mouse over player 1's tile at i, j, if true then highlight that tile
+	    			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
+	    			{
+	    				if(!highlightedPositions.contains(new Position(Player.PLAYER1, i, j)))
+	    				{
+	    					dehighlightAll();
+	    				}
+	    				highlightPosition(new Position(Player.PLAYER1, i, j));
+	    				return false;
+	    			}
+	    			//same for player2
+	    			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
+	    			{
+	    				if(!highlightedPositions.contains(new Position(Player.PLAYER2, i, j)))
+	    				{
+	    					dehighlightAll();
+	    				}
+	    				highlightPosition(new Position(Player.PLAYER2, i, j));
+	    				return false;
+	    			}
+	    		}
+	    	}
+			//in case the mouse is over no tile, deselect all tiles
+			dehighlightAll();
+		}
 		return false;
 	}
 	@Override
@@ -223,92 +228,134 @@ public class GameStage extends Stage
     			//is the mouse over player 1's tile at i, j
     			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
     			{
-    				//checks whether a unit is already selected and if it's on the current players side (can be moved)
-    				if(selectedUnit!=null&&selectedUnit.getOwner()==game.getCurrentPlayer()&&selectedUnit.getOwner()==Player.PLAYER1)
-    				{
-    					int oldRow = selectedUnit.getRow();
-    					int oldColumn = selectedUnit.getColumn();
-    					if(game.getSide(Player.PLAYER1).getHalf().move(selectedUnit, i, j))
-    					{
-    						half1[oldRow][oldColumn].setUnit(null);
-    						half1[i][j].setUnit(selectedUnit);
-    						selectedUnit = null;
-    					}
-    				}
-    				else if(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j)!=null)
-    				{
-    					selectedUnit = game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j);
-    				}
-    				return false;
+    				tileClicked(new Position(Player.PLAYER1, i, j));
+    				break;
     			}
     			//same for player2
     			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
     			{
-    				if(selectedUnit!=null&&selectedUnit.getOwner()==game.getCurrentPlayer()&&selectedUnit.getOwner()==Player.PLAYER2)
-    				{
-    					int oldRow = selectedUnit.getRow();
-    					int oldColumn = selectedUnit.getColumn();
-    					if(game.getSide(Player.PLAYER2).getHalf().move(selectedUnit, i, j))
-    					{
-    						half2[oldRow][oldColumn].setUnit(null);
-    						half2[i][j].setUnit(selectedUnit);
-    						selectedUnit = null;
-    					}
-    				}
-    				else if(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j)!=null)
-    				{
-    					selectedUnit = game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j);
-    				}
-    				return false;
+    				tileClicked(new Position(Player.PLAYER2, i, j));
+    				break;
     			}
     		}
     	}
 		return false;
 	}
-	//selects a position and adds it to the selectedpositions
-	public void selectPosition(Position p)
+	//what happens when a tile is clicked
+	public void tileClicked(Position p)
+	{
+		//is there a unit at position
+		if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null&&game.getSide(p.side).getHalf().getUnitAt(p.row, p.column).getOwner()==game.getCurrentPlayer())
+		{
+			//is that unit selected or not, if not select it, otherwise deselect it
+			if(selectedUnit==game.getSide(p.side).getHalf().getUnitAt(p.row, p.column))
+			{
+				deselectUnit();
+			}
+			else
+			{
+				selectUnit(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column));
+			}
+		}
+		//can the selected unit move there
+		else if(selectedUnit!=null&&game.getSide(p.side).getHalf().canMove(selectedUnit, p.row, p.column))
+		{
+			int oldRow = selectedUnit.getRow();
+			int oldColumn = selectedUnit.getColumn();
+			game.getSide(p.side).getHalf().move(selectedUnit, p.row, p.column);
+			if(p.side==Player.PLAYER1)
+			{
+				half1[oldRow][oldColumn].setUnit(null);
+				half1[selectedUnit.getRow()][selectedUnit.getColumn()].setUnit(selectedUnit);
+				deselectUnit();
+			}
+			else if(p.side==Player.PLAYER2)
+			{
+				half2[oldRow][oldColumn].setUnit(null);
+				half2[selectedUnit.getRow()][selectedUnit.getColumn()].setUnit(selectedUnit);
+				deselectUnit();
+			}
+		}
+	}
+	//selects a unit
+	public void selectUnit(Unit unit)
+	{
+		boolean canMove = false;
+		//loops highlight all movable tiles
+		for(int i=0;i<5;i++)
+		{
+			for(int j=0;j<3;j++)
+			{
+				if(game.getSide(unit.getOwner()).getHalf().canMove(unit, i, j))
+				{
+					highlightPosition(new Position(unit.getOwner(), i, j));
+					canMove = true;
+				}
+			}
+		}
+		//selects based on if the unit can move
+		if(canMove)
+		{
+			selectedUnit = unit;
+			dehighlightPosition(new Position(unit.getOwner(), unit.getRow(), unit.getColumn()));
+		}
+	}
+	//deselects a unit
+	public void deselectUnit()
+	{
+		if(selectedUnit!=null)
+		{
+			dehighlightAll();
+			highlightPosition(new Position(selectedUnit.getOwner(), selectedUnit.getRow(), selectedUnit.getColumn()));
+			selectedUnit = null;
+		}
+	}
+	//highlights a position and adds it to the highlightedpositions
+	public void highlightPosition(Position p)
 	{
 		if(p.side==Player.PLAYER1)
 		{
-			half1[p.row][p.column].select();
-			selectedPositions.add(p);
+			half1[p.row][p.column].highlight();
+			highlightedPositions.add(p);
 		}
 		else if(p.side==Player.PLAYER2)
 		{
-			half2[p.row][p.column].select();
-			selectedPositions.add(p);
+			half2[p.row][p.column].highlight();
+			highlightedPositions.add(p);
 		}
 	}
-	//deselects all positions, removing them from selectedPositions
-	public void deselectAll()
+	//dehighlights all positions, removing them from highlightedPositions
+	public void dehighlightAll()
 	{
-		for(int i=0;i<selectedPositions.size();i++)
+		for(int i=0;i<highlightedPositions.size();i++)
 		{
-			if(selectedPositions.get(i).side==Player.PLAYER1)
+			if(highlightedPositions.get(i).side==Player.PLAYER1)
 			{
-				half1[selectedPositions.get(i).row][selectedPositions.get(i).column].deselect();
-				selectedPositions.remove(selectedPositions.get(i));
+				half1[highlightedPositions.get(i).row][highlightedPositions.get(i).column].dehighlight();
+				highlightedPositions.remove(highlightedPositions.get(i));
+				i--;
 			}
-			else if(selectedPositions.get(i).side==Player.PLAYER2)
+			else if(highlightedPositions.get(i).side==Player.PLAYER2)
 			{
-				half2[selectedPositions.get(i).row][selectedPositions.get(i).column].deselect();
-				selectedPositions.remove(selectedPositions.get(i));
+				half2[highlightedPositions.get(i).row][highlightedPositions.get(i).column].dehighlight();
+				highlightedPositions.remove(highlightedPositions.get(i));
+				i--;
 			}
 		}
-		selectedPositions.clear();
+		highlightedPositions.clear();
 	}
-	//deselects a position and removes it from the selected positions
-	public void deselectPosition(Position p)
+	//dehighlights a position and removes it from the highlighted positions
+	public void dehighlightPosition(Position p)
 	{
 		if(p.side==Player.PLAYER1)
 		{
-			half1[p.row][p.column].deselect();
-			selectedPositions.remove(p);
+			half1[p.row][p.column].dehighlight();
+			highlightedPositions.remove(p);
 		}
 		else if(p.side==Player.PLAYER2)
 		{
-			half2[p.row][p.column].deselect();
-			selectedPositions.remove(p);
+			half2[p.row][p.column].dehighlight();
+			highlightedPositions.remove(p);
 		}
 	}
 }

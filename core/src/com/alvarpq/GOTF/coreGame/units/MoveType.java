@@ -18,6 +18,17 @@ public interface MoveType
 	 */
 	public boolean move(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits);
 	/**
+	 * The function used to check if a unit can move.
+	 * @param unit the unit to move
+	 * @param row the row to move the unit to
+	 * @param column the column to move the unit to
+	 * @param mySide the unit's side
+	 * @param opponentsSide the side of the unit's opponent
+	 * @param mySideUnits all the units on the unit's side
+	 * @return whether the unit can move or not
+	 */
+	public boolean canMove(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits);
+	/**
 	 * The normal move type. Used as default in all units.
 	 */
 	class Normal implements MoveType
@@ -32,6 +43,15 @@ public interface MoveType
 				mySideUnits[unit.getRow()][unit.getColumn()] = null;
 				unit.setRow(row);
 				unit.setColumn(column);
+				return true;
+			}
+			return false;
+		}
+		@Override
+		public boolean canMove(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits)
+		{
+			if(unit.getMove()>0&&mySide.getHalf().getUnitAt(row, column)==null&&BoardHalf.isAdjacent(unit.getRow(), unit.getColumn(), row, column))
+			{
 				return true;
 			}
 			return false;
@@ -62,6 +82,15 @@ public interface MoveType
 			return false;
 		}
 		@Override
+		public boolean canMove(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits)
+		{
+			if(unit.getMove()>0&&mySide.getHalf().getUnitAt(row, column)==null&&!BoardHalf.isAdjacent(unit.getRow(), unit.getColumn(), row, column))
+			{
+				return true;
+			}
+			return false;
+		}
+		@Override
 		public String toString()
 		{
 			return "Normal";
@@ -74,6 +103,11 @@ public interface MoveType
 	{
 		@Override
 		public boolean move(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits)
+		{
+			return false;
+		}
+		@Override
+		public boolean canMove(Unit unit, int row, int column, Side mySide, Side opponentsSide, Unit[][] mySideUnits)
 		{
 			return false;
 		}
