@@ -1,8 +1,7 @@
 package com.alvarpq.GOTF.gui;
 import java.util.List;
-import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.cards.Card;
-import com.alvarpq.GOTF.gui.GameStage.Position;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -56,6 +55,14 @@ public class Hand extends Actor
 			font.draw(batch, temp2, temp.getX()+temp.getWidth()/2-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/15+temp2.height/2);
 			temp2.setText(font, hand.get(i).getResourceCost()+"");
 			font.draw(batch, temp2, temp.getX()+temp.getWidth()/2-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/6.67f+temp2.height/2);
+			temp2.setText(font, hand.get(i).getElementCost(Element.AIR)+"");
+			font.draw(batch, temp2, temp.getX()+temp.getWidth()/10*3-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/6.67f+temp2.height/2);
+			temp2.setText(font, hand.get(i).getElementCost(Element.EARTH)+"");
+			font.draw(batch, temp2, temp.getX()+temp.getWidth()/10*4-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/6.67f+temp2.height/2);
+			temp2.setText(font, hand.get(i).getElementCost(Element.FIRE)+"");
+			font.draw(batch, temp2, temp.getX()+temp.getWidth()/10*6-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/6.67f+temp2.height/2);
+			temp2.setText(font, hand.get(i).getElementCost(Element.WATER)+"");
+			font.draw(batch, temp2, temp.getX()+temp.getWidth()/10*7-temp2.width/2, temp.getY()+temp.getHeight()-temp.getHeight()/6.67f+temp2.height/2);
 		}
 	}
 	//is a click in these coordinates on a card

@@ -2,6 +2,7 @@ package com.alvarpq.GOTF.gui;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
+import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Game;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.cards.Card;
@@ -172,89 +173,8 @@ public class GameStage extends Stage
 		temp.setBounds(810, getHeight()-275, 100, 275);
 		resources2 = new Resources(game.getSide(Player.PLAYER2), temp);
 		addActor(resources2);
-		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
-		endTurn.setBounds(0, getHeight()-50, 100, 50);
-		endTurn.setDisabled(true);
-		endTurn.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y)
-	        {
-	        	game.endTurn();
-	        	game.startTurn();
-	        	deselectUnit();
-	        	selectedCard = null;
-	        	updateHands();
-	        }
-	    });
-		addActor(endTurn);
-		sacCards = new TextButton("C", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
-		sacCards.setBounds(0, getHeight()-100, 50, 50);
-		sacCards.setDisabled(true);
-		sacCards.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y)
-	        {
-	        	if(selectedCard!=null)
-	        	{
-	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
-	        	}
-	        }
-	    });
-		sacCards = new TextButton("C", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
-		sacCards.setBounds(0, getHeight()-100, 50, 50);
-		sacCards.setDisabled(true);
-		sacCards.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y)
-	        {
-	        	if(selectedCard!=null)
-	        	{
-	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
-	        	}
-	        }
-	    });
-		addActor(sacCards);
-		sacAir = new TextButton("A", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
-		sacAir.setBounds(50, getHeight()-100, 50, 50);
-		sacAir.setDisabled(true);
-		sacAir.addListener(new ClickListener(){
-	        @Override
-	        public void clicked(InputEvent event, float x, float y)
-	        {
-	        	if(selectedCard!=null)
-	        	{
-	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
-	        	}
-	        }
-	    });
-		addActor(sacAir);
+		//instantiates buttons
+		setupButtons();
 		//instantiates the list of selected positions
 		highlightedPositions = new LinkedList<Position>();
 		//instantiates selected things
@@ -485,5 +405,139 @@ public class GameStage extends Stage
 		{
 			addActor(hand2);
 		}
+	}
+	//sets up the buttons
+	public void setupButtons()
+	{
+		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
+		endTurn.setBounds(0, getHeight()-50, 100, 50);
+		endTurn.setDisabled(true);
+		endTurn.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	game.endTurn();
+	        	game.startTurn();
+	        	deselectUnit();
+	        	selectedCard = null;
+	        	updateHands();
+	        }
+	    });
+		addActor(endTurn);
+		sacCards = new TextButton("Cards", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
+		sacCards.setBounds(0, getHeight()-100, 100, 50);
+		sacCards.setDisabled(true);
+		sacCards.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		addActor(sacCards);
+		sacAir = new TextButton("A", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		sacAir.setBounds(0, getHeight()-150, 50, 50);
+		sacAir.setDisabled(true);
+		sacAir.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.AIR);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		addActor(sacAir);
+		sacEarth = new TextButton("E", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		sacEarth.setBounds(50, getHeight()-150, 50, 50);
+		sacEarth.setDisabled(true);
+		sacEarth.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.EARTH);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		addActor(sacEarth);
+		sacFire = new TextButton("F", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		sacFire.setBounds(0, getHeight()-200, 50, 50);
+		sacFire.setDisabled(true);
+		sacFire.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.FIRE);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		addActor(sacFire);
+		sacWater = new TextButton("W", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		sacWater.setBounds(50, getHeight()-200, 50, 50);
+		sacWater.setDisabled(true);
+		sacWater.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null)
+	        	{
+	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.WATER);
+	        		if(selectedCard.getOwner()==Player.PLAYER1)
+	        		{
+	        			hand1.highlightIndex(-1);
+	        		}
+	        		else if(selectedCard.getOwner()==Player.PLAYER2)
+	        		{
+	        			hand2.highlightIndex(-1);
+	        		}
+	        		selectedCard = null;
+	        	}
+	        }
+	    });
+		addActor(sacWater);
 	}
 }

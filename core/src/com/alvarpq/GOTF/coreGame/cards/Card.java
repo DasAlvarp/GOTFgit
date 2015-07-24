@@ -129,6 +129,18 @@ public abstract class Card
 	{
 		return elementCost;
 	}
+	public int getElementCost(Element element)
+	{
+		int toReturn = 0;
+		for(Element element2:elementCost)
+		{
+			if(element2==element)
+			{
+				toReturn++;
+			}
+		}
+		return toReturn;
+	}
 	/**
 	 * Sets the element cost of this card.
 	 * @param elementCost the new element cost of this card
