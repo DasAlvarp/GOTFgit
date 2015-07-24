@@ -298,6 +298,30 @@ public class Side
 	{
 		return elements;
 	}
+	public int getMaximumElement(Element element)
+	{
+		int toReturn = 0;
+		for(Element element2:maximumElements)
+		{
+			if(element2==element)
+			{
+				toReturn++;
+			}
+		}
+		return toReturn;
+	}
+	public int getElement(Element element)
+	{
+		int toReturn = 0;
+		for(Element element2:elements)
+		{
+			if(element2==element)
+			{
+				toReturn++;
+			}
+		}
+		return toReturn;
+	}
 	/**
 	 * Returns this side's owner.
 	 * @return this side's owner

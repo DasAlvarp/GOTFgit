@@ -73,6 +73,8 @@ public class GameStage extends Stage
 	private Animation highlightedTile;
 	//the texture for a card
 	private Texture card;
+	//the texture for resource indicators
+	private Texture resources;
 	//Button spriteDrawables
 	SpriteDrawable buttonUp;
 	SpriteDrawable buttonDown;
@@ -81,9 +83,12 @@ public class GameStage extends Stage
 	//all the tiles (graphical class for displaying tiles and corresponding units)
 	private Tile[][] half1;
 	private Tile[][] half2;
-	//all the GraphicalCards in hands
+	//the graphical hands
 	private Hand hand1;
 	private Hand hand2;
+	//the graphical resource indicators
+	private Resources resources1;
+	private Resources resources2;
 	//the end turn button
 	private TextButton endTurn;
 	//the sacrifice for cards button
@@ -121,6 +126,8 @@ public class GameStage extends Stage
 		highlightedTile.setPlayMode(PlayMode.LOOP_REVERSED);
     	//instantiates the card texture
     	card = new Texture("card.png");
+    	//instantiates the resource indixator texture
+    	resources = new Texture("resource.png");
     	//instantiates button SpriteDrawables
     	buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
     	buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
@@ -156,6 +163,15 @@ public class GameStage extends Stage
 		hand1 = new Hand(game.getSide(Player.PLAYER1).getDeck().getHand(), card, 0, -150, CARD_LENGTH, CARD_HEIGHT);
 		hand2 = new Hand(game.getSide(Player.PLAYER2).getDeck().getHand(), card, 0, -150, CARD_LENGTH, CARD_HEIGHT);
 		updateHands();
+		//instantiates resource indicators
+		Sprite temp = new Sprite(resources);
+		temp.setBounds(170, getHeight()-275, 100, 275);
+		resources1 = new Resources(game.getSide(Player.PLAYER1), temp);
+		addActor(resources1);
+		temp = new Sprite(resources);
+		temp.setBounds(810, getHeight()-275, 100, 275);
+		resources2 = new Resources(game.getSide(Player.PLAYER2), temp);
+		addActor(resources2);
 		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
 		endTurn.setBounds(0, getHeight()-50, 100, 50);
 		endTurn.setDisabled(true);
