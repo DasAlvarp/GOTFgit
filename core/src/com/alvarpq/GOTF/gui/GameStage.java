@@ -57,9 +57,9 @@ public class GameStage extends Stage
 		}
 	}
 	//a tile's length
-	private static final float LENGTH = 135;
+	private static final float LENGTH = 120;
 	//a tile's height
-	private static final float HEIGHT = 117;
+	private static final float HEIGHT = 104;
 	//a card's length
 	private static final float CARD_LENGTH = 200;
 	//a card's height
@@ -108,7 +108,7 @@ public class GameStage extends Stage
 	public GameStage() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		//sets the size of the stage to fill the whole window
-		super(new FitViewport(1080, 979));
+		super(new FitViewport(1600, 900));
 		//creates a new game and starts it with 5 in hand size
 		game = new Game(new User(null, null, new Deck(110105, Player.PLAYER1, true)), new User(null, null, new Deck(110106, Player.PLAYER2, true)));
 		game.start(5);
@@ -135,42 +135,18 @@ public class GameStage extends Stage
     	buttonUpSmall = new SpriteDrawable(new Sprite(new Texture("buttonUpSmall.png")));
     	buttonDownSmall = new SpriteDrawable(new Sprite(new Texture("buttonDownSmall.png")));
     	//instantiates tile arrays
-		half1 = new Tile[5][3];
-		half2 = new Tile[5][3];
-		//these loops instantiates the tiles, it goes through all board positions
-		for(int i=0;i<5;i++)
-    	{
-    		for(int j=0;j<3;j++)
-    		{
-    			//creates a sprite from the unselected tile texture
-    			Sprite temp = new Sprite(defaultTile);
-    			//gives the sprite correct bounds
-    			temp.setBounds(270+i*LENGTH*3/4, 150+(2-j)*HEIGHT+i%2*HEIGHT/2, LENGTH, HEIGHT);
-    			//rotates the sprite to fit a top-down game view
-    			temp.rotate90(true);
-    			//creates the tile and adds it to tile array
-    			half1[i][j] = new Tile(temp, highlightedTile);
-    			//adds the tile to the stage
-    			addActor(half1[i][j]);
-    			//same for player2
-    			temp = new Sprite(defaultTile);
-    			temp.setBounds(270+i*LENGTH*3/4, getHeight()-HEIGHT-((2-j)*HEIGHT+i%2*HEIGHT/2), LENGTH, HEIGHT);
-    			temp.rotate90(true);
-    			half2[i][j] = new Tile(temp, highlightedTile);
-    			addActor(half2[i][j]);
-    		}
-    	}
+		setupTiles();
 		//instantiates hands
-		hand1 = new Hand(game.getSide(Player.PLAYER1).getDeck().getHand(), card, 0, -150, CARD_LENGTH, CARD_HEIGHT);
-		hand2 = new Hand(game.getSide(Player.PLAYER2).getDeck().getHand(), card, 0, -150, CARD_LENGTH, CARD_HEIGHT);
+		hand1 = new Hand(game.getSide(Player.PLAYER1).getDeck().getHand(), card, 0, 0, CARD_LENGTH, CARD_HEIGHT);
+		hand2 = new Hand(game.getSide(Player.PLAYER2).getDeck().getHand(), card, 0, 0, CARD_LENGTH, CARD_HEIGHT);
 		updateHands();
 		//instantiates resource indicators
 		Sprite temp = new Sprite(resources);
-		temp.setBounds(170, getHeight()-275, 100, 275);
+		temp.setBounds(getWidth()-100, 0, 100, 275);
 		resources1 = new Resources(game.getSide(Player.PLAYER1), temp);
 		addActor(resources1);
 		temp = new Sprite(resources);
-		temp.setBounds(810, getHeight()-275, 100, 275);
+		temp.setBounds(getWidth()-100, getHeight()-275, 100, 275);
 		resources2 = new Resources(game.getSide(Player.PLAYER2), temp);
 		addActor(resources2);
 		//instantiates buttons
@@ -539,5 +515,34 @@ public class GameStage extends Stage
 	        }
 	    });
 		addActor(sacWater);
+	}
+	public void setupTiles()
+	{
+		//instantiates the arrays
+		half1 = new Tile[5][3];
+		half2 = new Tile[5][3];
+		//these loops instantiates the tiles, it goes through all board positions
+		for(int i=0;i<5;i++)
+    	{
+    		for(int j=0;j<3;j++)
+    		{
+    			//creates a sprite from the unselected tile texture
+    			Sprite temp = new Sprite(defaultTile);
+    			//gives the sprite correct bounds
+    			temp.setBounds(getWidth()-LENGTH*4-100+i*LENGTH*3/4, HEIGHT*3/4+(2-j)*HEIGHT+i%2*HEIGHT/2, LENGTH, HEIGHT);
+    			//rotates the sprite to fit a top-down game view
+    			temp.rotate90(true);
+    			//creates the tile and adds it to tile array
+    			half1[i][j] = new Tile(temp, highlightedTile);
+    			//adds the tile to the stage
+    			addActor(half1[i][j]);
+    			//same for player2
+    			temp = new Sprite(defaultTile);
+    			temp.setBounds(getWidth()-LENGTH*4-100+i*LENGTH*3/4, getHeight()-HEIGHT*7/4-((2-j)*HEIGHT+i%2*HEIGHT/2), LENGTH, HEIGHT);
+    			temp.rotate90(true);
+    			half2[i][j] = new Tile(temp, highlightedTile);
+    			addActor(half2[i][j]);
+    		}
+    	}
 	}
 }

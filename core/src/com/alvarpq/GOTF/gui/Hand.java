@@ -44,11 +44,11 @@ public class Hand extends Actor
 			Sprite temp = new Sprite(card);
 			if(i==highlightedIndex)
 			{
-				temp.setBounds(x+i*cardWidth, y+cardWidth/3, cardWidth, cardHeight);
+				temp.setBounds(x+(i%5)*cardWidth, y+cardHeight*11/10*(i/5)+cardHeight/10, cardWidth, cardHeight);
 			}
 			else
 			{
-				temp.setBounds(x+i*cardWidth, y, cardWidth, cardHeight);
+				temp.setBounds(x+(i%5)*cardWidth, y+cardHeight*11/10*(i/5), cardWidth, cardHeight);
 			}
 			temp.draw(batch);
 			GlyphLayout temp2 = new GlyphLayout(font, hand.get(i).getName()+"");
@@ -68,9 +68,9 @@ public class Hand extends Actor
 	//is a click in these coordinates on a card
 	public Card cardClicked(int x, int y)
 	{
-		if(x>this.x&&x<this.x+cardWidth*hand.size()&&y>this.y&&y<this.y+cardHeight)
+		if(x>this.x&&x<this.x+cardWidth*5&&y>this.y&&y<this.y+cardHeight*11/10*(hand.size()/5+1))
 		{
-			return hand.get((int)((x-this.x)/cardWidth));
+			return hand.get((int)((y-this.y)/(cardHeight*11/10))*5+(int)((x-this.x)/cardWidth));
 		}
 		return null;
 	}
