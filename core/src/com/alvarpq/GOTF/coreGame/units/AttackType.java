@@ -33,6 +33,7 @@ public interface AttackType
 					mySide.getHalf().dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
 					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<=0)
 					{
+						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
 						mySide.getHalf().dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
 					}
 					unitHit = true;
@@ -74,10 +75,12 @@ public interface AttackType
 					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<0)
 					{
 						attackLeft-=opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth();
+						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
 						mySide.getHalf().dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
 					}
 					else if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()==0)
 					{
+						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
 						mySide.getHalf().dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
 						break;
 					}

@@ -116,12 +116,14 @@ public class BoardHalf
 			{
 				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
 				{
+					removeUnit(i, j);
 					dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
 					units[i][j] = null;
 					newUpdate = true;
 				}
 				if(game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j)!=null&&game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j).getHealth()<=0)
 				{
+					game.getSide(owner.otherPlayer()).getHalf().removeUnit(i, j);
 					dispatchEvent(new UnitKilledEvent(game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
 					game.getSide(owner.otherPlayer()).getHalf().units[i][j] = null;
 					newUpdate = true;
@@ -227,6 +229,36 @@ public class BoardHalf
 	{
 		getUnitAt(row, column).setOwner(Player.NONE);
 		units[row][column] = null;
+	}
+	/**
+	 * Removes the specified unit.
+	 * @param unit the unit to remove
+	 */
+	public void removeUnit(Unit unit)
+	{
+		unit.setOwner(Player.NONE);
+		units[unit.getRow()][unit.getColumn()] = null;
+	}
+	/**
+	 * Destroys the unit at the specified position.
+	 * @param row the row to destroy the unit at
+	 * @param column the column to destroy the unit at
+	 */
+	public void destroyUnit(int row, int column)
+	{
+		Unit temp = getUnitAt(row, column);
+		removeUnit(row, column);
+		dispatchEvent(new UnitKilledEvent(temp, game.getSide(owner), game.getSide(owner.otherPlayer())));
+		update();
+	}
+	/**
+	 * Destroys the specified unit.
+	 * @param unit the unit to destroy
+	 */
+	public void destroyUnit(Unit unit)
+	{
+		removeUnit(unit);
+		dispatchEvent(new UnitKilledEvent(unit, game.getSide(owner), game.getSide(owner.otherPlayer())));
 		update();
 	}
 	/**
@@ -269,14 +301,41 @@ public class BoardHalf
 		update();
 	}
 	/**
-	 * Removes the hex enchantment at the specified position.
-	 * @param row the row to remove the hex enchantment at
-	 * @param column the column to remove the hex enchantment at
+	 * Removes the unit at the specified position.
+	 * @param row the row to remove the unit at
+	 * @param column the column to remove the unit at
 	 */
 	public void removeHexEnchantment(int row, int column)
 	{
 		getHexEnchantmentAt(row, column).setOwner(Player.NONE);
 		hexEnchantments[row][column] = null;
+	}
+	/**
+	 * Removes the specified unit.
+	 * @param unit the unit to remove
+	 */
+	public void removeHexEnchantment(HexEnchantment hexEnchantment)
+	{
+		hexEnchantment.setOwner(Player.NONE);
+		hexEnchantments[hexEnchantment.getRow()][hexEnchantment.getColumn()] = null;
+	}
+	/**
+	 * Destroys the unit at the specified position.
+	 * @param row the row to destroy the unit at
+	 * @param column the column to destroy the unit at
+	 */
+	public void destroyHexEnchantment(int row, int column)
+	{
+		removeHexEnchantment(row, column);
+		update();
+	}
+	/**
+	 * Destroys the specified unit.
+	 * @param unit the unit to destroy
+	 */
+	public void destroyHexEnchantment(HexEnchantment hexEnchantment)
+	{
+		removeHexEnchantment(hexEnchantment);
 		update();
 	}
 	/**
