@@ -64,6 +64,10 @@ public class GameStage extends Stage
 	private static final float CARD_LENGTH = 200;
 	//a card's height
 	private static final float CARD_HEIGHT = 300;
+	//a idol's length
+	private static final float IDOL_LENGTH = 80;
+	//a idol's height
+	private static final float IDOL_HEIGHT = 80;
 	//the game this GameStage displays
 	private Game game;
 	//holds the font for drawing text
@@ -76,6 +80,8 @@ public class GameStage extends Stage
 	private Texture card;
 	//the texture for resource indicators
 	private Texture resources;
+	//the texture for idols
+	private Texture idol;
 	//Button spriteDrawables
 	SpriteDrawable buttonUp;
 	SpriteDrawable buttonDown;
@@ -90,6 +96,9 @@ public class GameStage extends Stage
 	//the graphical resource indicators
 	private Resources resources1;
 	private Resources resources2;
+	//the graphical idols
+	private Idol[] idols1;
+	private Idol[] idols2;
 	//the end turn button
 	private TextButton endTurn;
 	//the sacrifice for cards button
@@ -129,6 +138,8 @@ public class GameStage extends Stage
     	card = new Texture("card.png");
     	//instantiates the resource indixator texture
     	resources = new Texture("resource.png");
+    	//instantiates the idol texture
+    	idol = new Texture("idol.png");
     	//instantiates button SpriteDrawables
     	buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
     	buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
@@ -270,19 +281,17 @@ public class GameStage extends Stage
 		//can the selected unit move there
 		else if(selectedUnit!=null&&game.getSide(p.side).getHalf().canMove(selectedUnit, p.row, p.column))
 		{
-			int oldRow = selectedUnit.getRow();
-			int oldColumn = selectedUnit.getColumn();
 			game.getSide(p.side).getHalf().move(selectedUnit, p.row, p.column);
 			if(p.side==Player.PLAYER1)
 			{
-				half1[oldRow][oldColumn].setUnit(null);
-				half1[selectedUnit.getRow()][selectedUnit.getColumn()].setUnit(selectedUnit);
+				//updates all tiles
+				updateTiles();
 				deselectUnit();
 			}
 			else if(p.side==Player.PLAYER2)
 			{
-				half2[oldRow][oldColumn].setUnit(null);
-				half2[selectedUnit.getRow()][selectedUnit.getColumn()].setUnit(selectedUnit);
+				//updates all tiles
+				updateTiles();
 				deselectUnit();
 			}
 		}
@@ -368,7 +377,7 @@ public class GameStage extends Stage
 			highlightedPositions.remove(p);
 		}
 	}
-	//adds the right players hand
+	//adds the right player's hand
 	public void updateHands()
 	{
 		hand1.remove();
@@ -381,6 +390,21 @@ public class GameStage extends Stage
 		{
 			addActor(hand2);
 		}
+	}
+	//updates idols and tiles, call when something has changed (like ending turn, card played, or unit moved)
+	public void updateTiles()
+	{
+		//these loops go through all board positions, outer loop go through idols
+		for(int i=0;i<5;i++)
+    	{
+			idols1[i].setHealth(game.getSide(Player.PLAYER1).getHalf().getIdolAt(i));
+			idols2[i].setHealth(game.getSide(Player.PLAYER2).getHalf().getIdolAt(i));
+    		for(int j=0;j<3;j++)
+    		{
+    			half1[i][j].setUnit(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j));
+    			half2[i][j].setUnit(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j));
+    		}
+    	}
 	}
 	//sets up the buttons
 	public void setupButtons()
@@ -396,7 +420,9 @@ public class GameStage extends Stage
 	        	game.startTurn();
 	        	deselectUnit();
 	        	selectedCard = null;
+	        	//updates things
 	        	updateHands();
+	        	updateTiles();
 	        }
 	    });
 		addActor(endTurn);
@@ -516,18 +542,37 @@ public class GameStage extends Stage
 	    });
 		addActor(sacWater);
 	}
+	//sets up idols and tiles
 	public void setupTiles()
 	{
 		//instantiates the arrays
 		half1 = new Tile[5][3];
 		half2 = new Tile[5][3];
-		//these loops instantiates the tiles, it goes through all board positions
+		idols1 = new Idol[5];
+		idols2 = new Idol[5];
+		//these loops instantiates the tiles, it goes through all board positions, outer loop instantiates idols
 		for(int i=0;i<5;i++)
     	{
+			//creates a sprite from the idol texture
+			Sprite temp = new Sprite(idol);
+			//gives the sprite correct bounds
+			temp.setBounds(getWidth()-LENGTH*7/2-140+i*LENGTH*3/4, 0, IDOL_LENGTH, IDOL_HEIGHT);
+			//creates the idols and adds it to idol array
+			idols1[i] = new Idol(game.getSide(Player.PLAYER1).getHalf().getIdolAt(i), temp);
+			//adds the tile to the stage
+			addActor(idols1[i]);
+			//same for player 2
+			temp = new Sprite(idol);
+			//gives the sprite correct bounds
+			temp.setBounds(getWidth()-LENGTH*7/2-140+i*LENGTH*3/4, getHeight()-IDOL_HEIGHT, IDOL_LENGTH, IDOL_HEIGHT);
+			//creates the idols and adds it to idol array
+			idols2[i] = new Idol(game.getSide(Player.PLAYER2).getHalf().getIdolAt(i), temp);
+			//adds the tile to the stage
+			addActor(idols2[i]);
     		for(int j=0;j<3;j++)
     		{
     			//creates a sprite from the unselected tile texture
-    			Sprite temp = new Sprite(defaultTile);
+    			temp = new Sprite(defaultTile);
     			//gives the sprite correct bounds
     			temp.setBounds(getWidth()-LENGTH*4-100+i*LENGTH*3/4, HEIGHT*3/4+(2-j)*HEIGHT+i%2*HEIGHT/2, LENGTH, HEIGHT);
     			//rotates the sprite to fit a top-down game view

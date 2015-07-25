@@ -35,7 +35,7 @@ public class Hand extends Actor
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);		
 	}
-	//draws the hand (currently only name and resource cost)
+	//draws the hand
 	@Override
 	public void draw(Batch batch, float parentAlpha)
 	{
