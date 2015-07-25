@@ -68,7 +68,11 @@ public class Hand extends Actor
 	//is a click in these coordinates on a card
 	public Card cardClicked(int x, int y)
 	{
-		if(x>this.x&&x<this.x+cardWidth*5&&y>this.y&&y<this.y+cardHeight*11/10*(hand.size()/5+1))
+		if(x>this.x&&x<this.x+cardWidth*5&&y>this.y&&y<this.y+cardHeight*11/10*(hand.size()/5))
+		{
+			return hand.get((int)((y-this.y)/(cardHeight*11/10))*5+(int)((x-this.x)/cardWidth));
+		}
+		else if(x>this.x&&x<this.x+cardWidth*(hand.size()%5)&y>this.y+cardHeight*11/10*(hand.size()/5)&&y<this.y+cardHeight*11/10*(hand.size()/5+1))
 		{
 			return hand.get((int)((y-this.y)/(cardHeight*11/10))*5+(int)((x-this.x)/cardWidth));
 		}

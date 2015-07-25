@@ -8,7 +8,6 @@ import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.coreGame.units.Unit;
-import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
 import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.server.User;
 import com.badlogic.gdx.graphics.Color;
@@ -310,6 +309,7 @@ public class GameStage extends Stage
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
 							updateTiles();
+							selectedCard = null;
 						}
 					}
 					break;
@@ -327,6 +327,7 @@ public class GameStage extends Stage
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
 							updateTiles();
+							selectedCard = null;
 						}
 					}
 					break;
