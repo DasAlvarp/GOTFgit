@@ -157,6 +157,17 @@ public abstract class Card
 	{
 		return requirements;
 	}
+	public Requirement nextRequirement()
+	{
+		for(Requirement requirement:requirements)
+		{
+			if(!requirement.isFulfilled())
+			{
+				return requirement;
+			}
+		}
+		return null;
+	}
 	/**
 	 * Sets this card's requirements.
 	 * @param requirements this  card's new requirements

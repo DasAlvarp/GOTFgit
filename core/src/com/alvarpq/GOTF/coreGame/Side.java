@@ -147,11 +147,11 @@ public class Side
 		return false;
 	}
 	/**
-	 * Returns whether this side has enough resources to play the card with specified index in hand.
-	 * @param indexInHand the index in hand of the card to check for enough resources
-	 * @return whether this side has enough resources to play the card with specified index in hand
+	 * Returns whether this side can pay for the card with specified index in hand.
+	 * @param indexInHand the index in hand of the card to check if this side can pay for
+	 * @return whether this side can pay for the card with specified index in hand
 	 */
-	public boolean hasResources(int indexInHand)
+	public boolean canPayFor(int indexInHand)
 	{
 		if(resources>=deck.getHand().get(indexInHand).getResourceCost())
 		{
@@ -172,11 +172,11 @@ public class Side
 		return false;
 	}
 	/**
-	 * Returns whether this side has enough resources to play the specified card.
-	 * @param card the card to check for enough resources
-	 * @return whether this side has enough resources to play the specified card
+	 * Returns whether this side can pay for the specified card.
+	 * @param card the card to check if this side can pay for
+	 * @return whether this side can pay for the specified card
 	 */
-	public boolean hasElements(Card card)
+	public boolean canPayFor(Card card)
 	{
 		if(deck.getHand().contains(card)&&resources>=card.getResourceCost())
 		{

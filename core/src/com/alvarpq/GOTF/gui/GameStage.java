@@ -9,6 +9,7 @@ import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.coreGame.units.vorgasminingcorporation.GoblinWarrior;
+import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.server.User;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -119,7 +120,7 @@ public class GameStage extends Stage
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1600, 900));
 		//creates a new game and starts it with 5 in hand size
-		game = new Game(new User(null, null, new Deck(110105, Player.PLAYER1, true)), new User(null, null, new Deck(110106, Player.PLAYER2, true)));
+		game = new Game(new User(null, null, new Deck(110104, Player.PLAYER1, true)), new User(null, null, new Deck(110103, Player.PLAYER2, true)));
 		game.start(5);
 		//instantiates font
 		font = new BitmapFont();
@@ -167,9 +168,6 @@ public class GameStage extends Stage
 		//instantiates selected things
 		selectedUnit = null;
 		selectedCard = null;
-		//just to try out adding a unit
-		game.getSide(Player.PLAYER1).getHalf().addUnit(new GoblinWarrior(0, 0));
-		half1[0][0].setUnit(game.getSide(Player.PLAYER1).getHalf().getUnitAt(0, 0));
 	}
 	@Override
 	public boolean mouseMoved(int x, int y)
@@ -265,34 +263,83 @@ public class GameStage extends Stage
 	//what happens when a tile is clicked
 	public void tileClicked(Position p)
 	{
-		//is there a unit at position
-		if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null&&game.getSide(p.side).getHalf().getUnitAt(p.row, p.column).getOwner()==game.getCurrentPlayer())
+		//checks whether a playable card is selected or not, if not a unit can be moved
+		if(selectedCard==null||!game.getSide(selectedCard.getOwner()).canPayFor(selectedCard))
 		{
-			//is that unit selected or not, if not select it, otherwise deselect it
-			if(selectedUnit==game.getSide(p.side).getHalf().getUnitAt(p.row, p.column))
+			//is there a unit at position
+			if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null&&game.getSide(p.side).getHalf().getUnitAt(p.row, p.column).getOwner()==game.getCurrentPlayer())
 			{
-				deselectUnit();
+				//is that unit selected or not, if not select it, otherwise deselect it
+				if(selectedUnit==game.getSide(p.side).getHalf().getUnitAt(p.row, p.column))
+				{
+					deselectUnit();
+				}
+				else
+				{
+					selectUnit(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column));
+				}
 			}
-			else
+			//can the selected unit move there
+			else if(selectedUnit!=null&&game.getSide(p.side).getHalf().canMove(selectedUnit, p.row, p.column))
 			{
-				selectUnit(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column));
+				game.getSide(p.side).getHalf().move(selectedUnit, p.row, p.column);
+				if(p.side==Player.PLAYER1)
+				{
+					//updates all tiles
+					updateTiles();
+					deselectUnit();
+				}
+				else if(p.side==Player.PLAYER2)
+				{
+					//updates all tiles
+					updateTiles();
+					deselectUnit();
+				}
 			}
 		}
-		//can the selected unit move there
-		else if(selectedUnit!=null&&game.getSide(p.side).getHalf().canMove(selectedUnit, p.row, p.column))
+		else
 		{
-			game.getSide(p.side).getHalf().move(selectedUnit, p.row, p.column);
-			if(p.side==Player.PLAYER1)
+			//switch case sends the clicked tile (or unit or row) to the currently selected card if applicable
+			switch(selectedCard.nextRequirement().getType())
 			{
-				//updates all tiles
-				updateTiles();
-				deselectUnit();
-			}
-			else if(p.side==Player.PLAYER2)
-			{
-				//updates all tiles
-				updateTiles();
-				deselectUnit();
+				case EMPTY_TILE:
+					if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)==null)
+					{
+						((TileRequirement)(selectedCard.nextRequirement())).setTile(p.side, p.row, p.column);
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+						}
+					}
+					break;
+				case OPPONENT_EMPTY_TILE:
+					break;
+				case OPPONENT_TILE:
+					break;
+				case OPPONENT_UNIT:
+					break;
+				case OWN_EMPTY_TILE:
+					if(selectedCard.getOwner()==p.side&&game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)==null)
+					{
+						((TileRequirement)(selectedCard.nextRequirement())).setTile(p.side, p.row, p.column);
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+						}
+					}
+					break;
+				case OWN_TILE:
+					break;
+				case OWN_UNIT:
+					break;
+				case ROW:
+					break;
+				case TILE:
+					break;
+				case UNIT:
+					break;
 			}
 		}
 	}
