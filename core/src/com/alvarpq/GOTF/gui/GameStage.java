@@ -130,7 +130,7 @@ public class GameStage extends Stage
 		super(new FitViewport(1600, 900));
 		//creates a new game and starts it with 5 in hand size
 		List<Integer> ids = Arrays.asList(new Integer[]{110103, 110103, 110103, 110103, 110104, 110104, 110104, 110104,
-		110105, 110105, 110105, 110105, 110107, 110107, 110107, 110107, 110108, 110108, 110108, 110108,
+		110106, 110106, 110106, 110106, 110107, 110107, 110107, 110107, 110108, 110108, 110108, 110108,
 		110110, 110110, 110110, 110110, 110111, 110111, 110111, 110111, 110112, 110112, 110112, 110112,
 		110113, 110113, 110113, 110113, 110115, 110115, 110115, 110115});
 		game = new Game(new User(null, null, new Deck(ids, Player.PLAYER1, true)), new User(null, null, new Deck(ids, Player.PLAYER2, true)));
@@ -232,6 +232,7 @@ public class GameStage extends Stage
 	    		}
 	    	}
 			//in case the mouse is over no tile, dehighlights all tiles and units
+			highlightedUnit.setCard(null);
 			dehighlightAll();
 		}
 		return false;
@@ -445,6 +446,7 @@ public class GameStage extends Stage
 				case UNIT:
 					if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null)
 					{
+						System.out.println("here");
 						((UnitRequirement)(selectedCard.nextRequirement())).setUnit(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column));
 						if(selectedCard.isReady())
 						{
