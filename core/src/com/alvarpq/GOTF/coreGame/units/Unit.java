@@ -2,10 +2,15 @@ package com.alvarpq.GOTF.coreGame.units;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Player;
+import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.effect.Effect;
 import com.alvarpq.GOTF.coreGame.effect.Presence;
 public abstract class Unit
 {
+	/**
+	 * The card the unit was created from.
+	 */
+	private Card card;
 	/**
 	 * The name of the unit.
 	 */
@@ -249,6 +254,22 @@ public abstract class Unit
 				i--;
 			}
 		}
+	}
+	/**
+	 * Returns the card the unit was created from.
+	 * @return the card the unit was created from
+	 */
+	public Card getCard()
+	{
+		return card;
+	}
+	/**
+	 * Sets the card the unit was created from.
+	 * @param card the new card the unit was created from
+	 */
+	public void setCard(Card card)
+	{
+		this.card = card;
 	}
 	/**
 	 * Returns the unit's name.

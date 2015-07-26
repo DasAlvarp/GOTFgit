@@ -127,7 +127,7 @@ public class GameStage extends Stage
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1600, 900));
 		//creates a new game and starts it with 5 in hand size
-		List<Integer> ids = Arrays.asList(new Integer[]{110104, 110104, 110104, 110104, 110104, 110110, 110110, 110110, 110110, 110110});
+		List<Integer> ids = Arrays.asList(new Integer[]{110114, 110114, 110114, 110115, 110115, 110115, 110116, 110116, 110116});
 		game = new Game(new User(null, null, new Deck(ids, Player.PLAYER1, true)), new User(null, null, new Deck(ids, Player.PLAYER2, true)));
 		game.start(5);
 		//instantiates font

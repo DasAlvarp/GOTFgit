@@ -49,7 +49,9 @@ public abstract class UnitCard extends Card
 		{
 			try
 			{
-				mySide.getHalf().addUnit(unitFactory.create(position.getRow(), position.getColumn()));
+				Unit temp = unitFactory.create(position.getRow(), position.getColumn());
+				temp.setCard(this);
+				mySide.getHalf().addUnit(temp);
 				for(Requirement requirement:getRequirements())
 				{
 					requirement.reset();

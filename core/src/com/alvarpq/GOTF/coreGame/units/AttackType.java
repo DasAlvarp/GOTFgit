@@ -1,8 +1,10 @@
 package com.alvarpq.GOTF.coreGame.units;
 import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Side;
+import com.alvarpq.GOTF.coreGame.event.IdolDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitHasAttackedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 /**
  * This interface defines the different attack types a unit can have.
@@ -24,31 +26,36 @@ public interface AttackType
 		@Override
 		public void attack(Unit unit, Side mySide, Side opponentsSide)
 		{
-			boolean unitHit = false;
-			for(int i=0;i<opponentsSide.getHalf().numberOfColumns();i++)
+			if(unit.getAttack()>0)
 			{
-				if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i)!=null)
+				boolean unitHit = false;
+				for(int i=0;i<opponentsSide.getHalf().numberOfColumns();i++)
 				{
-					opponentsSide.getHalf().getUnitAt(unit.getRow(), i).damage(unit.getAttack());
-					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, unit.getAttack(), mySide, opponentsSide));
-					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
-					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<=0)
+					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i)!=null)
 					{
-						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
-						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						opponentsSide.getHalf().getUnitAt(unit.getRow(), i).damage(unit.getAttack());
+						mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, unit.getAttack(), mySide, opponentsSide));
+						mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
+						if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i)!=null&&opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<=0)
+						{
+							opponentsSide.getHalf().removeUnit(unit.getRow(), i);
+							mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						}
+						unitHit = true;
+						break;
 					}
-					unitHit = true;
-					break;
 				}
-			}
-			if(!unitHit)
-			{
-				opponentsSide.getHalf().setIdol(unit.getRow(), opponentsSide.getHalf().getIdolAt(unit.getRow())-unit.getAttack());
-				if(opponentsSide.getHalf().getIdolAt(unit.getRow())<0)
+				if(!unitHit)
 				{
-					opponentsSide.getHalf().setIdol(unit.getRow(), 0);
+					opponentsSide.getHalf().setIdol(unit.getRow(), opponentsSide.getHalf().getIdolAt(unit.getRow())-unit.getAttack());
+					mySide.dispatchEvent(new IdolDamagedByUnitEvent(unit.getRow(), opponentsSide.getOwner(), unit, unit.getAttack(), mySide, opponentsSide));
+					if(opponentsSide.getHalf().getIdolAt(unit.getRow())<0)
+					{
+						opponentsSide.getHalf().setIdol(unit.getRow(), 0);
+					}
 				}
 			}
+			mySide.dispatchEvent(new UnitHasAttackedEvent(unit, mySide, opponentsSide));
 		}
 		@Override
 		public String toString()
@@ -73,13 +80,13 @@ public interface AttackType
 					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, attackLeft, mySide, opponentsSide));
 					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), attackLeft, mySide, opponentsSide));
 					attackLeft = 0;
-					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<0)
+					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i)!=null&&opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<0)
 					{
 						attackLeft-=opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth();
 						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
 						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
 					}
-					else if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()==0)
+					else if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i)!=null&&opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()==0)
 					{
 						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
 						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
@@ -94,11 +101,13 @@ public interface AttackType
 			if(attackLeft>0)
 			{
 				opponentsSide.getHalf().setIdol(unit.getRow(), opponentsSide.getHalf().getIdolAt(unit.getRow())-attackLeft);
+				mySide.dispatchEvent(new IdolDamagedByUnitEvent(unit.getRow(), opponentsSide.getOwner(), unit, unit.getAttack(), mySide, opponentsSide));
 				if(opponentsSide.getHalf().getIdolAt(unit.getRow())<0)
 				{
 					opponentsSide.getHalf().setIdol(unit.getRow(), 0);
 				}
 			}
+			mySide.dispatchEvent(new UnitHasAttackedEvent(unit, mySide, opponentsSide));
 		}
 		@Override
 		public String toString()
@@ -135,7 +144,7 @@ public interface AttackType
 		@Override
 		public String toString()
 		{
-			return "Does not attack";
+			return "Instead of attacking increases your resources and Earth by 1.";
 		}
 	}
 }

@@ -11,14 +11,20 @@ import com.alvarpq.GOTF.coreGame.cards.unused.PenanceOfTheGods;
 import com.alvarpq.GOTF.coreGame.cards.unused.ProtectorOfWhalesCard;
 import com.alvarpq.GOTF.coreGame.cards.unused.TunnelGuardCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.FuriousGoblins;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinGeologistCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinGuardCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinHiringContract;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinMinerCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinPyromancerCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinWarriorCard;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.RaidGoblinsCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.RaisedMetalPrices;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.RedDevilCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.StoneGiantCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.TamedDemonCard;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.VorgasAssasinCard;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.VorgasCloneCard;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.VorgasEliteUnitCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.VorgasFireBomb;
 /**
  * A class for instantiating cards from ids.
@@ -53,6 +59,12 @@ public class CardFactory
 		addCard(new FuriousGoblins(Player.NONE), cards);
 		addCard(new RaisedMetalPrices(Player.NONE), cards);
 		addCard(new GoblinHiringContract(Player.NONE), cards);
+		addCard(new GoblinGeologistCard(Player.NONE), cards);
+		addCard(new VorgasAssasinCard(Player.NONE), cards);
+		addCard(new VorgasEliteUnitCard(Player.NONE), cards);
+		addCard(new RaidGoblinsCard(Player.NONE), cards);
+		addCard(new VorgasCloneCard(Player.NONE), cards);
+		addCard(new GoblinMinerCard(Player.NONE), cards);
 		return cards;
 	}
 	/**

@@ -6,13 +6,19 @@ import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.coreGame.event.Event;
+import com.alvarpq.GOTF.coreGame.event.IdolDamagedByUnitEvent;
+import com.alvarpq.GOTF.coreGame.event.IdolDamagedByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.Listener;
 import com.alvarpq.GOTF.coreGame.event.TurnEndedEvent;
 import com.alvarpq.GOTF.coreGame.event.TurnEndedListener;
+import com.alvarpq.GOTF.coreGame.event.UnitCameIntoPlayEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitCameIntoPlayListener;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
+import com.alvarpq.GOTF.coreGame.event.UnitHasAttackedEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitHasAttackedListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
@@ -469,6 +475,54 @@ public class Side
 				}
 			}
 		}
+		else if(event instanceof IdolDamagedByUnitEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof IdolDamagedByUnitListener)
+				{
+					((IdolDamagedByUnitListener)listener).onIdolDamagedByUnit((IdolDamagedByUnitEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof IdolDamagedByUnitListener)
+				{
+					((IdolDamagedByUnitListener)listener).onIdolDamagedByUnit((IdolDamagedByUnitEvent)event);
+					iterator.remove();
+				}
+			}
+		}
+		else if(event instanceof UnitHasAttackedEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitHasAttackedListener)
+				{
+					((UnitHasAttackedListener)listener).onUnitHasAttacked((UnitHasAttackedEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitHasAttackedListener)
+				{
+					((UnitHasAttackedListener)listener).onUnitHasAttacked((UnitHasAttackedEvent)event);
+					iterator.remove();
+				}
+			}
+		}
 		else if(event instanceof TurnEndedEvent)
 		{
 			Iterator<Listener> iterator = listeners.iterator();
@@ -489,6 +543,30 @@ public class Side
 				if(listener instanceof TurnEndedListener)
 				{
 					((TurnEndedListener)listener).onTurnEnded((TurnEndedEvent)event);
+					iterator.remove();
+				}
+			}
+		}
+		else if(event instanceof UnitCameIntoPlayEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitCameIntoPlayListener)
+				{
+					((UnitCameIntoPlayListener)listener).onUnitCameIntoPlay((UnitCameIntoPlayEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitCameIntoPlayListener)
+				{
+					((UnitCameIntoPlayListener)listener).onUnitCameIntoPlay((UnitCameIntoPlayEvent)event);
 					iterator.remove();
 				}
 			}
