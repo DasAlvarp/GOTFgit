@@ -14,12 +14,14 @@ import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.requirement.UnitRequirement;
 import com.alvarpq.GOTF.server.User;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -144,13 +146,13 @@ public class GameStage extends Stage
 		//instantiates assetmanager
 		manager = new AssetManager();
 		manager.load("BoardTile.png", Texture.class);
-		manager.load("gui/selectedTiles/selectedTile(0).png", Texture.class);
-		manager.load("gui/selectedTiles/selectedTile(1).png", Texture.class);
-		manager.load("gui/selectedTiles/selectedTile(2).png", Texture.class);
-		manager.load("gui/selectedTiles/selectedTile(3).png", Texture.class);
-		manager.load("gui/selectedTiles/selectedTile(4).png", Texture.class);
-		manager.load("gui/selectedTiles/selectedTile(5).png", Texture.class);
-		manager.load("gui/selectedTiles/selectedTile(6).png", Texture.class);
+		manager.load("GUI/selectedTiles/selectedTile(0).png", Texture.class);
+		manager.load("GUI/selectedTiles/selectedTile(1).png", Texture.class);
+		manager.load("GUI/selectedTiles/selectedTile(2).png", Texture.class);
+		manager.load("GUI/selectedTiles/selectedTile(3).png", Texture.class);
+		manager.load("GUI/selectedTiles/selectedTile(4).png", Texture.class);
+		manager.load("GUI/selectedTiles/selectedTile(5).png", Texture.class);
+		manager.load("GUI/selectedTiles/selectedTile(6).png", Texture.class);
 		manager.load("card.png", Texture.class);
 		manager.load("resource.png", Texture.class);
 		manager.load("idol.png", Texture.class);
@@ -164,13 +166,13 @@ public class GameStage extends Stage
 		//instantiates the unselected tile
 		defaultTile = manager.get("BoardTile.png", Texture.class);
 		//instantiates the highlighted tile animation
-		highlightedTile = new Animation(0.125f, new TextureRegion(manager.get("gui/selectedTiles/selectedTile(0).png", Texture.class)),
-    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(1).png", Texture.class)),
-    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(2).png", Texture.class)),
-    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(3).png", Texture.class)),
-    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(4).png", Texture.class)),
-    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(5).png", Texture.class)),
-    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(6).png", Texture.class)));
+		highlightedTile = new Animation(0.125f, new TextureRegion(manager.get("GUI/selectedTiles/selectedTile(0).png", Texture.class)),
+    	new TextureRegion(manager.get("GUI/selectedTiles/selectedTile(1).png", Texture.class)),
+    	new TextureRegion(manager.get("GUI/selectedTiles/selectedTile(2).png", Texture.class)),
+    	new TextureRegion(manager.get("GUI/selectedTiles/selectedTile(3).png", Texture.class)),
+    	new TextureRegion(manager.get("GUI/selectedTiles/selectedTile(4).png", Texture.class)),
+    	new TextureRegion(manager.get("GUI/selectedTiles/selectedTile(5).png", Texture.class)),
+    	new TextureRegion(manager.get("GUI/selectedTiles/selectedTile(6).png", Texture.class)));
 		highlightedTile.setPlayMode(PlayMode.LOOP_REVERSED);
     	//instantiates the card texture
     	card = new Texture("card.png");
@@ -210,6 +212,8 @@ public class GameStage extends Stage
 	public boolean mouseMoved(int x, int y)
 	{
 		super.mouseMoved(x, y);
+		int paintX = (int)getCamera().unproject(new Vector3(x, y, 0), getViewport().getScreenX(), getViewport().getScreenY(), getViewport().getScreenWidth(), getViewport().getScreenHeight()).x;
+		int paintY = (int)getCamera().unproject(new Vector3(x, y, 0), getViewport().getScreenX(), getViewport().getScreenY(), getViewport().getScreenWidth(), getViewport().getScreenHeight()).y;
 		if(selectedUnit==null)
 		{
 			//current mousemoved code to make sure the tile the mouse is over is highlighted, loops go through all tiles
@@ -218,7 +222,7 @@ public class GameStage extends Stage
 	    		for(int j=0;j<3;j++)
 	    		{
 	    			//is the mouse over player 1's tile at i, j, if true then highlight that tile
-	    			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
+	    			if(half1[i][j].hasInsideBounds(paintX, paintY))
 	    			{
 	    				if(!highlightedPositions.contains(new Position(Player.PLAYER1, i, j)))
 	    				{
@@ -236,7 +240,7 @@ public class GameStage extends Stage
 	    				return false;
 	    			}
 	    			//same for player2
-	    			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
+	    			if(half2[i][j].hasInsideBounds(paintX, paintY))
 	    			{
 	    				if(!highlightedPositions.contains(new Position(Player.PLAYER2, i, j)))
 	    				{
@@ -265,9 +269,11 @@ public class GameStage extends Stage
 	public boolean touchDown(int x, int y, int pointer, int button)
 	{
 		super.touchDown(x, y, pointer, button);
+		int paintX = (int)getCamera().unproject(new Vector3(x, y, 0), getViewport().getScreenX(), getViewport().getScreenY(), getViewport().getScreenWidth(), getViewport().getScreenHeight()).x;
+		int paintY = (int)getCamera().unproject(new Vector3(x, y, 0), getViewport().getScreenX(), getViewport().getScreenY(), getViewport().getScreenWidth(), getViewport().getScreenHeight()).y;
 		if(game.getCurrentPlayer()==Player.PLAYER1)
 		{
-			Card clickedCard = hand1.cardClicked(x, (int)(getHeight()-y));
+			Card clickedCard = hand1.cardClicked(paintX, paintY);
 			if(clickedCard==selectedCard)
 			{
 				selectedCard = null;
@@ -281,7 +287,7 @@ public class GameStage extends Stage
 		}
 		else if(game.getCurrentPlayer()==Player.PLAYER2)
 		{
-			Card clickedCard = hand2.cardClicked(x, (int)(getHeight()-y));
+			Card clickedCard = hand2.cardClicked(paintX, paintY);
 			if(clickedCard==selectedCard)
 			{
 				selectedCard = null;
@@ -299,13 +305,13 @@ public class GameStage extends Stage
     		for(int j=0;j<3;j++)
     		{
     			//is the mouse over player 1's tile at i, j
-    			if(half1[i][j].hasInsideBounds(x, getHeight()-y))
+    			if(half1[i][j].hasInsideBounds(paintX, paintY))
     			{
     				tileClicked(new Position(Player.PLAYER1, i, j));
     				break;
     			}
     			//same for player2
-    			if(half2[i][j].hasInsideBounds(x, getHeight()-y))
+    			if(half2[i][j].hasInsideBounds(paintX, paintY))
     			{
     				tileClicked(new Position(Player.PLAYER2, i, j));
     				break;
