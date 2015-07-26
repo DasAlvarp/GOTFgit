@@ -1,9 +1,22 @@
 package com.alvarpq.GOTF.coreGame;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
+import com.alvarpq.GOTF.coreGame.event.Event;
+import com.alvarpq.GOTF.coreGame.event.Listener;
+import com.alvarpq.GOTF.coreGame.event.TurnEndedEvent;
+import com.alvarpq.GOTF.coreGame.event.TurnEndedListener;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitListener;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
+import com.alvarpq.GOTF.coreGame.event.UnitKilledListener;
 public class Side
 {
 	/**
@@ -39,6 +52,10 @@ public class Side
 	 */
 	private Player owner;
 	/**
+	 * This sides temporary event listeners.
+	 */
+	private List<Listener> listeners;
+	/**
 	 * The game this side belongs to.
 	 */
 	private Game game;
@@ -58,6 +75,7 @@ public class Side
 		elements = new LinkedList<Element>();
 		hasSacrificed = false;
 		this.owner = owner;
+		listeners = new LinkedList<Listener>();
 	}
 	/**
 	 * Sets this side's parent game.
@@ -339,5 +357,138 @@ public class Side
 	public Player getOwner()
 	{
 		return owner;
+	}
+	/**
+	 * Dispatches an event to all listeners.
+	 * @param event the event to dispatch.
+	 */
+	public void dispatchEvent(Event event)
+	{
+		half.dispatchEvent(event);
+		if(event instanceof UnitKilledByUnitEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitKilledByUnitListener)
+				{
+					((UnitKilledByUnitListener)listener).onUnitKilledByUnit((UnitKilledByUnitEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitKilledByUnitListener)
+				{
+					((UnitKilledByUnitListener)listener).onUnitKilledByUnit((UnitKilledByUnitEvent)event);
+					iterator.remove();
+				}
+			}
+		}
+		else if(event instanceof UnitKilledEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitKilledListener)
+				{
+					((UnitKilledListener)listener).onUnitKilled((UnitKilledEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitKilledListener)
+				{
+					((UnitKilledListener)listener).onUnitKilled((UnitKilledEvent)event);
+					iterator.remove();
+				}
+			}
+		}
+		else if(event instanceof UnitDamagedByUnitEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitDamagedByUnitListener)
+				{
+					((UnitDamagedByUnitListener)listener).onUnitDamagedByUnit((UnitDamagedByUnitEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitDamagedByUnitListener)
+				{
+					((UnitDamagedByUnitListener)listener).onUnitDamagedByUnit((UnitDamagedByUnitEvent)event);
+					iterator.remove();
+				}
+			}
+		}
+		else if(event instanceof UnitDamagedEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitDamagedListener)
+				{
+					((UnitDamagedListener)listener).onUnitDamaged((UnitDamagedEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof UnitDamagedListener)
+				{
+					((UnitDamagedListener)listener).onUnitDamaged((UnitDamagedEvent)event);
+					iterator.remove();
+				}
+			}
+		}
+		else if(event instanceof TurnEndedEvent)
+		{
+			Iterator<Listener> iterator = listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof TurnEndedListener)
+				{
+					((TurnEndedListener)listener).onTurnEnded((TurnEndedEvent)event);
+					iterator.remove();
+				}
+			}
+			event.invertSides();
+			iterator = game.getSide(owner.otherPlayer()).listeners.iterator();
+			while(iterator.hasNext())
+			{
+				Listener listener = iterator.next();
+				if(listener instanceof TurnEndedListener)
+				{
+					((TurnEndedListener)listener).onTurnEnded((TurnEndedEvent)event);
+					iterator.remove();
+				}
+			}
+		}
+		event.invertSides();
+	}
+	public void listenOnce(Listener listener)
+	{
+		listeners.add(listener);
 	}
 }

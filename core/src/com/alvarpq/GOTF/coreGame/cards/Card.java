@@ -1,4 +1,6 @@
 package com.alvarpq.GOTF.coreGame.cards;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 /**
  * The superclass of all cards.
@@ -41,12 +43,12 @@ public abstract class Card
 	 * @param elementCost the cost in elements to play the card
 	 * @param owner the owner of the card
 	 */
-	public Card(int id, String name, int resourceCost, List<Element> elementCost, Player owner)
+	public Card(int id, String name, int resourceCost, Element[] elementCost, Player owner)
 	{
 		this.id = id;
 		this.name = name;
 		this.resourceCost = resourceCost;
-		this.elementCost = elementCost;
+		this.elementCost = new LinkedList<Element>(Arrays.asList(elementCost));
 		this.requirements = new Requirement[]{};
 		this.owner = owner;
 	}

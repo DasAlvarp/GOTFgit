@@ -10,7 +10,7 @@ public class FuriousGoblins extends SpellCard
 {
 	public FuriousGoblins(Player owner)
 	{
-		super(110108, "Furious Goblins", 2, Arrays.asList(new Element[]{Element.EARTH, Element.EARTH}), owner);
+		super(110108, "Furious Goblins", 2, new Element[]{Element.EARTH, Element.EARTH}, owner);
 		setRequirements(new Requirement[]{});
 	}
 	@Override

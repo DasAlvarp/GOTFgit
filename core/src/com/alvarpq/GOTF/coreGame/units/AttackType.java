@@ -29,12 +29,12 @@ public interface AttackType
 				if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i)!=null)
 				{
 					opponentsSide.getHalf().getUnitAt(unit.getRow(), i).damage(unit.getAttack());
-					mySide.getHalf().dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, unit.getAttack(), mySide, opponentsSide));
-					mySide.getHalf().dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, unit.getAttack(), mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit.getAttack(), mySide, opponentsSide));
 					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<=0)
 					{
 						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
-						mySide.getHalf().dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
 					}
 					unitHit = true;
 					break;
@@ -69,19 +69,19 @@ public interface AttackType
 				if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i)!=null)
 				{
 					opponentsSide.getHalf().getUnitAt(unit.getRow(), i).damage(attackLeft);
-					mySide.getHalf().dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, attackLeft, mySide, opponentsSide));
-					mySide.getHalf().dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), attackLeft, mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, attackLeft, mySide, opponentsSide));
+					mySide.dispatchEvent(new UnitDamagedEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), attackLeft, mySide, opponentsSide));
 					attackLeft = 0;
 					if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()<0)
 					{
 						attackLeft-=opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth();
 						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
-						mySide.getHalf().dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
 					}
 					else if(opponentsSide.getHalf().getUnitAt(unit.getRow(), i).getHealth()==0)
 					{
 						opponentsSide.getHalf().removeUnit(unit.getRow(), i);
-						mySide.getHalf().dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
+						mySide.dispatchEvent(new UnitKilledByUnitEvent(opponentsSide.getHalf().getUnitAt(unit.getRow(), i), unit, mySide, opponentsSide));
 						break;
 					}
 					else

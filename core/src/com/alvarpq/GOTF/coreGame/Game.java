@@ -5,6 +5,7 @@ import java.util.Random;
 
 import com.alvarpq.GOTF.coreGame.board.BoardHalf;
 import com.alvarpq.GOTF.coreGame.cards.Card;
+import com.alvarpq.GOTF.coreGame.event.TurnEndedEvent;
 import com.alvarpq.GOTF.server.CommandReader;
 import com.alvarpq.GOTF.server.User;
 public class Game
@@ -87,6 +88,7 @@ public class Game
 			sides.get(Player.PLAYER2).getHalf().allAttack();
 		}
 		currentPlayer = currentPlayer.otherPlayer();
+		sides.get(Player.PLAYER1).dispatchEvent(new TurnEndedEvent(sides.get(Player.PLAYER1), sides.get(Player.PLAYER2)));
 	}
 	/**
 	 * Returns the current player.

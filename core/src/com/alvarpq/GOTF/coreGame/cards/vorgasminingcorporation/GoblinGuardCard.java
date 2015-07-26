@@ -1,5 +1,4 @@
 package com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation;
-import java.util.Arrays;
 import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.cards.UnitCard;
@@ -9,6 +8,6 @@ public class GoblinGuardCard extends UnitCard
 {
 	public GoblinGuardCard(Player owner)
 	{
-		super(110101, "Goblin Guard", 2, Arrays.asList(new Element[]{Element.EARTH}), owner, new UnitFactory(GoblinGuard.class));
+		super(110101, "Goblin Guard", 2, new Element[]{Element.EARTH}, owner, new UnitFactory(GoblinGuard.class));
 	}
 }

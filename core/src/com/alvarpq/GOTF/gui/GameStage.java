@@ -1,5 +1,6 @@
 package com.alvarpq.GOTF.gui;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import com.alvarpq.GOTF.coreGame.Element;
@@ -21,6 +22,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
@@ -112,6 +114,8 @@ public class GameStage extends Stage
 	private TextButton sacWater;
 	//the play card button, only for cards with no input
 	private TextButton playCard;
+	//the label for diplaying whose turn it is
+	private Label currentPlayer;
 	//the currently highlighted positions
 	private List<Position> highlightedPositions;
 	//the currently selected unit
@@ -123,7 +127,8 @@ public class GameStage extends Stage
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1600, 900));
 		//creates a new game and starts it with 5 in hand size
-		game = new Game(new User(null, null, new Deck(110107, Player.PLAYER1, true)), new User(null, null, new Deck(110103, Player.PLAYER2, true)));
+		List<Integer> ids = Arrays.asList(new Integer[]{110104, 110104, 110104, 110104, 110104, 110110, 110110, 110110, 110110, 110110});
+		game = new Game(new User(null, null, new Deck(ids, Player.PLAYER1, true)), new User(null, null, new Deck(ids, Player.PLAYER2, true)));
 		game.start(5);
 		//instantiates font
 		font = new BitmapFont();
@@ -562,6 +567,7 @@ public class GameStage extends Stage
 	        	//updates things
 	        	updateHands();
 	        	updateTiles();
+	        	currentPlayer.setText("Current player's position: "+(game.getCurrentPlayer()==Player.PLAYER1?"BOTTOM":"TOP"));
 	        }
 	    });
 		addActor(endTurn);
@@ -662,6 +668,9 @@ public class GameStage extends Stage
 	        }
 	    });
 		addActor(playCard);
+		currentPlayer = new Label("Current player's position: "+(game.getCurrentPlayer()==Player.PLAYER1?"BOTTOM":"TOP"), new Label.LabelStyle(font, Color.BLACK));
+		currentPlayer.setBounds(150, getHeight()-50, 100, 50);
+		addActor(currentPlayer);
 	}
 	//sets up idols and tiles
 	public void setupTiles()

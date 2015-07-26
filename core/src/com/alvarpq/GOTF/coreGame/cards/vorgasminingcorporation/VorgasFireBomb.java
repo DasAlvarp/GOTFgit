@@ -1,5 +1,4 @@
 package com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation;
-import java.util.Arrays;
 import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Side;
@@ -12,7 +11,7 @@ public class VorgasFireBomb extends SpellCard
 	private UnitRequirement target;
 	public VorgasFireBomb(Player owner)
 	{
-		super(110107, "Vorgas' Fire Bomb", 3, Arrays.asList(new Element[]{Element.EARTH, Element.FIRE}), owner);
+		super(110107, "Vorgas' Fire Bomb", 3, new Element[]{Element.EARTH, Element.FIRE}, owner);
 		target = new UnitRequirement(RequirementType.UNIT);
 		setRequirements(new Requirement[]{target});
 	}

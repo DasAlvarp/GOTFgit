@@ -1,9 +1,9 @@
 package com.alvarpq.GOTF.coreGame.cards;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
 import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Side;
+import com.alvarpq.GOTF.coreGame.units.Unit;
 import com.alvarpq.GOTF.requirement.Requirement;
 import com.alvarpq.GOTF.requirement.RequirementType;
 import com.alvarpq.GOTF.requirement.TileRequirement;
@@ -29,7 +29,7 @@ public abstract class UnitCard extends Card
 	 * @param owner the owner of the card
 	 * @param unitFactory the unitFactory used to spawn units
 	 */
-	public UnitCard(int id, String name, int resourceCost, List<Element> elementCost, Player owner, UnitFactory unitFactory)
+	public UnitCard(int id, String name, int resourceCost, Element[] elementCost, Player owner, UnitFactory unitFactory)
 	{
 		super(id, name, resourceCost, elementCost, owner);
 		position = new TileRequirement(RequirementType.OWN_EMPTY_TILE);
@@ -63,5 +63,23 @@ public abstract class UnitCard extends Card
 			catch(SecurityException e){e.printStackTrace();}
 		}
 		return false;
+	}
+	/**
+	 * Returns this unit card's unit factory.
+	 * @return this unit card's unit factory
+	 */
+	public UnitFactory getUnitFactory()
+	{
+		return unitFactory;
+	}
+	/**
+	 * Returns a unit created with this unit card's UnitFactory.
+	 * @param row the row to create the unit on
+	 * @param column the column to create the unit on
+	 * @return the created unit
+	 */
+	public Unit createUnit(int row, int column) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
+	{
+		return unitFactory.create(row, column);
 	}
 }

@@ -9,7 +9,7 @@ public class RaisedMetalPrices extends SpellCard
 {
 	public RaisedMetalPrices(Player owner)
 	{
-		super(110109, "Raised Metal Prices", 1, Arrays.asList(new Element[]{Element.EARTH}), owner);
+		super(110109, "Raised Metal Prices", 1, new Element[]{Element.EARTH}, owner);
 		setRequirements(new Requirement[]{});
 	}
 	@Override

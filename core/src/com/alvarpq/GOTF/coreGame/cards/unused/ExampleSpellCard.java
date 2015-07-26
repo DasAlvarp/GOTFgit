@@ -1,5 +1,4 @@
 package com.alvarpq.GOTF.coreGame.cards.unused;
-import java.util.Arrays;
 import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.Side;
@@ -12,7 +11,7 @@ public class ExampleSpellCard extends SpellCard
 	private UnitRequirement target;
 	public ExampleSpellCard(Player owner)
 	{
-		super(100102, "Example Spell", 4, Arrays.asList(new Element[]{Element.AIR, Element.EARTH, Element.FIRE, Element.WATER}), owner);
+		super(100102, "Example Spell", 4, new Element[]{Element.AIR, Element.EARTH, Element.FIRE, Element.WATER}, owner);
 		target = new UnitRequirement(RequirementType.UNIT);
 		setRequirements(new Requirement[]{target});
 	}

@@ -8,6 +8,8 @@ import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
 import com.alvarpq.GOTF.coreGame.event.Event;
+import com.alvarpq.GOTF.coreGame.event.TurnEndedEvent;
+import com.alvarpq.GOTF.coreGame.event.TurnEndedListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
@@ -117,14 +119,14 @@ public class BoardHalf
 				if(getUnitAt(i, j)!=null&&getUnitAt(i, j).getHealth()<=0)
 				{
 					removeUnit(i, j);
-					dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
+					game.getSide(owner).dispatchEvent(new UnitKilledEvent(getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
 					units[i][j] = null;
 					newUpdate = true;
 				}
 				if(game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j)!=null&&game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j).getHealth()<=0)
 				{
 					game.getSide(owner.otherPlayer()).getHalf().removeUnit(i, j);
-					dispatchEvent(new UnitKilledEvent(game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
+					game.getSide(owner).dispatchEvent(new UnitKilledEvent(game.getSide(owner.otherPlayer()).getHalf().getUnitAt(i, j), game.getSide(owner), game.getSide(owner.otherPlayer())));
 					game.getSide(owner.otherPlayer()).getHalf().units[i][j] = null;
 					newUpdate = true;
 				}
@@ -523,9 +525,9 @@ public class BoardHalf
 		getUnitAt(row, column).damage(amount);
 		if(damager!=null)
 		{
-			dispatchEvent(new UnitDamagedByUnitEvent(getUnitAt(row, column), damager, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
+			game.getSide(owner).dispatchEvent(new UnitDamagedByUnitEvent(getUnitAt(row, column), damager, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
 		}
-		dispatchEvent(new UnitDamagedEvent(getUnitAt(row, column), amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
+		game.getSide(owner).dispatchEvent(new UnitDamagedEvent(getUnitAt(row, column), amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
 		update();
 	}
 	/**
@@ -538,9 +540,9 @@ public class BoardHalf
 		unit.damage(amount);
 		if(damager!=null)
 		{
-			dispatchEvent(new UnitDamagedByUnitEvent(unit, damager, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
+			game.getSide(owner).dispatchEvent(new UnitDamagedByUnitEvent(unit, damager, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
 		}
-		dispatchEvent(new UnitDamagedEvent(unit, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
+		game.getSide(owner).dispatchEvent(new UnitDamagedEvent(unit, amount, game.getSide(owner), game.getSide(owner.otherPlayer())));
 		update();
 	}
 	/**
@@ -607,7 +609,7 @@ public class BoardHalf
 		return owner;
 	}
 	/**
-	 * Dispatches an event to all listeners.
+	 * Dispatches an event to all listeners (on units).
 	 * @param event the event to dispatch.
 	 */
 	public void dispatchEvent(Event event)
@@ -684,6 +686,25 @@ public class BoardHalf
 				}
 			}
 		}
+		else if(event instanceof TurnEndedEvent)
+		{
+			for(Unit unit:getUnits())
+			{
+				if(unit instanceof TurnEndedListener)
+				{
+					((TurnEndedListener)unit).onTurnEnded((TurnEndedEvent)event);
+				}
+			}
+			event.invertSides();
+			for(Unit unit:game.getSide(owner.otherPlayer()).getHalf().getUnits())
+			{
+				if(unit instanceof TurnEndedListener)
+				{
+					((TurnEndedListener)unit).onTurnEnded((TurnEndedEvent)event);
+				}
+			}
+		}
+		event.invertSides();
 	}
 	/**
 	 * Returns whether the specified positions are adjacent.
