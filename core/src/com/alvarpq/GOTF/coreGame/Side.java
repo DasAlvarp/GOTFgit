@@ -295,6 +295,14 @@ public class Side
 		return maximumResources;
 	}
 	/**
+	 * Sets this side's maximum resources.
+	 * @param resources this side's new maximum resources
+	 */
+	public void setMaximumResources(int maximumResources)
+	{
+		this.maximumResources = maximumResources;
+	}
+	/**
 	 * Returns this side's current resources.
 	 * @return this side's current resources
 	 */

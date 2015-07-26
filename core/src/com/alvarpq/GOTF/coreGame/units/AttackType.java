@@ -1,4 +1,5 @@
 package com.alvarpq.GOTF.coreGame.units;
+import com.alvarpq.GOTF.coreGame.Element;
 import com.alvarpq.GOTF.coreGame.Side;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
@@ -113,6 +114,23 @@ public interface AttackType
 		@Override
 		public void attack(Unit unit, Side mySide, Side opponentsSide)
 		{
+		}
+		@Override
+		public String toString()
+		{
+			return "Does not attack";
+		}
+	}
+	/**
+	 * An attack type which makes a unit increase resources and earth.
+	 */
+	class IncreaseEarth implements AttackType
+	{
+		@Override
+		public void attack(Unit unit, Side mySide, Side opponentsSide)
+		{
+			mySide.setMaximumResources(mySide.getMaximumResources()+1);
+			mySide.getMaximumElements().add(Element.EARTH);
 		}
 		@Override
 		public String toString()
