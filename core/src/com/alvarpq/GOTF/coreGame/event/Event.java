@@ -3,7 +3,7 @@ import com.alvarpq.GOTF.coreGame.Side;
 /**
  * The superclass of all unit related events.
  */
-public abstract class UnitEvent
+public abstract class Event
 {
 	/**
 	 * The side of the event receiver.
@@ -18,7 +18,7 @@ public abstract class UnitEvent
 	 * @param mySide the side of the event receiver
 	 * @param opponentsSide the opponents side of the event receiver
 	 */
-	public UnitEvent(Side mySide, Side opponentsSide)
+	public Event(Side mySide, Side opponentsSide)
 	{
 		this.mySide = mySide;
 		this.opponentsSide = opponentsSide;

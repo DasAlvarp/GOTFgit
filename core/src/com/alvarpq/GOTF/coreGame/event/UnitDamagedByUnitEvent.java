@@ -4,7 +4,7 @@ import com.alvarpq.GOTF.coreGame.units.Unit;
 /**
  * For handling when units are damaged by units.
  */
-public class UnitDamagedByUnitEvent extends UnitEvent
+public class UnitDamagedByUnitEvent extends Event
 {
 	/**
 	 * The damaged unit.

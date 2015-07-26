@@ -4,7 +4,7 @@ import com.alvarpq.GOTF.coreGame.units.Unit;
 /**
  * For handling when units are killed by units.
  */
-public class UnitKilledEvent extends UnitEvent
+public class UnitKilledEvent extends Event
 {
 	/**
 	 * The killed unit.

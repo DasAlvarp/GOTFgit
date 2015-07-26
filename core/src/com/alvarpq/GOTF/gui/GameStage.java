@@ -110,6 +110,8 @@ public class GameStage extends Stage
 	private TextButton sacEarth;
 	private TextButton sacFire;
 	private TextButton sacWater;
+	//the play card button, only for cards with no input
+	private TextButton playCard;
 	//the currently highlighted positions
 	private List<Position> highlightedPositions;
 	//the currently selected unit
@@ -643,6 +645,23 @@ public class GameStage extends Stage
 	        }
 	    });
 		addActor(sacWater);
+		playCard = new TextButton("Play", new TextButton.TextButtonStyle(buttonUpSmall, buttonDownSmall, buttonDownSmall, font));
+		playCard.setBounds(0, getHeight()-250, 100, 50);
+		playCard.setDisabled(true);
+		playCard.addListener(new ClickListener(){
+	        @Override
+	        public void clicked(InputEvent event, float x, float y)
+	        {
+	        	if(selectedCard!=null&&selectedCard.isReady())
+				{
+					game.playCard(selectedCard.getOwner(), selectedCard);
+					//updates things
+					updateTiles();
+					updateHands();
+				}
+	        }
+	    });
+		addActor(playCard);
 	}
 	//sets up idols and tiles
 	public void setupTiles()

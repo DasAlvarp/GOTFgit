@@ -7,7 +7,7 @@ import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitDamagedListener;
-import com.alvarpq.GOTF.coreGame.event.UnitEvent;
+import com.alvarpq.GOTF.coreGame.event.Event;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitEvent;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledByUnitListener;
 import com.alvarpq.GOTF.coreGame.event.UnitKilledEvent;
@@ -610,7 +610,7 @@ public class BoardHalf
 	 * Dispatches an event to all listeners.
 	 * @param event the event to dispatch.
 	 */
-	public void dispatchEvent(UnitEvent event)
+	public void dispatchEvent(Event event)
 	{
 		if(event instanceof UnitKilledByUnitEvent)
 		{

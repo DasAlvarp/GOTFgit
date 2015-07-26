@@ -10,9 +10,11 @@ import com.alvarpq.GOTF.coreGame.cards.unused.JumpingWhaleCard;
 import com.alvarpq.GOTF.coreGame.cards.unused.PenanceOfTheGods;
 import com.alvarpq.GOTF.coreGame.cards.unused.ProtectorOfWhalesCard;
 import com.alvarpq.GOTF.coreGame.cards.unused.TunnelGuardCard;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.FuriousGoblins;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinGuardCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinPyromancerCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinWarriorCard;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.RaisedMetalPrices;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.RedDevilCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.StoneGiantCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.TamedDemonCard;
@@ -47,6 +49,8 @@ public class CardFactory
 		addCard(new StoneGiantCard(Player.NONE), cards);
 		addCard(new TamedDemonCard(Player.NONE), cards);
 		addCard(new VorgasFireBomb(Player.NONE), cards);
+		addCard(new FuriousGoblins(Player.NONE), cards);
+		addCard(new RaisedMetalPrices(Player.NONE), cards);
 		return cards;
 	}
 	/**
