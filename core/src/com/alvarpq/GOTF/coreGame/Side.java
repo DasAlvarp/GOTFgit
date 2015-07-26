@@ -46,8 +46,9 @@ public class Side
 	 * Instantiates a new Side.
 	 * @param half this side's BoardHalf
 	 * @param deck this side's deck
+	 * @param owner this side's owner
 	 */
-	public Side(BoardHalf half, Deck deck)
+	public Side(BoardHalf half, Deck deck, Player owner)
 	{
 		this.half = half;
 		this.deck = deck;
@@ -56,6 +57,7 @@ public class Side
 		maximumElements = new LinkedList<Element>();
 		elements = new LinkedList<Element>();
 		hasSacrificed = false;
+		this.owner = owner;
 	}
 	/**
 	 * Sets this side's parent game.

@@ -121,7 +121,7 @@ public class GameStage extends Stage
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1600, 900));
 		//creates a new game and starts it with 5 in hand size
-		game = new Game(new User(null, null, new Deck(110104, Player.PLAYER1, true)), new User(null, null, new Deck(110103, Player.PLAYER2, true)));
+		game = new Game(new User(null, null, new Deck(110107, Player.PLAYER1, true)), new User(null, null, new Deck(110103, Player.PLAYER2, true)));
 		game.start(5);
 		//instantiates font
 		font = new BitmapFont();
@@ -300,7 +300,7 @@ public class GameStage extends Stage
 		}
 		else
 		{
-			//switch case sends the clicked tile (or unit or row) to the currently selected card if applicable
+			//switch case sends the clicked tile (or unit or row) to the currently selected card if applicable, then plays the card if it's ready
 			switch(selectedCard.nextRequirement().getType())
 			{
 				case EMPTY_TILE:
@@ -310,8 +310,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -322,8 +323,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -334,8 +336,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -346,8 +349,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -358,8 +362,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -370,8 +375,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -382,8 +388,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -392,8 +399,9 @@ public class GameStage extends Stage
 					if(selectedCard.isReady())
 					{
 						game.playCard(selectedCard.getOwner(), selectedCard);
+						//updates things
 						updateTiles();
-						selectedCard = null;
+						updateHands();
 					}
 					break;
 				case TILE:
@@ -401,8 +409,9 @@ public class GameStage extends Stage
 					if(selectedCard.isReady())
 					{
 						game.playCard(selectedCard.getOwner(), selectedCard);
+						//updates things
 						updateTiles();
-						selectedCard = null;
+						updateHands();
 					}
 					break;
 				case UNIT:
@@ -412,8 +421,9 @@ public class GameStage extends Stage
 						if(selectedCard.isReady())
 						{
 							game.playCard(selectedCard.getOwner(), selectedCard);
+							//updates things
 							updateTiles();
-							selectedCard = null;
+							updateHands();
 						}
 					}
 					break;
@@ -509,16 +519,19 @@ public class GameStage extends Stage
 		if(game.getCurrentPlayer()==Player.PLAYER1)
 		{
 			addActor(hand1);
+			hand1.highlightIndex(-1);
 		}
 		else if(game.getCurrentPlayer()==Player.PLAYER2)
 		{
 			addActor(hand2);
+			hand2.highlightIndex(-1);
 		}
+		selectedCard = null;
 	}
 	//updates idols and tiles, call when something has changed (like ending turn, card played, or unit moved)
 	public void updateTiles()
 	{
-		//these loops go through all board positions, outer loop go through idols
+		//these loops go through all board positions, outer loop go through idols, updates all values
 		for(int i=0;i<5;i++)
     	{
 			idols1[i].setHealth(game.getSide(Player.PLAYER1).getHalf().getIdolAt(i));
@@ -560,15 +573,8 @@ public class GameStage extends Stage
 	        	if(selectedCard!=null)
 	        	{
 	        		game.getSide(selectedCard.getOwner()).sacrificeForCards(selectedCard);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
+	        		//updates things
+	        		updateHands();
 	        	}
 	        }
 	    });
@@ -583,15 +589,8 @@ public class GameStage extends Stage
 	        	if(selectedCard!=null)
 	        	{
 	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.AIR);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
+	        		//updates things
+	        		updateHands();
 	        	}
 	        }
 	    });
@@ -606,15 +605,8 @@ public class GameStage extends Stage
 	        	if(selectedCard!=null)
 	        	{
 	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.EARTH);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
+	        		//updates things
+	        		updateHands();
 	        	}
 	        }
 	    });
@@ -629,15 +621,8 @@ public class GameStage extends Stage
 	        	if(selectedCard!=null)
 	        	{
 	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.FIRE);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
+	        		//updates things
+	        		updateHands();
 	        	}
 	        }
 	    });
@@ -652,15 +637,8 @@ public class GameStage extends Stage
 	        	if(selectedCard!=null)
 	        	{
 	        		game.getSide(selectedCard.getOwner()).sacrificeForElements(selectedCard, Element.WATER);
-	        		if(selectedCard.getOwner()==Player.PLAYER1)
-	        		{
-	        			hand1.highlightIndex(-1);
-	        		}
-	        		else if(selectedCard.getOwner()==Player.PLAYER2)
-	        		{
-	        			hand2.highlightIndex(-1);
-	        		}
-	        		selectedCard = null;
+	        		//updates things
+	        		updateHands();
 	        	}
 	        }
 	    });

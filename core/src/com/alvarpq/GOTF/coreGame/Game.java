@@ -32,13 +32,12 @@ public class Game
 	{
 		reader=new CommandReader(this);
 		sides = new HashMap<Player, Side>();
-		sides.put(Player.PLAYER1, new Side(new BoardHalf(5, 3, 8, Player.PLAYER1), u1.getCurrentDeck()));
-		sides.put(Player.PLAYER2, new Side(new BoardHalf(5, 3, 8, Player.PLAYER2), u2.getCurrentDeck()));
+		sides.put(Player.PLAYER1, new Side(new BoardHalf(5, 3, 8, Player.PLAYER1), u1.getCurrentDeck(), Player.PLAYER1));
+		sides.put(Player.PLAYER2, new Side(new BoardHalf(5, 3, 8, Player.PLAYER2), u2.getCurrentDeck(), Player.PLAYER2));
 		sides.get(Player.PLAYER1).setParentGame(this);
 		sides.get(Player.PLAYER2).setParentGame(this);
 		sides.get(Player.PLAYER1).getHalf().setParentGame(this);
 		sides.get(Player.PLAYER2).getHalf().setParentGame(this);
-		currentPlayer = Player.values()[random.nextInt(2)]; 
 	}
 	
 	public CommandReader getReader(){
@@ -52,6 +51,7 @@ public class Game
 	{
 		sides.get(Player.PLAYER1).getDeck().drawHand(handSize);
 		sides.get(Player.PLAYER2).getDeck().drawHand(handSize);
+		currentPlayer = random.nextBoolean()?Player.PLAYER1:Player.PLAYER2; 
 	}
 	/**
 	 * Starts the next turn. Only call directly after endTurn

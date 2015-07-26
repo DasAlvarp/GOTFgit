@@ -16,6 +16,7 @@ import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.GoblinWarriorCard
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.RedDevilCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.StoneGiantCard;
 import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.TamedDemonCard;
+import com.alvarpq.GOTF.coreGame.cards.vorgasminingcorporation.VorgasFireBomb;
 /**
  * A class for instantiating cards from ids.
  */
@@ -45,6 +46,7 @@ public class CardFactory
 		addCard(new RedDevilCard(Player.NONE), cards);
 		addCard(new StoneGiantCard(Player.NONE), cards);
 		addCard(new TamedDemonCard(Player.NONE), cards);
+		addCard(new VorgasFireBomb(Player.NONE), cards);
 		return cards;
 	}
 	/**
