@@ -13,6 +13,7 @@ import com.alvarpq.GOTF.requirement.RowRequirement;
 import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.requirement.UnitRequirement;
 import com.alvarpq.GOTF.server.User;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -76,6 +77,8 @@ public class GameStage extends Stage
 	private Game game;
 	//holds the font for drawing text
 	private BitmapFont font;
+	//loads the image assets
+	AssetManager manager;
 	//the texture for the unselected tile
 	private Texture defaultTile;
 	//the animation for a highlighted tile
@@ -138,15 +141,36 @@ public class GameStage extends Stage
 		//instantiates font
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
+		//instantiates assetmanager
+		manager = new AssetManager();
+		manager.load("BoardTile.png", Texture.class);
+		manager.load("gui/selectedTiles/selectedTile(0).png", Texture.class);
+		manager.load("gui/selectedTiles/selectedTile(1).png", Texture.class);
+		manager.load("gui/selectedTiles/selectedTile(2).png", Texture.class);
+		manager.load("gui/selectedTiles/selectedTile(3).png", Texture.class);
+		manager.load("gui/selectedTiles/selectedTile(4).png", Texture.class);
+		manager.load("gui/selectedTiles/selectedTile(5).png", Texture.class);
+		manager.load("gui/selectedTiles/selectedTile(6).png", Texture.class);
+		manager.load("card.png", Texture.class);
+		manager.load("resource.png", Texture.class);
+		manager.load("idol.png", Texture.class);
+		manager.load("buttonUp.png", Texture.class);
+		manager.load("buttonDown.png", Texture.class);
+		manager.load("buttonUpSmall.png", Texture.class);
+		manager.load("buttonDownSmall.png", Texture.class);
+		manager.finishLoading();
 		//adds the background
 		addActor(new GameBackground());
 		//instantiates the unselected tile
-		defaultTile = new Texture("BoardTile.png");
+		defaultTile = manager.get("BoardTile.png", Texture.class);
 		//instantiates the highlighted tile animation
-		highlightedTile = new Animation(0.125f, new TextureRegion(new Texture("gui/selectedTiles/selectedTile(0).png")),
-    	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(1).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(2).png")),
-    	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(3).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(4).png")),
-    	new TextureRegion(new Texture("gui/selectedTiles/selectedTile(5).png")), new TextureRegion(new Texture("gui/selectedTiles/selectedTile(6).png")));
+		highlightedTile = new Animation(0.125f, new TextureRegion(manager.get("gui/selectedTiles/selectedTile(0).png", Texture.class)),
+    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(1).png", Texture.class)),
+    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(2).png", Texture.class)),
+    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(3).png", Texture.class)),
+    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(4).png", Texture.class)),
+    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(5).png", Texture.class)),
+    	new TextureRegion(manager.get("gui/selectedTiles/selectedTile(6).png", Texture.class)));
 		highlightedTile.setPlayMode(PlayMode.LOOP_REVERSED);
     	//instantiates the card texture
     	card = new Texture("card.png");
@@ -155,10 +179,10 @@ public class GameStage extends Stage
     	//instantiates the idol texture
     	idol = new Texture("idol.png");
     	//instantiates button SpriteDrawables
-    	buttonUp = new SpriteDrawable(new Sprite(new Texture("buttonUp.png")));
-    	buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
-    	buttonUpSmall = new SpriteDrawable(new Sprite(new Texture("buttonUpSmall.png")));
-    	buttonDownSmall = new SpriteDrawable(new Sprite(new Texture("buttonDownSmall.png")));
+    	buttonUp = new SpriteDrawable(new Sprite(manager.get("buttonUp.png", Texture.class)));
+    	buttonDown = new SpriteDrawable(new Sprite(manager.get("buttonDown.png", Texture.class)));
+    	buttonUpSmall = new SpriteDrawable(new Sprite(manager.get("buttonUpSmall.png", Texture.class)));
+    	buttonDownSmall = new SpriteDrawable(new Sprite(manager.get("buttonDownSmall.png", Texture.class)));
     	//sets up the board
 		setupBoard();
 		//instantiates hands
