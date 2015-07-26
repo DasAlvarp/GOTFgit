@@ -8,7 +8,9 @@ import com.alvarpq.GOTF.coreGame.Player;
 import com.alvarpq.GOTF.coreGame.cards.Card;
 import com.alvarpq.GOTF.coreGame.cards.Deck;
 import com.alvarpq.GOTF.coreGame.units.Unit;
+import com.alvarpq.GOTF.requirement.RowRequirement;
 import com.alvarpq.GOTF.requirement.TileRequirement;
+import com.alvarpq.GOTF.requirement.UnitRequirement;
 import com.alvarpq.GOTF.server.User;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -314,10 +316,40 @@ public class GameStage extends Stage
 					}
 					break;
 				case OPPONENT_EMPTY_TILE:
+					if(selectedCard.getOwner().otherPlayer()==p.side&&game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)==null)
+					{
+						((TileRequirement)(selectedCard.nextRequirement())).setTile(p.side, p.row, p.column);
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+							selectedCard = null;
+						}
+					}
 					break;
 				case OPPONENT_TILE:
+					if(selectedCard.getOwner().otherPlayer()==p.side)
+					{
+						((TileRequirement)(selectedCard.nextRequirement())).setTile(p.side, p.row, p.column);
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+							selectedCard = null;
+						}
+					}
 					break;
 				case OPPONENT_UNIT:
+					if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null&&selectedCard.getOwner().otherPlayer()==game.getSide(p.side).getHalf().getUnitAt(p.row, p.column).getOwner())
+					{
+						((UnitRequirement)(selectedCard.nextRequirement())).setUnit(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column));
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+							selectedCard = null;
+						}
+					}
 					break;
 				case OWN_EMPTY_TILE:
 					if(selectedCard.getOwner()==p.side&&game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)==null)
@@ -332,14 +364,58 @@ public class GameStage extends Stage
 					}
 					break;
 				case OWN_TILE:
+					if(selectedCard.getOwner()==p.side)
+					{
+						((TileRequirement)(selectedCard.nextRequirement())).setTile(p.side, p.row, p.column);
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+							selectedCard = null;
+						}
+					}
 					break;
 				case OWN_UNIT:
+					if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null&&selectedCard.getOwner()==game.getSide(p.side).getHalf().getUnitAt(p.row, p.column).getOwner())
+					{
+						((UnitRequirement)(selectedCard.nextRequirement())).setUnit(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column));
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+							selectedCard = null;
+						}
+					}
 					break;
 				case ROW:
+					((RowRequirement)(selectedCard.nextRequirement())).setRow(p.row);
+					if(selectedCard.isReady())
+					{
+						game.playCard(selectedCard.getOwner(), selectedCard);
+						updateTiles();
+						selectedCard = null;
+					}
 					break;
 				case TILE:
+					((TileRequirement)(selectedCard.nextRequirement())).setTile(p.side, p.row, p.column);
+					if(selectedCard.isReady())
+					{
+						game.playCard(selectedCard.getOwner(), selectedCard);
+						updateTiles();
+						selectedCard = null;
+					}
 					break;
 				case UNIT:
+					if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null)
+					{
+						((UnitRequirement)(selectedCard.nextRequirement())).setUnit(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column));
+						if(selectedCard.isReady())
+						{
+							game.playCard(selectedCard.getOwner(), selectedCard);
+							updateTiles();
+							selectedCard = null;
+						}
+					}
 					break;
 			}
 		}
