@@ -122,12 +122,17 @@ public class GameStage extends Stage
 	private Unit selectedUnit;
 	//the currently selected card
 	private Card selectedCard;
+	//displays the currently highlighted unit's card
+	private GraphicalCard highlightedUnit;
 	public GameStage() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException
 	{
 		//sets the size of the stage to fill the whole window
 		super(new FitViewport(1600, 900));
 		//creates a new game and starts it with 5 in hand size
-		List<Integer> ids = Arrays.asList(new Integer[]{110114, 110114, 110114, 110115, 110115, 110115, 110116, 110116, 110116});
+		List<Integer> ids = Arrays.asList(new Integer[]{110103, 110103, 110103, 110103, 110104, 110104, 110104, 110104,
+		110105, 110105, 110105, 110105, 110107, 110107, 110107, 110107, 110108, 110108, 110108, 110108,
+		110110, 110110, 110110, 110110, 110111, 110111, 110111, 110111, 110112, 110112, 110112, 110112,
+		110113, 110113, 110113, 110113, 110115, 110115, 110115, 110115});
 		game = new Game(new User(null, null, new Deck(ids, Player.PLAYER1, true)), new User(null, null, new Deck(ids, Player.PLAYER2, true)));
 		game.start(5);
 		//instantiates font
@@ -154,8 +159,8 @@ public class GameStage extends Stage
     	buttonDown = new SpriteDrawable(new Sprite(new Texture("buttonDown.png")));
     	buttonUpSmall = new SpriteDrawable(new Sprite(new Texture("buttonUpSmall.png")));
     	buttonDownSmall = new SpriteDrawable(new Sprite(new Texture("buttonDownSmall.png")));
-    	//instantiates tile arrays
-		setupTiles();
+    	//sets up the board
+		setupBoard();
 		//instantiates hands
 		hand1 = new Hand(game.getSide(Player.PLAYER1).getDeck().getHand(), card, 0, 0, CARD_LENGTH, CARD_HEIGHT);
 		hand2 = new Hand(game.getSide(Player.PLAYER2).getDeck().getHand(), card, 0, 0, CARD_LENGTH, CARD_HEIGHT);
@@ -169,8 +174,8 @@ public class GameStage extends Stage
 		temp.setBounds(getWidth()-100, getHeight()-275, 100, 275);
 		resources2 = new Resources(game.getSide(Player.PLAYER2), temp);
 		addActor(resources2);
-		//instantiates buttons
-		setupButtons();
+		//sets up the gui
+		setupGui();
 		//instantiates the list of selected positions
 		highlightedPositions = new LinkedList<Position>();
 		//instantiates selected things
@@ -196,6 +201,14 @@ public class GameStage extends Stage
 	    					dehighlightAll();
 	    				}
 	    				highlightPosition(new Position(Player.PLAYER1, i, j));
+	    				if(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j)!=null)
+	    				{
+	    					highlightedUnit.setCard(game.getSide(Player.PLAYER1).getHalf().getUnitAt(i, j).getCard());
+	    				}
+	    				else
+	    				{
+	    					highlightedUnit.setCard(null);
+	    				}
 	    				return false;
 	    			}
 	    			//same for player2
@@ -206,11 +219,19 @@ public class GameStage extends Stage
 	    					dehighlightAll();
 	    				}
 	    				highlightPosition(new Position(Player.PLAYER2, i, j));
+	    				if(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j)!=null)
+	    				{
+	    					highlightedUnit.setCard(game.getSide(Player.PLAYER2).getHalf().getUnitAt(i, j).getCard());
+	    				}
+	    				else
+	    				{
+	    					highlightedUnit.setCard(null);
+	    				}
 	    				return false;
 	    			}
 	    		}
 	    	}
-			//in case the mouse is over no tile, deselect all tiles
+			//in case the mouse is over no tile, dehighlights all tiles and units
 			dehighlightAll();
 		}
 		return false;
@@ -436,6 +457,14 @@ public class GameStage extends Stage
 					break;
 			}
 		}
+		if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null)
+		{
+			highlightedUnit.setCard(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column).getCard());
+		}
+		else
+		{
+			highlightedUnit.setCard(null);
+		}
 	}
 	//selects a unit
 	public void selectUnit(Unit unit)
@@ -551,7 +580,7 @@ public class GameStage extends Stage
     	}
 	}
 	//sets up the buttons
-	public void setupButtons()
+	public void setupGui()
 	{
 		endTurn = new TextButton("End Turn", new TextButton.TextButtonStyle(buttonUp, buttonDown, buttonDown, font));
 		endTurn.setBounds(0, getHeight()-50, 100, 50);
@@ -671,9 +700,17 @@ public class GameStage extends Stage
 		currentPlayer = new Label("Current player's position: "+(game.getCurrentPlayer()==Player.PLAYER1?"BOTTOM":"TOP"), new Label.LabelStyle(font, Color.BLACK));
 		currentPlayer.setBounds(150, getHeight()-50, 100, 50);
 		addActor(currentPlayer);
+		//creates a sprite from the card texture
+		Sprite temp = new Sprite(card);
+		//gives the sprite correct bounds
+		temp.setBounds(getWidth()-LENGTH*4-100-CARD_LENGTH, getHeight()-CARD_HEIGHT, CARD_LENGTH, CARD_HEIGHT);
+		//insntatiates the actor
+		highlightedUnit = new GraphicalCard(null, temp);
+		//adds the actor to the stage
+		addActor(highlightedUnit);
 	}
 	//sets up idols and tiles
-	public void setupTiles()
+	public void setupBoard()
 	{
 		//instantiates the arrays
 		half1 = new Tile[5][3];
