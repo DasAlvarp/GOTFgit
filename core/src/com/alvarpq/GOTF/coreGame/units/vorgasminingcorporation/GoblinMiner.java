@@ -7,7 +7,7 @@ public class GoblinMiner extends Unit implements IdolDamagedByUnitListener
 {
 	public GoblinMiner(int row, int column)
 	{
-		super("Goblin Miner", null, 1, 2, 1, 1, true, new String[]{"Goblin, Miner"}, row, column);
+		super("Goblin Miner", null, 1, 2, 1, 1, true, new String[]{"Goblin", "Miner"}, row, column);
 	}
 	@Override
 	public void onIdolDamagedByUnit(IdolDamagedByUnitEvent event)

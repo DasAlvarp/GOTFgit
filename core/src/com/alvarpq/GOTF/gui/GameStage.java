@@ -14,7 +14,6 @@ import com.alvarpq.GOTF.requirement.TileRequirement;
 import com.alvarpq.GOTF.requirement.UnitRequirement;
 import com.alvarpq.GOTF.server.User;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -323,8 +322,8 @@ public class GameStage extends Stage
 	//what happens when a tile is clicked
 	public void tileClicked(Position p)
 	{
-		//checks whether a playable card is selected or not, if not a unit can be moved
-		if(selectedCard==null||!game.getSide(selectedCard.getOwner()).canPayFor(selectedCard))
+		//checks whether a card is selected, if not a unit can be moved
+		if(selectedCard==null)
 		{
 			//is there a unit at position
 			if(game.getSide(p.side).getHalf().getUnitAt(p.row, p.column)!=null&&game.getSide(p.side).getHalf().getUnitAt(p.row, p.column).getOwner()==game.getCurrentPlayer())
@@ -357,7 +356,7 @@ public class GameStage extends Stage
 				}
 			}
 		}
-		else
+		else if(game.getSide(selectedCard.getOwner()).canPayFor(selectedCard)&&selectedCard.nextRequirement()!=null)
 		{
 			//switch case sends the clicked tile (or unit or row) to the currently selected card if applicable, then plays the card if it's ready
 			switch(selectedCard.nextRequirement().getType())

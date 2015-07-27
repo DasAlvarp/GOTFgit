@@ -4,6 +4,6 @@ public class GoblinWarrior extends Unit
 {
 	public GoblinWarrior(int row, int column)
 	{
-		super("Goblin Warrior", null, 3, 2, 2, 1, true, new String[]{"Goblin, Soldier"}, row, column);
+		super("Goblin Warrior", null, 3, 2, 2, 1, true, new String[]{"Goblin", "Soldier"}, row, column);
 	}
 }

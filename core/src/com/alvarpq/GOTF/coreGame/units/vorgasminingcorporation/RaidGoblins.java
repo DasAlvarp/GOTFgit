@@ -7,7 +7,7 @@ public class RaidGoblins extends Unit implements UnitHasAttackedListener
 {
 	public RaidGoblins(int row, int column)
 	{
-		super("Raid Goblins", null, 4, 1, 3, 1, true, new String[]{"Goblin, Soldier"}, row, column);
+		super("Raid Goblins", null, 4, 1, 3, 1, true, new String[]{"Goblin", "Soldier"}, row, column);
 	}
 	@Override
 	public void onUnitHasAttacked(UnitHasAttackedEvent event)
