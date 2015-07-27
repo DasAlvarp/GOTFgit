@@ -487,7 +487,7 @@ public class BoardHalf
 	 */
 	public void changeCountdown(int row, int column, int amount)
 	{
-		getUnitAt(row, column).changeCountdown(amount);
+		getUnitAt(row, column).changeCountdown(getUnitAt(row, column).getCountdown()+amount<0?-getUnitAt(row, column).getCountdown():amount);
 		update();
 	}
 	/**
@@ -497,7 +497,7 @@ public class BoardHalf
 	 */
 	public void changeCountdown(Unit unit, int amount)
 	{
-		unit.changeCountdown(amount);
+		unit.changeCountdown(unit.getCountdown()+amount<0?-unit.getCountdown():amount);
 		update();
 	}
 	/**
